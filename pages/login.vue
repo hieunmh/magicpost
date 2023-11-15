@@ -4,13 +4,13 @@
       Magic post
     </div>
 
-    <div class="w-[500px] bg-white h-[500px] lg:ml-20 rounded-xl">
+    <div class="w-[500px] bg-white h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
       <h1 class="text-center font-bold text-[50px] text-[#189ab4] block lg:hidden">Magic post</h1>
 
       <div class="p-8 flex flex-col justify-center">
         <h1 class="text-3xl text-center font-semibold hidden lg:block text-gray-500">Đăng nhập</h1>
         
-        <form class="mt-8" @submit.prevent="login()">
+        <form class="mt-10" @submit.prevent="login()">
           <div class="h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
               <Icon name="material-symbols:person" size="30" class=" text-gray-400" />
@@ -21,16 +21,17 @@
                     emailError = 'Vui lòng nhập email của bạn'
                   }
                 }"
+                @input="() => incorrectError = ''"
               >
             </div>
-            <p class="text-red-500 mt-1 text-[14px]">{{ emailError }}</p>
+            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
           </div>
           
           <div class="mt-6 h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="passwordError ? 'border-b-red-500': ''">
               <Icon name="material-symbols:lock" size="30" class="text-gray-400" />
               <input :type="passwordType" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
-                placeholder="Mật khẩu" v-model="password"
+                placeholder="Mật khẩu" v-model="password" @input="() => incorrectError = ''"
               >
 
 
@@ -44,22 +45,27 @@
                 <p class="font-semibold text-gray-500 cursor-pointer hover:underline ml-1">Quên?</p>
               </div>
             </div>
-            <p class="text-red-500 mt-1 text-[14px]">{{ passwordError }}</p>
+            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ passwordError }}</p>
+            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ incorrectError }}</p>
+
           </div>
 
-          <button class="mt-6 w-full rounded-xl h-12 font-semibold"
+          <button class="mt-6 w-full rounded-lg h-12 font-semibold"
             :class="email && password && emailError.length < 1 && passwordError.length < 1 
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!email || !password || emailError.length > 0 || passwordError.length > 0"
-          >
-            Đăng nhập
+          > 
+            <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
+            <p v-else>Đăng nhập</p>
           </button>
         </form>
 
-        <div class="w-full h-12 rounded-xl bg-[#e8e8e8] hover:bg-gray-300 mt-6 flex items-center justify-center cursor-pointer">
+        <button class="w-full h-12 rounded-lg bg-[#e8e8e8] hover:bg-[#e1e1e1] mt-6 flex items-center justify-center cursor-pointer"
+          @click="loginWithGoogle()"
+        >
           <img src="/google-logo.png" alt="" class="w-[25px]">
-          <p class="ml-2 font-semibold text-gray-500">Đăng nhập bằng google</p>
-        </div>
+          <p class="ml-1.5 font-semibold text-gray-500">Đăng nhập bằng google</p>
+        </button>
 
         <p class="mt-6 text-center text-gray-500 font-semibold text-[18px]">
           Bạn chưa có tài khoản? 
@@ -72,17 +78,21 @@
 
 <script lang="ts" setup>
 
+const client = useSupabaseClient();
+const user = useSupabaseUser();
+definePageMeta({middleware: 'loggedin'});
+
 let email = ref<string>('');
 let emailError = ref<string>('');
+
 let password = ref<string>('');
 let passwordError = ref<string>('');
 let passwordType = ref<string>('password');
 
+let incorrectError = ref<string>('');
 
-const client = useSupabaseClient();
-const user = useSupabaseUser();
+let isLoading = ref<boolean>(false);
 
-const router = useRouter();
 
 
 const togglePassword = () => {
@@ -93,6 +103,7 @@ const togglePassword = () => {
     passwordType.value = 'text';
   }
 }
+
 
 watch(() => email.value, () => {
   if (email.value.length == 0) {
@@ -110,8 +121,8 @@ watch(() => password.value, () => {
     passwordError.value = 'Mật khẩu cần chứa ít nhất 8 ký tự';
   }
   else {
-    if (!/^^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,50}$/.test(password.value)) {
-      passwordError.value = 'Mật khẩu cần chứa ít nhất 1 chữ số, 1 chữ in hoa và một ký tự đặc biệt';
+    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,50}$/.test(password.value)) {
+      passwordError.value = 'Mật khẩu cần chứa ít nhất 1 chữ số, 1 chữ in hoa và 1 ký tự đặc biệt';
     }
     else {
       passwordError.value = '';
@@ -122,12 +133,29 @@ watch(() => password.value, () => {
 
 
 const login = async () => {
+  isLoading.value = true;
   let { data, error } = await client.auth.signInWithPassword({
     email: email.value,
     password: password.value
   })
+  isLoading.value = false;
+
+  if (error) {
+    console.log(error); 
+    incorrectError.value = 'Sai email hoặc mật khẩu';
+    return;
+  }
   
-  router.push('/');
+}
+
+const loginWithGoogle = async () => {
+  const { data, error } = await client.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin
+    }
+  })
+
 }
 
 </script>
