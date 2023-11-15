@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   pages: true,
+  css: ['~/assets/css/main.css'],
   modules: [
     '@nuxtjs/supabase',
     'nuxt-icon',
