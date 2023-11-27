@@ -1,7 +1,7 @@
 <template>
   <MainLayout class="">
-    <div class="bg-[#189ab4] fixed w-full h-full">
-      <h1 class="text-4xl">Magic Post</h1>
+    <div class="fixed w-full h-full">
+      <OrderTracking />
     </div>
   </MainLayout>
 </template>

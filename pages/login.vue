@@ -108,8 +108,6 @@ let incorrectError = ref<string>('');
 
 let isLoading = ref<boolean>(false);
 
-
-
 const togglePassword = () => {
   if (passwordType.value == 'text') {
     passwordType.value =  'password';
@@ -162,7 +160,7 @@ const login = async () => {
     return;
   }
   
-  router.push('/');
+  router.push('/profile');
 }
 
 const loginWithGoogle = async () => {
