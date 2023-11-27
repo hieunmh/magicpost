@@ -4,35 +4,19 @@
       Magic post
     </div>
 
-    <div class="w-[500px] bg-white h-[660px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
-      <h1 class="text-center font-bold text-[50px] text-[#189ab4] block lg:hidden">Magic post</h1>
+    <div class="w-[500px] bg-white h-[660px] lg:h-[600px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
+      <h1 class="text-center font-bold text-[50px] mt-5 text-[#189ab4] block lg:hidden">Magic post</h1>
 
       <div class="p-8 flex flex-col justify-center">
         <h1 class="text-3xl text-center font-semibold hidden lg:block text-gray-500">Đăng ký</h1>
         <form class="mt-10" @submit.prevent="register()">
-          <div class="h-16">
-            <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
-              <Icon name="material-symbols:person" size="30" class=" text-gray-400" />
-              <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
-                placeholder="Email" v-model="email"
-                @blur="() => {
-                  if (email.length < 1) {
-                    emailError = 'Vui lòng nhập email của bạn'
-                  }
-                }"
-                @input="() => incorrectError = ''"
-              >
-            </div>
-            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
-          </div>
-
           <div class="mt-6 h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="phoneError ? 'border-b-red-500': ''">
               <Icon name="material-symbols:call-sharp" size="30" class="text-gray-400" />
               <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
                 placeholder="Số điện thoại" v-model="phone" 
                 oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                maxlength="10"
+                maxlength="10" autofocus
               >
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ phoneError }}</p>
@@ -78,9 +62,10 @@
 
 
           <button class="mt-6 w-full rounded-lg h-12 font-semibold"
-            :class="email && password && emailError.length < 1 && passwordError.length < 1 
+            :class="phone && password && confirmPassword && 
+            phoneError.length < 1 && passwordError.length < 1 && confirmPasswordError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
-            :disabled="!email || !password || emailError.length > 0 || passwordError.length > 0"
+            :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
           > 
             <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
             <p v-else>Đăng ký</p>
@@ -107,24 +92,22 @@
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
-definePageMeta({middleware: 'loggedin'});
+const router = useRouter();
 
-let email = ref<string>('');
-let emailError = ref<string>('');
+definePageMeta({middleware: 'loggedin'});
 
 let password = ref<string>('');
 let passwordError = ref<string>('');
 let passwordType = ref<string>('password');
+
 let confirmPassword = ref<string>('');
 let confirmPasswordError = ref<string>('');
 let confirmPasswordType = ref<string>('password');
-let incorrectError = ref<string>('');
+
 let phone = ref<string>('');
 let phoneError = ref<string>('');
 
 let isLoading = ref<boolean>(false);
-
-
 
 const togglePassword = () => {
   if (passwordType.value == 'text') {
@@ -144,17 +127,6 @@ const toggleConfirmPassword = () => {
   } 
 }
 
-
-watch(() => email.value, () => {
-  if (email.value.length == 0) {
-    emailError.value = 'Vui lòng nhập email của bạn';
-  } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
-    emailError.value = 'Email không hợp lệ';
-  } else {
-    emailError.value = '';
-  }
-
-}) 
 
 watch(() => password.value, () => {
   if (password.value.length < 8) {
@@ -181,16 +153,29 @@ watch(() => confirmPassword.value, () => {
 watch(() => phone.value, () => {
   if (!phone.value.startsWith('0')) {
     phoneError.value = 'Số điện thoại phải bắt đầu bằng 0';
-  } else {
+  }
+  else if (phone.value.length < 10 && phone.value.length > 0) {
+    phoneError.value = 'Số điện thoại phải đủ 10 chữ số'
+  }
+
+  else {
     phoneError.value = '';
   }
 })
 
 const register = async () => {
+  isLoading.value = true;
   const {data, error} = await client.auth.signUp({
-    email: email.value,
+    phone: `+84${phone.value.substring(1)}`,
     password: password.value,
   })
+
+  isLoading.value = false;
+
+  if (error) {
+    return;
+  }
+  router.push('/');
 }
 
 const loginWithGoogle = async () => {
