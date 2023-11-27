@@ -6,7 +6,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/supabase',
     'nuxt-icon',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt'
   ],
   supabase: {
     redirect: false

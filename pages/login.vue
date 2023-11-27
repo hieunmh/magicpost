@@ -20,8 +20,20 @@
                   if (phone.length < 1) {
                     phoneError = 'Vui lòng nhập số điện thoại của bạn'
                   }
+                  if (phone.length == 10) {
+                    phoneError = '';
+                    phone = `(+84) ${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7, 10)}`
+                  }
                 }"
-                @input="() => incorrectError = ''"
+                @input="() => {
+                  incorrectError = '';
+                  
+                }"
+                @focus="() => {
+                  if (phone.length == 17) {
+                    phone = '0' + phone.substring(6, 9) + phone.substring(10, 13) + phone.substring(14, 17);
+                  }
+                }"
                 oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
               >
             </div>
@@ -43,7 +55,7 @@
                 <Icon name="bx:bxs-show" size="25" class="text-gray-400" 
                   v-else  @click="togglePassword()"
                 />
-                <p class="font-semibold text-gray-500 cursor-pointer hover:underline ml-1">Quên?</p>
+                <p class="font-semibold text-blue-500 cursor-pointer hover:underline ml-1">Quên?</p>
               </div>
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ passwordError }}</p>
@@ -65,7 +77,7 @@
           @click="loginWithGoogle()"
         >
           <img src="/google-logo.png" alt="" class="w-[25px]">
-          <p class="ml-1.5 font-semibold text-gray-500">Đăng nhập bằng google</p>
+          <p class="ml-1.5 font-semibold text-gray-500">Đăng nhập bằng Google</p>
         </button>
 
         <p class="mt-6 text-center text-gray-500 font-semibold text-[18px]">
@@ -96,8 +108,6 @@ let incorrectError = ref<string>('');
 
 let isLoading = ref<boolean>(false);
 
-
-
 const togglePassword = () => {
   if (passwordType.value == 'text') {
     passwordType.value =  'password';
@@ -108,13 +118,13 @@ const togglePassword = () => {
 }
 
 watch(() => phone.value, () => {
-  if (!phone.value.startsWith('0')) {
+  if (phone.value.startsWith('(+84)')) return;
+  if (!phone.value.startsWith('0') ) {
     phoneError.value = 'Số điện thoại phải bắt đầu bằng 0';
   }
   else if (phone.value.length < 10 && phone.value.length > 0) {
     phoneError.value = 'Số điện thoại không hợp lệ';
   }
-
   else {
     phoneError.value = '';
   }
@@ -135,12 +145,11 @@ watch(() => password.value, () => {
   }
 })
 
-
-
 const login = async () => {
   isLoading.value = true;
+
   let { data, error } = await client.auth.signInWithPassword({
-    phone: `+84${phone.value.substring(1)}`,
+    phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
     password: password.value
   })
   isLoading.value = false;
@@ -151,7 +160,7 @@ const login = async () => {
     return;
   }
   
-  router.push('/');
+  router.push('/profile');
 }
 
 const loginWithGoogle = async () => {

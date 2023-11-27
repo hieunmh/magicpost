@@ -76,7 +76,7 @@
           @click="loginWithGoogle()"
         >
           <img src="/google-logo.png" alt="" class="w-[25px]">
-          <p class="ml-1.5 font-semibold text-gray-500">Đăng nhập bằng google</p>
+          <p class="ml-1.5 font-semibold text-gray-500">Đăng nhập bằng Google</p>
         </button>
 
         <p class="mt-6 text-center text-gray-500 font-semibold text-[18px]">
