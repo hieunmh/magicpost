@@ -102,6 +102,9 @@
 
 <script lang="ts" setup>
 
+import { useUserStore } from '~/store/user';
+const userStore = useUserStore();
+
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const router = useRouter();
@@ -193,7 +196,13 @@ const register = async () => {
     return;
   }
 
-  router.push('/');
+  router.push('/profile');
+
+  userStore.isLoading = true;
+
+  setTimeout(() => {
+    userStore.isLoading = false;
+  }, 1000);
 }
 
 const loginWithGoogle = async () => {
