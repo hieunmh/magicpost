@@ -91,6 +91,9 @@
 
 <script lang="ts" setup>
 
+import { useUserStore } from '~/store/user';
+const userStore = useUserStore();
+
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const router = useRouter();
@@ -107,6 +110,7 @@ let passwordType = ref<string>('password');
 let incorrectError = ref<string>('');
 
 let isLoading = ref<boolean>(false);
+
 
 const togglePassword = () => {
   if (passwordType.value == 'text') {
@@ -161,6 +165,12 @@ const login = async () => {
   }
   
   router.push('/profile');
+
+  userStore.isLoading = true;
+
+  setTimeout(() => {
+    userStore.isLoading = false;
+  }, 1000);
 }
 
 const loginWithGoogle = async () => {
