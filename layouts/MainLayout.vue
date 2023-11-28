@@ -42,7 +42,7 @@
         
         <div v-else class="flex justify-between w-[200px]">
           <NuxtLink to="/register">
-            <button  class=" w-full rounded-lg h-10 font-semibold hover:text-[#189ab4]"> 
+            <button  class=" w-full rounded-lg h-10 font-semibold text-gray-500 hover:text-[#189ab4]"> 
               Đăng ký
             </button>
           </NuxtLink>
@@ -99,8 +99,10 @@ let menu = [
 
 const logOut = async () => {
   isLoading.value = true;
+  userStore.isLoading = true;
   await client.auth.signOut();
   isLoading.value = false;
+  userStore.isLoading = false;
   
   router.push('/login');
 } 

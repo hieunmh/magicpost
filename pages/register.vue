@@ -17,6 +17,17 @@
                 placeholder="Số điện thoại" v-model="phone" 
                 oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
                 maxlength="10" autofocus
+                @blur="() => {
+                  if (phone.length == 10) {
+                    phoneError = '';
+                    phone = `(+84) ${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7, 10)}`
+                  }
+                }"
+                @focus="() => {
+                  if (phone.length == 17) {
+                    phone = '0' + phone.substring(6, 9) + phone.substring(10, 13) + phone.substring(14, 17);
+                  }
+                }"
               >
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ phoneError }}</p>
@@ -58,6 +69,7 @@
                 </div>
               </div>
               <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ confirmPasswordError }}</p>
+              <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ incorrectError }}</p>
           </div>
 
 
@@ -107,6 +119,9 @@ let confirmPasswordType = ref<string>('password');
 let phone = ref<string>('');
 let phoneError = ref<string>('');
 
+let incorrectError = ref<string>('');
+
+
 let isLoading = ref<boolean>(false);
 
 const togglePassword = () => {
@@ -151,6 +166,7 @@ watch(() => confirmPassword.value, () => {
 })
 
 watch(() => phone.value, () => {
+  if (phone.value.startsWith('(+84)')) return;
   if (!phone.value.startsWith('0')) {
     phoneError.value = 'Số điện thoại phải bắt đầu bằng 0';
   }
@@ -166,15 +182,17 @@ watch(() => phone.value, () => {
 const register = async () => {
   isLoading.value = true;
   const {data, error} = await client.auth.signUp({
-    phone: `+84${phone.value.substring(1)}`,
+    phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
     password: password.value,
   })
 
   isLoading.value = false;
 
-  if (error) {
+  if (error?.message == 'User already registered') {
+    incorrectError.value = 'Số điện thoại đã được đăng ký';
     return;
   }
+
   router.push('/');
 }
 
