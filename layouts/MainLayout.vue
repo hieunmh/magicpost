@@ -2,7 +2,9 @@
   <div>
     <div id="header" class="h-16 bg-white w-full flex items-center justify-between md:justify-evenly shadow-lg border-b-[1px]">
       <NuxtLink to="/" class="pl-4 md:pl-0" @click="userStore.isMenuOverlay = false">
-        <h1 class="text-center font-bold text-[30px] text-[#189ab4]">MG</h1>
+        <h1 class="text-center font-bold text-[30px] text-[#189ab4]">
+          <img src="/mgpostv2.png" width="50" alt="">
+        </h1>
       </NuxtLink>
 
       <div class="hidden md:block">

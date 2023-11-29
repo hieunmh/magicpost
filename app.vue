@@ -1,4 +1,5 @@
 <template>
+  <Title>Magic Post</Title>
   <Loading v-if="userStore.isLoading" />
   <div v-else class="h-full w-full fixed">
     <NuxtPage/>

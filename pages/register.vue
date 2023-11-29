@@ -1,11 +1,16 @@
 <template>
   <div class="w-full h-full flex items-center justify-center lg:bg-[#189ab4]">
     <div class="text-[70px] font-bold lg:text-white text-[#189ab4] hidden lg:block">
-      Magic post
+      <img src="/mgpostwhite.png" width="500" alt="">
     </div>
 
     <div class="w-[500px] bg-white h-[660px] lg:h-[600px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
-      <h1 class="text-center font-bold text-[50px] mt-5 text-[#189ab4] block lg:hidden">Magic post</h1>
+      <NuxtLink to="/">
+        <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] mt-5 text-[#189ab4] lg:hidden">
+          <img src="/mgpostv2.png" width="104" alt="">
+          Magic Post
+        </h1>
+      </NuxtLink>
 
       <div class="p-8 flex flex-col justify-center">
         <h1 class="text-3xl text-center font-semibold hidden lg:block text-gray-500">Đăng ký</h1>
@@ -76,7 +81,7 @@
           <button class="mt-6 w-full rounded-lg h-12 font-semibold"
             :class="phone && password && confirmPassword && 
             phoneError.length < 1 && passwordError.length < 1 && confirmPasswordError.length < 1
-            ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
+            ? 'bg-[#189ab4] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
           > 
             <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
