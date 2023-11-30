@@ -1,14 +1,16 @@
 <template>
   <div class="w-full h-full flex items-center justify-center lg:bg-[#189ab4]">
-    <div class="text-[70px] font-bold lg:text-white text-[#189ab4] hidden lg:block">
-      <img src="/mgpostwhite.png" width="500" alt="">
+    <div class="text-[30px] font-bold lg:text-white text-[#189ab4] hidden lg:block">
+      <NuxtLink to="/">
+        <img src="/mgpostwhitev2.png" width="400" alt="">
+        Ship siêu rẻ - Giao siêu tốc
+      </NuxtLink>
     </div>
 
-    <div class="w-[500px] bg-white h-[660px] lg:h-[600px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
+    <div class="w-[500px] bg-white h-fit lg:h-[600px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
       <NuxtLink to="/">
-        <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] mt-5 text-[#189ab4] lg:hidden">
-          <img src="/mgpostv2.png" width="104" alt="">
-          Magic Post
+        <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] lg:hidden">
+          <img src="/mgpost.png" width="150" alt="">
         </h1>
       </NuxtLink>
 
@@ -81,7 +83,7 @@
           <button class="mt-6 w-full rounded-lg h-12 font-semibold"
             :class="phone && password && confirmPassword && 
             phoneError.length < 1 && passwordError.length < 1 && confirmPasswordError.length < 1
-            ? 'bg-[#189ab4] text-white': 'bg-[#e8e8e8] text-gray-500'"
+            ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
           > 
             <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
