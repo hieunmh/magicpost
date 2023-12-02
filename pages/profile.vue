@@ -10,4 +10,6 @@
 import MainLayout from '~/layouts/MainLayout.vue';
 
 const user = useSupabaseUser();
+definePageMeta({middleware: 'profile'})
+
 </script>
