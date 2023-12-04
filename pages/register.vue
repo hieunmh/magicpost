@@ -102,7 +102,7 @@
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
           > 
-            <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
+            <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="30" class="animate-spin"  />
             <p v-else>Đăng ký</p>
           </button>
         </form>
@@ -235,7 +235,7 @@ const register = async () => {
     phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
   });
 
-  router.push('/profile');
+  router.push('/');
 
   userStore.isLoading = true;
 

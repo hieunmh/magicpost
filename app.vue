@@ -14,10 +14,16 @@
 import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
 
+const route = useRoute();
+const router = useRouter();
+
+const user = useSupabaseUser();
+const client = useSupabaseClient();
+
 watchEffect(() => {
   setTimeout(() => {
     userStore.isLoading = false;
-  }, 1000);
+  }, 2500);
 })
 
 let windowWidth = ref<number>(process.client ? window.innerWidth : 0);
@@ -29,9 +35,12 @@ onMounted(() => {
   });
 })
 
-watch(() => windowWidth.value, () => {
-  if (windowWidth.value > 767) {
-    userStore.isMenuOverlay = false;
-  }
-})
+// onMounted(() => {
+//   client.auth.onAuthStateChange((_, _session) => {
+//     if (_session && _session.user) {
+//       router.push('/');
+//     }
+//   })
+// })
+
 </script>

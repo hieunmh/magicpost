@@ -1,7 +1,9 @@
 <template>
   <div class="w-full h-full flex items-center justify-center lg:bg-[#189ab4]">
     <div class="text-[70px] font-bold lg:text-white text-[#189ab4] hidden lg:block">
-      <img src="/mgpostwhitev2.png" width="400" alt="">
+      <NuxtLink to="/">
+        <img src="/mgpostwhitev2.png" width="400" alt="">
+      </NuxtLink>
     </div>
 
     <div class="w-[500px] bg-white h-fit lg:h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
@@ -43,7 +45,7 @@
           :class="email && emailError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
           > 
-            <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
+            <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="30" class=" animate-spin"  />
             <p v-else>Tiếp</p>
           </button>
         </form>
@@ -80,9 +82,11 @@ watch(() => email.value, () => {
 }) 
 
 const resetPassword = async () => {
+  isLoading.value = true;
   await client.auth.resetPasswordForEmail(email.value, {
-    redirectTo: `https://mgpost.vercel.app/reset`,
+    redirectTo: `${location.origin}`,
   })
+  isLoading.value = false;
 }
 
 </script>
