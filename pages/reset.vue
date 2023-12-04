@@ -81,7 +81,7 @@ watch(() => email.value, () => {
 
 const resetPassword = async () => {
   await client.auth.resetPasswordForEmail(email.value, {
-    redirectTo: `${location.origin}/reset`,
+    redirectTo: `https://mgpost.vercel.app/reset`,
   })
 }
 
