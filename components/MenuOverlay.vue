@@ -12,7 +12,7 @@
       <NuxtLink v-if="user" to="/profile" @click="userStore.isMenuOverlay = false">
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
           <Icon name="material-symbols:account-circle" size="30" class="mr-2" />
-          Trang cá nhân
+          <div>{{ user.email?.split('@gmail.com')[0] }}</div>
         </div>
       </NuxtLink>
     </div>

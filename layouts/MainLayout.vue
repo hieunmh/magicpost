@@ -16,16 +16,16 @@
       </div>
 
       <div class="hidden md:block">
-        <div v-if="user" class="flex items-center cursor-pointer h-full w-[200px]" 
+        <div v-if="user" class="flex items-center cursor-pointer h-full w-[230px]" 
           @mouseover="() => showMenu = true" @mouseleave="() => showMenu = false"
         >
           <div class="flex text-center items-center justify-between w-full text-gray-500 font-semibold">
             <Icon name="material-symbols:account-circle" size="40" />
-            <div>*******{{ user?.phone?.substring(8, 11) }}</div>
+            <div>{{ user.email?.substring(0, 4) }}****@gmail.com</div>
             <Icon name="ic:baseline-keyboard-arrow-down" size="30" />
           </div>
 
-          <div class="absolute top-16 bg-white w-[200px] rounded-b-lg text-gray-500 shadow-xl" 
+          <div class="absolute top-16 bg-white w-[230px] rounded-b-lg text-gray-500 shadow-xl" 
             :class="showMenu ? 'visible opacity-100 z-50 transition-all duration-300 ease-in' 
             : 'invisible opacity-0 transition-all duration-300 ease-in z-50'"
           >

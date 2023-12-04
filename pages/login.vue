@@ -58,7 +58,7 @@
             ? ' bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!email || !password || emailError.length > 0 || passwordError.length > 0"
           > 
-            <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
+            <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="30" class="animate-spin"  />
             <p v-else>Đăng nhập</p>
           </button>
         </form>
@@ -142,7 +142,7 @@ const login = async () => {
     return;
   }
   
-  router.push('/profile');
+  router.push('/');
 
   userStore.isLoading = true;
 
@@ -158,7 +158,6 @@ const loginWithGoogle = async () => {
       redirectTo: window.location.origin
     }
   })
-
 }
 
 </script>
