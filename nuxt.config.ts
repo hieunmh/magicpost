@@ -7,9 +7,28 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     'nuxt-icon',
     '@nuxtjs/tailwindcss',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@vite-pwa/nuxt',
   ],
   supabase: {
     redirect: false
+  },
+  pwa: {
+    manifest: {
+      name: 'Magic Post',
+      short_name: "MG Post",
+      description: 'Day la Magic Post',
+      theme_color: '#189ab4',
+      icons: [
+        {
+          src: 'mgpostwhitev2.png',
+          type: 'image/png'
+        }
+      ]
+    },
+    devOptions: {
+      enabled: true,
+      type: 'module'
+    }
   }
 })

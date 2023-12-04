@@ -1,6 +1,10 @@
 <template>
   <Title>Magic Post</Title>
+
+  <VitePwaManifest />
+
   <Loading v-if="userStore.isLoading" />
+  
   <div v-else class="h-full w-full fixed">
     <NuxtPage/>
   </div>

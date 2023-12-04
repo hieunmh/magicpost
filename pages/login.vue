@@ -7,7 +7,7 @@
       </NuxtLink>
     </div>
 
-    <div class="w-[500px] bg-white h-fit lg:h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
+    <div class="w-[500px] bg-white h-fit lg:h-[490px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
       <NuxtLink to="/">
         <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] lg:hidden">
           <img src="/mgpost.png" width="150" alt="">
@@ -19,32 +19,13 @@
         
         <form class="mt-10" @submit.prevent="login()">
           <div class="h-16">
-            <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="phoneError ? 'border-b-red-500' : ''">
-              <Icon name="material-symbols:call-sharp" size="30" class="text-gray-400" />
+            <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
+              <Icon name="material-symbols:person" size="30" class="text-gray-400" />
               <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
-                placeholder="Số điện thoại" v-model="phone" maxlength="10"
-                @blur="() => {
-                  if (phone.length < 1) {
-                    phoneError = 'Vui lòng nhập số điện thoại của bạn'
-                  }
-                  if (phone.length == 10) {
-                    phoneError = '';
-                    phone = `(+84) ${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7, 10)}`
-                  }
-                }"
-                @input="() => {
-                  incorrectError = '';
-                  
-                }"
-                @focus="() => {
-                  if (phone.length == 17) {
-                    phone = '0' + phone.substring(6, 9) + phone.substring(10, 13) + phone.substring(14, 17);
-                  }
-                }"
-                oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                placeholder="Email" v-model="email" maxlength="10"
               >
             </div>
-            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ phoneError }}</p>
+            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
           </div>
           
           <div class="mt-6 h-16">
@@ -73,9 +54,9 @@
           </div>
 
           <button class="mt-6 w-full rounded-lg h-12 font-semibold"
-            :class="phone && password && phoneError.length < 1 && passwordError.length < 1 
+            :class="email && password && emailError.length < 1 && passwordError.length < 1 
             ? ' bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
-            :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
+            :disabled="!email || !password || emailError.length > 0 || passwordError.length > 0"
           > 
             <Icon v-if="isLoading" name="eos-icons:loading" size="30"  />
             <p v-else>Đăng nhập</p>
@@ -109,8 +90,8 @@ const router = useRouter();
 
 definePageMeta({middleware: 'loggedin'});
 
-let phone = ref<string>('');
-let phoneError = ref<string>('');
+let email = ref<string>('');
+let emailError = ref<string>('');
 
 let password = ref<string>('');
 let passwordError = ref<string>('');
@@ -130,18 +111,6 @@ const togglePassword = () => {
   }
 }
 
-watch(() => phone.value, () => {
-  if (phone.value.startsWith('(+84)')) return;
-  if (!phone.value.startsWith('0') ) {
-    phoneError.value = 'Số điện thoại phải bắt đầu bằng 0';
-  }
-  else if (phone.value.length < 10 && phone.value.length > 0) {
-    phoneError.value = 'Số điện thoại không hợp lệ';
-  }
-  else {
-    phoneError.value = '';
-  }
-})
  
 
 watch(() => password.value, () => {
@@ -162,7 +131,7 @@ const login = async () => {
   isLoading.value = true;
 
   let { data, error } = await client.auth.signInWithPassword({
-    phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+    email: email.value,
     password: password.value
   })
   isLoading.value = false;

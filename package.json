@@ -20,6 +20,7 @@
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.9.4",
     "@pinia/nuxt": "^0.5.1",
+    "@vite-pwa/nuxt": "^0.3.2",
     "pinia": "^2.1.7"
   }
 }

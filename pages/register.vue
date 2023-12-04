@@ -7,7 +7,7 @@
       </NuxtLink>
     </div>
 
-    <div class="w-[500px] bg-white h-fit lg:h-[600px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
+    <div class="w-[500px] bg-white h-fit lg:h-[660px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
       <NuxtLink to="/">
         <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] lg:hidden">
           <img src="/mgpost.png" width="150" alt="">
@@ -17,6 +17,22 @@
       <div class="p-8 flex flex-col justify-center">
         <h1 class="text-3xl text-center font-semibold hidden lg:block text-gray-500">Đăng ký</h1>
         <form class="mt-10" @submit.prevent="register()">
+          <div class="h-16">
+            <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
+              <Icon name="material-symbols:person" size="30" class=" text-gray-400" />
+              <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
+                placeholder="Email" v-model="email"
+                @blur="() => {
+                  if (email.length < 1) {
+                    emailError = 'Vui lòng nhập email của bạn'
+                  }
+                }"
+                @input="() => incorrectError = ''"
+              >
+            </div>
+            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
+          </div>
+
           <div class="mt-6 h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="phoneError ? 'border-b-red-500': ''">
               <Icon name="material-symbols:call-sharp" size="30" class="text-gray-400" />
@@ -81,7 +97,7 @@
 
 
           <button class="mt-6 w-full rounded-lg h-12 font-semibold"
-            :class="phone && password && confirmPassword && 
+            :class="email && phone && password && confirmPassword && emailError.length < 1  &&
             phoneError.length < 1 && passwordError.length < 1 && confirmPasswordError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
@@ -126,6 +142,9 @@ let confirmPassword = ref<string>('');
 let confirmPasswordError = ref<string>('');
 let confirmPasswordType = ref<string>('password');
 
+let email = ref<string>('');
+let emailError = ref<string>('');
+
 let phone = ref<string>('');
 let phoneError = ref<string>('');
 
@@ -152,6 +171,15 @@ const toggleConfirmPassword = () => {
   } 
 }
 
+watch(() => email.value, () => {
+  if (email.value.length == 0) {
+    emailError.value = 'Vui lòng nhập email của bạn';
+  } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+    emailError.value = 'Email không hợp lệ';
+  } else {
+    emailError.value = '';
+  }
+}) 
 
 watch(() => password.value, () => {
   if (password.value.length < 8) {
@@ -192,7 +220,7 @@ watch(() => phone.value, () => {
 const register = async () => {
   isLoading.value = true;
   const {data, error} = await client.auth.signUp({
-    phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+    email: email.value,
     password: password.value,
   })
 
@@ -202,6 +230,10 @@ const register = async () => {
     incorrectError.value = 'Số điện thoại đã được đăng ký';
     return;
   }
+
+  await client.auth.updateUser({ 
+    phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
+  });
 
   router.push('/profile');
 
