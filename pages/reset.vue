@@ -81,7 +81,7 @@ watch(() => email.value, () => {
 
 const resetPassword = async () => {
   await client.auth.resetPasswordForEmail(email.value, {
-    redirectTo: 'http://localhost:3000/reset',
+    redirectTo: `${location.origin}/reset`,
   })
 }
 
