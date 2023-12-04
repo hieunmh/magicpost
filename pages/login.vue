@@ -22,7 +22,11 @@
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
               <Icon name="material-symbols:person" size="30" class="text-gray-400" />
               <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
+<<<<<<< HEAD
                 placeholder="Email" v-model="email"
+=======
+                placeholder="Email" v-model="email" 
+>>>>>>> af5f21e93ccd9ff67212dba844c239f4eb1992af
               >
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
