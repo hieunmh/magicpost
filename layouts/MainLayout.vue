@@ -104,7 +104,9 @@ const logOut = async () => {
   userStore.isLoading = true;
   await client.auth.signOut();
   isLoading.value = false;
-  userStore.isLoading = false;
+  setTimeout(() => {
+    userStore.isLoading = false;
+  }, 1500);
   
   router.push('/login');
 } 

@@ -148,7 +148,7 @@ const login = async () => {
 
   setTimeout(() => {
     userStore.isLoading = false;
-  }, 1000);
+  }, 1500);
 }
 
 const loginWithGoogle = async () => {

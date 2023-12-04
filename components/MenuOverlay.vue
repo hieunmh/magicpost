@@ -12,7 +12,7 @@
       <NuxtLink v-if="user" to="/profile" @click="userStore.isMenuOverlay = false">
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
           <Icon name="material-symbols:account-circle" size="30" class="mr-2" />
-          <div>{{ user.email?.split('@gmail.com')[0] }}</div>
+          <div>{{ user.email?.substring(0, 4) }}****@gmail.com</div>
         </div>
       </NuxtLink>
     </div>
@@ -61,11 +61,14 @@ let menu = [
 ]
 
 const logOut = async () => {
-  isLoading.value = true;
-  await client.auth.signOut();
-  isLoading.value = false;
+  userStore.isLoading = true;
   userStore.isMenuOverlay = false;
-  router.push('/login');
-}
+  await client.auth.signOut();
+  setTimeout(() => {
+    userStore.isLoading = false;
+    router.push('/login');
+  }, 1500);
+  
+} 
 
 </script>

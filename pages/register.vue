@@ -241,7 +241,7 @@ const register = async () => {
 
   setTimeout(() => {
     userStore.isLoading = false;
-  }, 1000);
+  }, 2000);
 }
 
 const loginWithGoogle = async () => {
