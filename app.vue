@@ -35,12 +35,12 @@ onMounted(() => {
   });
 })
 
-onMounted(() => {
-  client.auth.onAuthStateChange((_, _session) => {
-    if (_session && _session.user) {
-      router.push('/');
-    }
-  })
+onMounted( async () => {
+  console.log(route.fullPath);
+  
+  if (user.value && route.fullPath.includes('code')) {
+    router.push('/');
+  }
 })
 
 </script>
