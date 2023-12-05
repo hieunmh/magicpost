@@ -1,23 +1,26 @@
 <template>
   <div class="w-full h-full flex items-center justify-center lg:bg-[#189ab4]">
+    <button @click="router.back()" class="absolute top-6 left-4 block sm:hidden">
+      <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />
+    </button>
     <div class="text-[70px] font-bold lg:text-white text-[#189ab4] hidden lg:block">
       <NuxtLink to="/">
         <img src="/mgpostwhitev2.png" width="400" alt="">
       </NuxtLink>
     </div>
 
-    <div class="w-[500px] bg-white h-fit lg:h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
+    <div class="w-[500px] bg-white h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px] lg:border-none">
       <NuxtLink to="/">
-        <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] lg:hidden">
+        <h1 class="text-center flex flex-col items-center mb-10 justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] lg:hidden">
           <img src="/mgpost.png" width="150" alt="">
         </h1>
       </NuxtLink>
 
       <div class="p-8 flex flex-col justify-center relative">
-        <button @click="router.back()" class="absolute top-9">
+        <button @click="router.back()" class="absolute top-9 hidden sm:block">
           <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />
         </button>
-        <h1 class="text-3xl text-center font-semibold hidden lg:block text-gray-500">Cập nhật mật khẩu</h1>
+        <h1 class="md:text-3xl text-2xl text-center font-semibold text-gray-500">Quên mật khẩu</h1>
         <form class="mt-10" @submit.prevent="">
           <div class="mt-6 h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
