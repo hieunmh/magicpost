@@ -39,7 +39,7 @@
               <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
                 placeholder="Số điện thoại" v-model="phone" 
                 oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                maxlength="10" autofocus
+                maxlength="10"
                 @blur="() => {
                   if (phone.length == 10) {
                     phoneError = '';
@@ -218,6 +218,13 @@ watch(() => phone.value, () => {
 })
 
 const register = async () => {
+  await useFetch(`/api/auth/register`, {
+    method: 'POST',
+    body: {
+      email:  email.value,
+      phone: phone.value
+    }
+  })
   isLoading.value = true;
   const {data, error} = await client.auth.signUp({
     email: email.value,
