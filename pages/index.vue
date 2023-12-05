@@ -7,7 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import { routerKey } from 'vue-router';
 import MainLayout from '~/layouts/MainLayout.vue';
 
 const user = useSupabaseUser();

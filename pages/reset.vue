@@ -45,7 +45,7 @@
           :class="email && emailError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
           > 
-            <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="30" class=" animate-spin"  />
+            <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class=" animate-spin"  />
             <p v-else>Tiếp</p>
           </button>
         </form>

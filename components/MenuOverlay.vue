@@ -1,6 +1,18 @@
 <template>
-  <div id="MenuOverlay" class="fixed bottom-0 z-50 w-full h-full bg-white">
-    <div class="mt-4">
+  <div id="MenuOverlay" class="fixed bottom-0 z-50 w-full h-full bg-white shadow-xl">
+    <div class="flex items-center justify-between h-16 border-b-[1px] bg-transparent">
+      <NuxtLink to="/" class="pl-4 md:pl-0" @click="userStore.isMenuOverlay = false">
+        <h1 class="text-center font-bold text-[30px] text-[#189ab4]">
+          <img src="/mgpost.png" width="100" alt="">
+        </h1>
+      </NuxtLink>
+
+      <button class="pr-4" @click="userStore.isMenuOverlay = false">
+        <Icon name="mdi:close" size="40" class="text-gray-400" />
+      </button>
+    </div>
+
+    <div class="mt-1">
       <ul class="flex flex-col justify-between font-semibold w-full">
         <li v-for="(item, index) in menu" 
           class="flex items-center px-5 cursor-pointer h-12 text-gray-500 hover:text-[#189ab4]"
@@ -61,14 +73,23 @@ let menu = [
 ]
 
 const logOut = async () => {
-  userStore.isLoading = true;
   userStore.isMenuOverlay = false;
+  userStore.isLoading = true;
+
   await client.auth.signOut();
+
   setTimeout(() => {
     userStore.isLoading = false;
     router.push('/login');
   }, 1500);
   
 } 
+
+// const gotoUrl = (url: string) => {
+//   router.push(url);
+//   setTimeout(() => {
+//     userStore.isMenuOverlay = false;
+//   }, 50);
+// }
 
 </script>

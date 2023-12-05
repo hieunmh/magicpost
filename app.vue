@@ -6,6 +6,13 @@
   <Loading v-if="userStore.isLoading" />
   
   <div v-else class="h-full w-full fixed">
+    <MenuOverlay 
+      :class="[
+        {'max-h-[100vh] -left-[0] transition-all duration-500 visible': userStore.isMenuOverlay },
+        {'max-h-[100vh] -left-[100%] transition-all duration-500 invisible': !userStore.isMenuOverlay },
+      ]"
+    />
+    
     <NuxtPage/>
   </div>
 </template>
@@ -35,9 +42,13 @@ onMounted(() => {
   });
 })
 
+watch(() => windowWidth.value, () => {
+  if (windowWidth.value >= 767) {
+    userStore.isMenuOverlay = false;
+  }
+})
+
 onMounted( async () => {
-  console.log(route.fullPath);
-  
   if (user.value && route.fullPath.includes('code')) {
     router.push('/');
   }
