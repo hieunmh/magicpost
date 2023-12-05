@@ -15,14 +15,23 @@
         <button @click="router.back()" class="absolute top-9 hidden sm:block">
           <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />
         </button>
+
         <h1 class="md:text-3xl text-2xl text-center font-semibold text-gray-500">Cập nhật mật khẩu</h1>
         <form class="mt-10" @submit.prevent="">
           <div class="mt-6 h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="newPasswordError ? 'border-b-red-500' : ''">
               <Icon name="material-symbols:lock" size="30" class="text-gray-400" />
-              <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
-                placeholder="Mật khẩu mới" v-model="newPassword"
+              <input :type="passwordType" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
+                placeholder="Mật khẩu mới" v-model="newPassword" @input="incorrectError = ''"
               >
+              <div class="flex items-center justify-center">
+                <Icon name="bx:bxs-hide" size="25" class="text-gray-400" 
+                  v-if="passwordType == 'password'" @click="togglePassword()"
+                />
+                <Icon name="bx:bxs-show" size="25" class="text-gray-400" 
+                  v-else  @click="togglePassword()"
+                />
+                </div>
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ newPasswordError }}</p>
           </div>
@@ -30,11 +39,22 @@
           <div class="mt-6 h-16">
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="confirmNewPasswordError ? 'border-b-red-500' : ''">
               <Icon name="material-symbols:lock" size="30" class="text-gray-400" />
-              <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
-                placeholder="Nhập lại mật khẩu" v-model="confirmNewPassword"
+              <input :type="confirmPasswordType" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
+                placeholder="Nhập lại mật khẩu" v-model="confirmNewPassword" @input="incorrectError = ''"
               >
+              <div class="flex items-center justify-center">
+                <Icon name="bx:bxs-hide" size="25" class="text-gray-400" 
+                  v-if="confirmPasswordType == 'password'" @click="toggleConfirmPassword()"
+                />
+                <Icon name="bx:bxs-show" size="25" class="text-gray-400" 
+                  v-else  @click="toggleConfirmPassword()"
+                />
+                </div>
             </div>
+
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ confirmNewPasswordError }}</p>
+            <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ incorrectError }}</p>
+            <p class="text-green-600 font-semibold mt-1 text-[14px]">{{ success }}</p>
           </div>
           
           <button @click="updatePassword()" class="mt-6 w-full rounded-lg h-12 font-semibold"
@@ -64,14 +84,24 @@ definePageMeta({middleware: 'loggedin'});
 
 let newPassword = ref<string>('');
 let newPasswordError = ref<string>('');
+let passwordType = ref<string>('password');
 
 let confirmNewPassword = ref<string>('');
 let confirmNewPasswordError = ref<string>('');
+let confirmPasswordType = ref<string>('password');
 
 let incorrectError = ref<string>('');
+let success = ref<string>('');
 let isLoading = ref<boolean>(false);
 
 watch(() => newPassword.value, () => {
+  if (newPassword.value == confirmNewPassword.value) {
+    confirmNewPasswordError.value = '';
+  }
+  else if (newPassword.value.length >= 8 && confirmNewPassword.value.length > 0 && newPassword.value != confirmNewPassword.value) {
+    confirmNewPasswordError.value = 'Mật khẩu không trùng khớp';
+  }
+  
   if (newPassword.value.length < 8) {
     newPasswordError.value = 'Mật khẩu cần chứa ít nhất 8 ký tự';
   }
@@ -86,19 +116,53 @@ watch(() => newPassword.value, () => {
 })
 
 watch(() => confirmNewPassword.value, () => {
-  if (newPassword.value.length > 0 && confirmNewPassword.value != newPassword.value) {
+  if (newPassword.value.length >= 8 && confirmNewPassword.value != newPassword.value) {
     confirmNewPasswordError.value = 'Mật khẩu không trùng khớp';
   } else {
     confirmNewPasswordError.value = '';
   }
 })
+
+const togglePassword = () => {
+  if (passwordType.value == 'text') {
+    passwordType.value =  'password';
+  }
+  else if (passwordType.value == 'password') {
+    passwordType.value = 'text';
+  }
+}
+
+const toggleConfirmPassword = () => {
+  if (confirmPasswordType.value == 'text') {
+    confirmPasswordType.value =  'password';
+  }
+  else if (confirmPasswordType.value == 'password') {
+    confirmPasswordType.value = 'text';
+  } 
+}
  
 const updatePassword = async () => {
   isLoading.value = true;
   const { data, error }  = await client.auth.updateUser({
     password: newPassword.value
   })
+  if (error) {
+    incorrectError.value = 'Mật khẩu mới không được giống mật khẩu cũ!'
+    isLoading.value = false;
+    return;
+  }
+
+  success.value = 'Đổi mật khẩu thành công!';
+
   isLoading.value = false;
+  setTimeout(() => {
+    userStore.isLoading = true;
+    setTimeout(() => {
+      router.push('/');
+      userStore.isLoading = false;
+    }, 1500);
+  }, 3000);
+
 }
 
 </script>
