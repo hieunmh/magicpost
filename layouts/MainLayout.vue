@@ -57,21 +57,11 @@
         </div>
       </div>
 
-      <button v-if="!userStore.isMenuOverlay" class="md:hidden block pr-4" @click="userStore.isMenuOverlay = true">
+      <button class="md:hidden block pr-4" @click="userStore.isMenuOverlay = true">
         <Icon name="ci:hamburger-md" size="40" class="text-gray-400" />
         
       </button>
 
-      <button v-else class="md:hidden block pr-4" @click="userStore.isMenuOverlay = false">
-        <Icon name="mdi:close" size="40" class="text-gray-400" />
-      </button>
-
-      <MenuOverlay 
-        :class="[
-          {'max-h-[calc(100vh-64px)] transition-all duration-200 visible': userStore.isMenuOverlay },
-          {'max-h-0 transition-all duration-200 invisible': !userStore.isMenuOverlay },
-        ]"
-    />
     </div>
     
     <slot />
