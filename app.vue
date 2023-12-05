@@ -12,7 +12,7 @@
         {'max-h-[100vh] -left-[100%] transition-all duration-500 invisible': !userStore.isMenuOverlay },
       ]"
     />
-    
+
     <NuxtPage/>
   </div>
 </template>
@@ -48,9 +48,15 @@ watch(() => windowWidth.value, () => {
   }
 })
 
-onMounted( async () => {
+onMounted(() => {
   if (user.value && route.fullPath.includes('code')) {
     router.push('/');
+  }
+})
+
+onMounted(() => {
+  if (route.fullPath.includes('resetPassword')) {
+    router.push('/profile/update')
   }
 })
 
