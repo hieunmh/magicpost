@@ -20,12 +20,5 @@ const userStore = useUserStore();
 const user = useSupabaseUser();
 definePageMeta({middleware: 'profile'});
 
-onMounted(() => {
-  if (userStore.isMenuOverlay == true) {
-    setTimeout(() => {
-      userStore.isMenuOverlay = false;
-    }, 0);
-  }
-})
 
 </script>
