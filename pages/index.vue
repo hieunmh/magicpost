@@ -12,4 +12,10 @@ import MainLayout from '~/layouts/MainLayout.vue';
 const user = useSupabaseUser();
 const router = useRouter();
 
+onMounted( async () => {
+  const { data, error } = await useFetch('/api/auth/getUser');
+  console.log(data.value?.data);
+  
+})
+
 </script>
