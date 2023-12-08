@@ -73,8 +73,8 @@
 
 <script lang="ts" setup>
 
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
+import { useClientStore } from '~/store/client';
+const clientStore = useClientStore();
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
@@ -156,10 +156,10 @@ const updatePassword = async () => {
 
   isLoading.value = false;
   setTimeout(() => {
-    userStore.isLoading = true;
+    clientStore.isLoading = true;
     setTimeout(() => {
       router.push('/');
-      userStore.isLoading = false;
+      clientStore.isLoading = false;
     }, 1500);
   }, 3000);
 

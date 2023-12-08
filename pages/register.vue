@@ -125,8 +125,8 @@
 
 <script lang="ts" setup>
 
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
+import { useClientStore } from '~/store/client';
+const clientStore = useClientStore();
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
@@ -244,10 +244,10 @@ const register = async () => {
 
   router.push('/');
 
-  userStore.isLoading = true;
+  clientStore.isLoading = true;
 
   setTimeout(() => {
-    userStore.isLoading = false;
+    clientStore.isLoading = false;
   }, 2000);
 }
 

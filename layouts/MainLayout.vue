@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="header" class="h-16 bg-white w-full flex items-center justify-between md:justify-evenly shadow-lg border-b-[1px]">
-      <NuxtLink to="/" class="pl-4 md:pl-0" @click="userStore.isMenuOverlay = false">
+      <NuxtLink to="/" class="pl-4 md:pl-0" @click="clientStore.isMenuOverlay = false">
         <h1 class="text-center font-bold text-[30px] text-[#189ab4]">
           <img src="/mgpost.png" width="100" alt="">
         </h1>
@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <button class="md:hidden block pr-4" @click="userStore.isMenuOverlay = true">
+      <button class="md:hidden block pr-4" @click="clientStore.isMenuOverlay = true">
         <Icon name="ci:hamburger-md" size="40" class="text-gray-400" />
         
       </button>
@@ -70,8 +70,8 @@
 
 <script lang="ts" setup>
 
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
+import { useClientStore } from '~/store/client';
+const clientStore = useClientStore();
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
@@ -91,11 +91,11 @@ let menu = [
 
 const logOut = async () => {
   isLoading.value = true;
-  userStore.isLoading = true;
+  clientStore.isLoading = true;
   await client.auth.signOut();
   isLoading.value = false;
   setTimeout(() => {
-    userStore.isLoading = false;
+    clientStore.isLoading = false;
   }, 1500);
   
   router.push('/login');
