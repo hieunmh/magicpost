@@ -60,7 +60,7 @@ onMounted(() => {
 })
 
 onMounted(() => {
-  if (route.fullPath.includes('resetPassword') && user.value) {
+  if (route.fullPath.includes('resetPassword')) {
     router.push('/profile/update')
   }
 })
