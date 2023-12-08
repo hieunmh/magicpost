@@ -21,6 +21,11 @@
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
+import { useUserStore } from '~/store/user';
+const  userStore = useUserStore();
+
+let { userInfo } = storeToRefs(userStore);
+
 const route = useRoute();
 const router = useRouter();
 
@@ -55,9 +60,14 @@ onMounted(() => {
 })
 
 onMounted(() => {
-  if (route.fullPath.includes('resetPassword')) {
+  if (route.fullPath.includes('resetPassword') && user.value) {
     router.push('/profile/update')
   }
+})
+
+onMounted( async () => {
+  const { data, error } = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
+  userInfo.value = data.value;
 })
 
 </script>
