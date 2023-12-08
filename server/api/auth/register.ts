@@ -6,7 +6,6 @@ import { serverSupabaseUser } from "#supabase/server";
 
 export default defineCachedEventHandler(async (event) => {
   const client = await serverSupabaseClient(event);
-  const server = await serverSupabaseUser(event);
 
   const { user } = await readBody(event);
 

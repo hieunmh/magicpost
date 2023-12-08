@@ -1,13 +1,13 @@
 <template>
   <div id="MenuOverlay" class="fixed bottom-0 z-50 w-full h-full bg-white shadow-xl">
     <div class="flex items-center justify-between h-16 border-b-[1px] bg-transparent">
-      <NuxtLink to="/" class="pl-4 md:pl-0" @click="userStore.isMenuOverlay = false">
+      <NuxtLink to="/" class="pl-4 md:pl-0" @click="clientStore.isMenuOverlay = false">
         <h1 class="text-center font-bold text-[30px] text-[#189ab4]">
           <img src="/mgpost.png" width="100" alt="">
         </h1>
       </NuxtLink>
 
-      <button class="pr-4" @click="userStore.isMenuOverlay = false">
+      <button class="pr-4" @click="clientStore.isMenuOverlay = false">
         <Icon name="mdi:close" size="40" class="text-gray-400" />
       </button>
     </div>
@@ -21,7 +21,7 @@
           {{ item.name }} 
         </li>
       </ul>
-      <NuxtLink v-if="user" to="/profile" @click="userStore.isMenuOverlay = false">
+      <NuxtLink v-if="user" to="/profile" @click="clientStore.isMenuOverlay = false">
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
           <Icon name="material-symbols:account-circle" size="30" class="mr-2" />
           <div>{{ user.email?.substring(0, 4) }}****@gmail.com</div>
@@ -37,13 +37,13 @@
         <p v-else>Đăng xuất</p>
       </button>
       <div v-else class="flex items-center w-full justify-center">
-        <NuxtLink to="/login" @click="userStore.isMenuOverlay = false"
+        <NuxtLink to="/login" @click="clientStore.isMenuOverlay = false"
           class="text-center w-[300px] font-semibold text-gray-500 hover:text-[#189ab4] border-[2px] py-3 rounded-lg ml-4 mr-2"
         >
           <p>Đăng nhập</p>
         </NuxtLink>
 
-        <NuxtLink to="/register" @click="userStore.isMenuOverlay = false"
+        <NuxtLink to="/register" @click="clientStore.isMenuOverlay = false"
           class="text-center w-[300px] font-semibold text-white bg-[#189ab4] py-3 rounded-lg mr-4"
         >
           <p>Đăng ký</p>
@@ -56,8 +56,8 @@
 
 <script lang="ts" setup>
 
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
+import { useClientStore } from '~/store/client';
+const clientStore = useClientStore();
 
 const user = useSupabaseUser();
 const client = useSupabaseClient();
@@ -73,13 +73,13 @@ let menu = [
 ]
 
 const logOut = async () => {
-  userStore.isMenuOverlay = false;
-  userStore.isLoading = true;
+  clientStore.isMenuOverlay = false;
+  clientStore.isLoading = true;
 
   await client.auth.signOut();
 
   setTimeout(() => {
-    userStore.isLoading = false;
+    clientStore.isLoading = false;
     router.push('/login');
   }, 1500);
   

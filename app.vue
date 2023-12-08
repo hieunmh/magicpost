@@ -3,13 +3,13 @@
 
   <VitePwaManifest />
 
-  <Loading v-if="userStore.isLoading" />
+  <Loading v-if="clientStore.isLoading" />
   
   <div v-else class="h-full w-full fixed">
     <MenuOverlay 
       :class="[
-        {'max-h-[100vh] -left-[0] transition-all duration-500 visible': userStore.isMenuOverlay },
-        {'max-h-[100vh] -left-[100%] transition-all duration-500 invisible': !userStore.isMenuOverlay },
+        {'max-h-[100vh] -left-[0] transition-all duration-500 visible': clientStore.isMenuOverlay },
+        {'max-h-[100vh] -left-[100%] transition-all duration-500 invisible': !clientStore.isMenuOverlay },
       ]"
     />
 
@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
+import { useClientStore } from '~/store/client';
+const clientStore = useClientStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -29,14 +29,14 @@ const client = useSupabaseClient();
 
 watchEffect(() => {
   setTimeout(() => {
-    userStore.isLoading = false;
-  }, 2500);
+    clientStore.isLoading = false;
+  }, 1500);
 })
 
 let windowWidth = ref<number>(process.client ? window.innerWidth : 0);
 
 onMounted(() => {
-  userStore.isMenuOverlay = false;
+  clientStore.isMenuOverlay = false;
   window.addEventListener('resize', function () {
     windowWidth.value = window.innerWidth;
   });
@@ -44,7 +44,7 @@ onMounted(() => {
 
 watch(() => windowWidth.value, () => {
   if (windowWidth.value >= 767) {
-    userStore.isMenuOverlay = false;
+    clientStore.isMenuOverlay = false;
   }
 })
 

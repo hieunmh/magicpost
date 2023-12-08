@@ -35,11 +35,13 @@
                 }"
                 @input="() => {
                   incorrectError = '';
+                  sendMail = '';
                   
                 }"
               >
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
+            <p v-if="emailError.length < 1" class="text-green-500 font-semibold mt-1 text-[14px]">{{ sendMail }}</p>
           </div>
           
     
@@ -72,6 +74,7 @@ definePageMeta({middleware: 'loggedin'});
 let email = ref<string>('');
 let emailError = ref<string>('');
 let incorrectError = ref<string>('');
+let sendMail = ref<string>('');
 let isLoading = ref<boolean>(false);
 
 watch(() => email.value, () => {
@@ -90,6 +93,7 @@ const resetPassword = async () => {
     redirectTo: `${location.origin}`,
   })
   isLoading.value = false;
+  sendMail.value = 'Vui lòng check email của bạn!'
 }
 
 </script>

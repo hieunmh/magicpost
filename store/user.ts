@@ -1,9 +1,8 @@
-
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { UsersType } from '~/types/supabaseTableType';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    isMenuOverlay: false,
-    isLoading: true,
+    userInfo: <UsersType>{},
   })
 })

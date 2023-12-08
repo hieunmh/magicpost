@@ -79,9 +79,9 @@
               <div class="w-full font-semibold text-gray-500">Tổng khối lượng: </div>   
               <div class="w-full mt-2 relative">
                 <div class="rounded-lg flex items-center bg-gray-100 md:w-full">
-                  <input type="text" placeholder="Vui lòng nhập thông tin" 
+                  <input type="text" placeholder="Vui lòng nhập thông tin" maxlength=""
                     class="bg-gray-100 w-full h-12 rounded-lg outline-none pl-4 text-sm sm:text-xl font-semibold text-gray-500"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')" :value="weight"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')" :value="weight" @blur="(e) => weight = (e.target as any).value"
                   >
                   <span class="text-gray-400 bg-gray-100 px-2 font-semibold border-l-2 rounded-r-lg text-xs sm:text-lg">
                     KG
@@ -100,9 +100,9 @@
                 </button>
 
                 <div class="rounded-lg flex items-center bg-gray-100 md:w-full">
-                  <input type="text" :disabled="isChecked" :value="weight"
+                  <input type="text" :disabled="isChecked" :value="weight" maxlength=""
                     class="bg-gray-100 w-full h-12 outline-none text-lg sm:text-xl font-semibold text-gray-500 text-center"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')" 
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')"  @blur="(e) => weight = (e.target as any).value"
                   >
                 </div>
 
@@ -190,6 +190,7 @@
 let navigatorTab = ref<string>('follow');
 
 let isChecked = ref<boolean>(false);
+let weight = ref<string>('0');
 
 const toggleChecked = () => {
   if (isChecked.value == false) {
@@ -200,25 +201,28 @@ const toggleChecked = () => {
   }
 }
 
-let weight = ref<number>(0);
 
 const increaseWeight = () => {
   if (weight.value) {
-    weight.value += 0.5
+    weight.value = String(Number(weight.value) + 0.5)
   }
 }
 
 const decreaseWeight = () => {
+  if (Number(weight.value) <= 0) {
+    weight.value = '0';
+    return;
+  }
   if (weight.value) { 
-    weight.value -= 0.5;
+    weight.value = String(Number(weight.value) - 0.5)
   }
 }
 
-watch(() => weight.value, () => {
-  if (weight.value && weight.value < 0) {
-    weight.value = 0;
-  }
-})
+// watch(() => weight.value, () => {
+//   if (weight.value && weight.value < 0) {
+//     weight.value = 0;
+//   }
+// })
 
 onMounted(() => {
   navigatorTab.value = 'follow';
