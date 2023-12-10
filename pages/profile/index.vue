@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="w-full text-center">
       <p class="text-2xl text-gray-500">{{ user?.email }}</p>
-      <p class="text-4xl font-semibold">{{ userInfo.role }}</p>
+      <p class="text-4xl font-semibold">{{ userInfo.role }} 123</p>
       <p class="text-4xl font-semibold">{{ userInfo.birthday }}</p>
       <div class="flex flex-col items-center">
         <div class="flex mt-4">
