@@ -29,7 +29,7 @@
         </div>
       </NuxtLink>
 
-      <NuxtLink v-if="userStore.userInfo.role?.toLowerCase() == 'ceo'" 
+      <NuxtLink v-if="userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'" 
         to="/profile/ceo" @click="clientStore.isMenuOverlay = false"
       >
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
