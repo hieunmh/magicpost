@@ -22,7 +22,12 @@
             <div class="flex border-b-[1px] border-b-gray-400 items-center" :class="emailError ? 'border-b-red-500' : ''">
               <Icon name="material-symbols:person" size="30" class="text-gray-400" />
               <input type="text" class=" w-full focus:outline-none pl-2 font-semibold text-[18px] text-gray-500"
-                placeholder="Email" v-model="email" 
+                placeholder="Email" v-model="email"
+                @blur="() => {
+                  if (email.length < 1) {
+                    emailError = 'Vui lòng nhập email của bạn'
+                  }
+                }"
               >
             </div>
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ emailError }}</p>
@@ -114,6 +119,16 @@ const togglePassword = () => {
   }
 } 
 
+watch(() => email.value, () => {
+  if (email.value.length == 0) {
+    emailError.value = 'Vui lòng nhập email của bạn';
+  } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+    emailError.value = 'Email không hợp lệ';
+  } else {
+    emailError.value = '';
+  }
+})
+
 watch(() => password.value, () => {
   if (password.value.length < 8) {
     passwordError.value = 'Mật khẩu cần chứa ít nhất 8 ký tự';
@@ -135,21 +150,21 @@ const login = async () => {
     email: email.value,
     password: password.value
   })
-  isLoading.value = false;
 
   if (error) {
-    console.log(error); 
+    isLoading.value = false;
     incorrectError.value = 'Sai số điện thoại hoặc mật khẩu';
     return;
+  } 
+  else {
+    const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
+    userStore.userInfo = getuser.data.value;
   }
 
-  const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
-
-  userStore.userInfo = getuser.data.value;
-  
-  router.push('/');
+  isLoading.value = false;
 
   clientStore.isLoading = true;
+  router.push('/');
 
   setTimeout(() => {
     clientStore.isLoading = false;

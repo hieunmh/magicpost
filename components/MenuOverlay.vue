@@ -21,10 +21,20 @@
           {{ item.name }} 
         </li>
       </ul>
+
       <NuxtLink v-if="user" to="/profile" @click="clientStore.isMenuOverlay = false">
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
           <Icon name="material-symbols:account-circle" size="30" class="mr-2" />
           <div>{{ user.email?.substring(0, 4) }}****@gmail.com</div>
+        </div>
+      </NuxtLink>
+
+      <NuxtLink v-if="userStore.userInfo.role?.toLowerCase() == 'ceo'" 
+        to="/profile/ceo" @click="clientStore.isMenuOverlay = false"
+      >
+        <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
+          <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
+          <div>CEO</div>
         </div>
       </NuxtLink>
     </div>
@@ -58,6 +68,9 @@
 
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
+
+import { useUserStore } from '~/store/user';
+const userStore = useUserStore();
 
 const user = useSupabaseUser();
 const client = useSupabaseClient();

@@ -66,4 +66,10 @@ onMounted(() => {
   }
 })
 
+onMounted( async () => {
+  if (user.value) {
+    const { data, error } = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
+    userInfo.value = data.value;
+  }
+})
 </script> 
