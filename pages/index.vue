@@ -14,18 +14,8 @@ const userStore = useUserStore();
 
 const user = useSupabaseUser();
 
-onMounted( async () => {
-  if (!userStore.userInfo.role) {
-    await useFetch('/api/auth/loginGG', {
-      method: 'post',
-      body: {
-        email: user.value?.email,
-        id: user.value?.id,
-        phone: user.value?.phone,
-      }
-    })
-  }
-})
+definePageMeta({middleware: 'role'});
+
 
 
 </script>
