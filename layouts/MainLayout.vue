@@ -35,7 +35,7 @@
               </div>
             </NuxtLink>
 
-            <NuxtLink v-if="userStore.userInfo.role?.toLowerCase() == 'ceo'"  
+            <NuxtLink v-if="userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'"  
               to="/profile/ceo" class="font-semibold h-12 flex items-center justify-center"
             >
               <div class="font-semibold text-center w-full hover:text-[#189ab4]">

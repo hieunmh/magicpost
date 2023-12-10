@@ -14,7 +14,7 @@ const userStore = useUserStore();
 
 const user = useSupabaseUser();
 
-onBeforeMount( async () => {
+onMounted( async () => {
   if (!userStore.userInfo.role) {
     await useFetch('/api/auth/loginGG', {
       method: 'post',
