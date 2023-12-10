@@ -29,14 +29,14 @@
         </div>
       </NuxtLink>
 
-      <NuxtLink v-if="userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'" 
+      <!-- <NuxtLink v-if="userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'" 
         to="/profile/ceo" @click="clientStore.isMenuOverlay = false"
       >
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
           <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
           <div>CEO</div>
         </div>
-      </NuxtLink>
+      </NuxtLink> -->
     </div>
 
     <div class="w-full absolute bottom-6 flex items-center justify-center">
