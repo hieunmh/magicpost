@@ -35,6 +35,14 @@
               </div>
             </NuxtLink>
 
+            <NuxtLink v-if="userStore.userInfo.role?.toLowerCase() == 'ceo'"  
+              to="/profile/ceo" class="font-semibold h-12 flex items-center justify-center"
+            >
+              <div class="font-semibold text-center w-full hover:text-[#189ab4]">
+                CEO
+              </div>
+            </NuxtLink>
+
             <button v-if="user" @click="logOut()" class=" w-full rounded-lg h-12 font-semibold hover:text-[#189ab4]"> 
               <Icon v-if="isLoading" name="eos-icons:loading" size="25"  />
               <p v-else>Đăng xuất</p>
@@ -72,6 +80,9 @@
 
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
+
+import { useUserStore } from '~/store/user';
+const userStore = useUserStore(); 
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
