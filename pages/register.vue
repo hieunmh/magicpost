@@ -265,7 +265,14 @@ const loginWithGoogle = async () => {
       redirectTo: window.location.origin
     }
   })
-
+  await useFetch('/api/auth/loginGG', {
+    method: 'post',
+    body: {
+      email: user.value?.email,
+      id: user.value?.id,
+      phone: user.value?.phone
+    }
+  })
 }
 
 </script>
