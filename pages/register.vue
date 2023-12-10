@@ -126,6 +126,7 @@
 <script lang="ts" setup>
 
 import { useClientStore } from '~/store/client';
+
 const clientStore = useClientStore();
 
 const client = useSupabaseClient();
@@ -218,22 +219,15 @@ watch(() => phone.value, () => {
 })
 
 const register = async () => {
-  await useFetch(`/api/auth/register`, {
-    method: 'POST',
-    body: {
-      email:  email.value,
-      phone: phone.value
-    }
-  })
   isLoading.value = true;
   const {data, error} = await client.auth.signUp({
     email: email.value,
     password: password.value,
   })
 
-  isLoading.value = false;
 
   if (error?.message == 'User already registered') {
+    isLoading.value = false;
     incorrectError.value = 'Số điện thoại đã được đăng ký';
     return;
   }
@@ -242,9 +236,22 @@ const register = async () => {
     phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
   });
 
-  router.push('/');
+  await useFetch(`/api/auth/register`, {
+    method: 'post',
+    body: {
+      email:  email.value,
+      phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+      id: user.value?.id,
+    }
+  })
+
+
+  isLoading.value = false;
+
 
   clientStore.isLoading = true;
+
+  router.push('/');
 
   setTimeout(() => {
     clientStore.isLoading = false;

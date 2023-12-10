@@ -82,10 +82,12 @@ import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
 import { useUserStore } from '~/store/user';
+import { UserType } from '~/types/userType';
 const userStore = useUserStore(); 
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
+
 const router = useRouter();
 
 let isLoading = ref<boolean>(false);
@@ -101,10 +103,16 @@ let menu = [
 ]
 
 const logOut = async () => {
+
+  userStore.userInfo = <UserType>{};
+
   isLoading.value = true;
   clientStore.isLoading = true;
+  
   await client.auth.signOut();
+
   isLoading.value = false;
+
   setTimeout(() => {
     clientStore.isLoading = false;
   }, 1500);
