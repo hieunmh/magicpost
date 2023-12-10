@@ -25,6 +25,7 @@ import { useUserStore } from '~/store/user';
 const  userStore = useUserStore();
 
 let { userInfo } = storeToRefs(userStore);
+// let { roles } = storeToRefs(clientStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -70,4 +71,10 @@ onMounted( async () => {
   userInfo.value = data.value;
 })
 
-</script>
+onMounted( async () => {
+  const {  data, error } = await useFetch(`/api/getRole`);  
+  clientStore.roles = data.value || [];
+  
+})
+
+</script> 

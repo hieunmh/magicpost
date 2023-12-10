@@ -5,8 +5,8 @@ import { serverSupabaseClient } from '#supabase/server';
 export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient<Database>(event);
 
-  const user = await client.from('users').select('*').eq('id', String(event.context.params?.id)).single();
+  const roles = await client.from('roles').select('*');
 
-  return user.data;
+  return roles.data;
 
 })
