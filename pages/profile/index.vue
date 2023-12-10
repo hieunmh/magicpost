@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="w-full text-center">
       <p class="text-2xl text-gray-500">{{  }}</p>
-      <p class="text-4xl font-semibold">{{ role.name }}</p>
+      <p class="text-4xl font-semibold">{{ userInfo.role }}</p>
       <p class="text-4xl font-semibold">{{ userInfo.birthday }}</p>
       <div class="flex flex-col items-center">
         <input type="text" name="" v-model="moreInfo" placeholder="More info"
@@ -23,6 +23,7 @@
 
 <script lang="ts" setup>
 import MainLayout from '~/layouts/MainLayout.vue';
+definePageMeta({middleware: 'profile'});
 
 import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
@@ -34,16 +35,11 @@ const { userInfo } = storeToRefs(userStore);
 
 let moreInfo = ref<string>('');
 
-const role = computed(() => {
-  return clientStore.roles.filter(role => role.id === userInfo.value.role)[0] 
-})
-
 const user = useSupabaseUser();
 
-definePageMeta({middleware: 'profile'});
 
 const addMoreInfo = async () => {
-  const { data, error } = await useFetch('/api/addMoreInfo', {
+  const { data, error } = await useFetch('/api/auth/addMoreInfo', {
     method: 'post',
     body: {
       More_info: moreInfo.value,

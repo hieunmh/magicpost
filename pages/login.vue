@@ -84,6 +84,9 @@
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
+import { useUserStore } from '~/store/user';
+const userStore = useUserStore();
+
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const router = useRouter();
@@ -139,6 +142,10 @@ const login = async () => {
     incorrectError.value = 'Sai số điện thoại hoặc mật khẩu';
     return;
   }
+
+  const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
+
+  userStore.userInfo = getuser.data.value;
   
   router.push('/');
 
