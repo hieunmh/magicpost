@@ -14,5 +14,6 @@ const userStore = useUserStore();
 
 const user = useSupabaseUser();
 
+definePageMeta({middleware: 'loggedin'});
 
 </script>
