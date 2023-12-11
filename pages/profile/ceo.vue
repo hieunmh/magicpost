@@ -19,7 +19,7 @@ import { useUserStore } from '~/store/user';
 import { UserType } from '~/types/userType';
 const userStore = useUserStore();
 
-definePageMeta({middleware: ['profile', 'ceo']});
+definePageMeta({middleware: ['profile']});
 
 
 let allAggregationHead = ref<UserType[] | null>([])

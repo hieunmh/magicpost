@@ -13,6 +13,13 @@
       ]"
     />
 
+    <AddPhoneNumber  v-if="user && !userInfo.phone"
+      :class="[
+        {'visible transition-all duration-1000 bg-black bg-opacity-50 opacity-100': !clientStore.havePhone },
+        {'invisible transition-all duration-1000 bg-black bg-opacity-50 opacity-0': clientStore.havePhone },
+      ]"
+    />
+
     <NuxtPage/>
   </div>
 </template>
@@ -25,7 +32,6 @@ import { useUserStore } from '~/store/user';
 const  userStore = useUserStore();
 
 let { userInfo } = storeToRefs(userStore);
-// let { roles } = storeToRefs(clientStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -33,13 +39,21 @@ const router = useRouter();
 const user = useSupabaseUser();
 const client = useSupabaseClient();
 
-watchEffect(() => {
+onMounted(() => {
   setTimeout(() => {
     clientStore.isLoading = false;
   }, 1500);
 })
 
 let windowWidth = ref<number>(process.client ? window.innerWidth : 0);
+
+onMounted(() => {   
+  if (user.value && !user.value?.phone) {
+    setTimeout(() => {
+      clientStore.havePhone = false;
+    }, 1800);
+  }
+})
 
 onMounted(() => {
   clientStore.isMenuOverlay = false;
@@ -58,6 +72,7 @@ onMounted(() => {
   if (user.value && route.fullPath.includes('code')) {
     router.push('/');
   }
+
 })
 
 onMounted(() => {
