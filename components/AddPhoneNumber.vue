@@ -1,10 +1,6 @@
 <template>
   <div class="w-full h-full fixed z-50 top-[0] flex items-center justify-center">
-    <button @click="router.back()" class="absolute top-6 left-4 block sm:hidden">
-      <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />
-    </button>
-
-    <div class="w-[500px] bg-white h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px]">
+    <div class="sm:mx-0 mx-4 w-[500px] bg-white h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px]">
       <NuxtLink to="/">
         <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] mb-10">
           <img src="/mgpost.png" width="150" alt="">
@@ -12,10 +8,6 @@
       </NuxtLink>
 
       <div class="p-8 flex flex-col justify-center relative">
-        <button @click="router.back()" class="absolute top-9 hidden sm:block">
-          <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />
-        </button>
-
         <h1 class="md:text-3xl text-2xl text-center font-semibold text-gray-500">Thêm số điện thoại</h1>
         <form class="mt-10" @submit.prevent="">
           <div class="mt-6 h-16">
@@ -31,11 +23,16 @@
             <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ incorrectError }}</p>
             <p class="text-green-500 font-semibold mt-1 text-[14px]">{{ success }}</p>
           </div>
+
           <button @click="addPhoneNumber" class="mt-6 w-full rounded-lg h-12 font-semibold"
             :class="phoneError.length < 1 && phone ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
           > 
             <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class=" animate-spin"  />
             <p v-else>Thêm</p>
+          </button>
+
+          <button @click="logOut()" class="mt-6 w-full rounded-lg h-12 font-semibold bg-[#05445e] text-white"> 
+            <p>Đăng xuất</p>
           </button>
         </form>
 
@@ -48,6 +45,10 @@
 
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
+
+import { useUserStore } from '~/store/user';
+import { UserType } from '~/types/userType';
+const userStore = useUserStore();
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
@@ -106,5 +107,20 @@ const addPhoneNumber = async () => {
     clientStore.havePhone = true;
   }, 700);
 }
+
+const logOut = async () => {
+
+  userStore.userInfo = <UserType>{};
+
+  clientStore.isLoading = true;
+
+  await client.auth.signOut();
+
+  setTimeout(() => {
+    clientStore.isLoading = false;
+  }, 1500);
+
+  router.push('/login');
+} 
 
 </script>

@@ -86,5 +86,11 @@ onMounted( async () => {
     const { data, error } = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
     userInfo.value = data.value;
   }
+
+  if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
+    const { data, error } = await useFetch('/api/auth/getAllAggregationHead');
+    userStore.allAggregationHead = data.value;
+  }
 })
+
 </script> 
