@@ -126,8 +126,10 @@
 <script lang="ts" setup>
 
 import { useClientStore } from '~/store/client';
-
 const clientStore = useClientStore();
+
+import { useUserStore } from '~/store/user';
+const userStore = useUserStore();
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
@@ -232,6 +234,11 @@ const register = async () => {
     return;
   }
 
+  else {
+    const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
+    userStore.userInfo = getuser.data.value;
+  }
+
   await client.auth.updateUser({ 
     phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
   });
@@ -255,7 +262,7 @@ const register = async () => {
 
   setTimeout(() => {
     clientStore.isLoading = false;
-  }, 2000);
+  }, 1000);
 }
 
 const loginWithGoogle = async () => {

@@ -29,6 +29,12 @@
             :class="showMenu ? 'visible opacity-100 z-50 transition-all duration-300 ease-in' 
             : 'invisible opacity-0 transition-all duration-300 ease-in z-50'"
           >
+            <NuxtLink to="/" class="font-semibold h-12 flex items-center justify-center">
+              <div class="font-semibold text-center w-full hover:text-[#189ab4]">
+                Trang chủ
+              </div>
+            </NuxtLink>
+
             <NuxtLink to="/profile" class="font-semibold h-12 flex items-center justify-center">
               <div class="font-semibold text-center w-full hover:text-[#189ab4]">
                 Trang cá nhân
