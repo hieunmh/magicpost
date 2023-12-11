@@ -22,7 +22,9 @@
             maxlength="10"
           >
 
-          <button @click="addPhoneNumber()" class="bg-[#189ab4] h-12 w-[90px] hover:bg-[#189] text-white rounded-r-lg font-semibold">
+          <button @click="addPhoneNumber()" :disabled="phone.length < 1" :class="phone.length < 10 ? 'bg-gray-500' : 'bg-[#189ab4] hover:bg-[#189]'"
+            class="h-12 w-[90px] text-white rounded-r-lg font-semibold"
+          >
             <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class="animate-spin"  />
             <p v-else>Cập nhật</p>
           </button>
