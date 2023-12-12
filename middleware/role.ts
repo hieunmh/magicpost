@@ -4,7 +4,7 @@ const userStore = useUserStore();
 export default defineNuxtRouteMiddleware( async (to, from) => {
   const user = useSupabaseUser();
 
-  if (user.value && !userStore.userInfo.role && to.fullPath.includes('/?code=')) {
+  if (user.value && !userStore.userInfo?.role && to.fullPath.includes('/?code=')) {
     await useFetch('/api/auth/loginGG', {
       method: 'post',
       body: {

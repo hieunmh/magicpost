@@ -29,7 +29,7 @@
         </div>
       </NuxtLink>
 
-      <NuxtLink v-if="userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'" 
+      <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'" 
         to="/profile/ceo" @click="clientStore.isMenuOverlay = false"
       >
         <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
@@ -43,8 +43,7 @@
       <button v-if="user" @click="logOut()"
         class="text-center w-[calc(100vw-50px)] font-semibold text-gray-500 hover:text-[#189ab4] border-2 py-3 rounded-lg"
       >
-        <Icon v-if="isLoading" name="eos-icons:loading" size="25"  />
-        <p v-else>Đăng xuất</p>
+        <p>Đăng xuất</p>
       </button>
       <div v-else class="flex items-center w-full justify-center">
         <NuxtLink to="/login" @click="clientStore.isMenuOverlay = false"
@@ -77,8 +76,6 @@ const client = useSupabaseClient();
 
 const router = useRouter();
 
-let isLoading = ref<boolean>(false);
-
 let menu = [
   { name: 'Vận chuyển', icon: 'circum:delivery-truck' },
   { name: 'Dịch vụ', icon: 'ph:bag-simple-bold' },
@@ -97,12 +94,4 @@ const logOut = async () => {
   }, 1500);
   
 } 
-
-// const gotoUrl = (url: string) => {
-//   router.push(url);
-//   setTimeout(() => {
-//     userStore.isMenuOverlay = false;
-//   }, 50);
-// }
-
 </script>

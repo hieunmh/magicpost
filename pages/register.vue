@@ -255,12 +255,10 @@ const register = async () => {
 
   isLoading.value = false;
 
-
   clientStore.isLoading = true;
 
-  router.push('/');
-
   setTimeout(() => {
+    router.push('/');
     clientStore.isLoading = false;
   }, 1000);
 }
