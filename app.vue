@@ -13,7 +13,7 @@
       ]"
     />
 
-    <AddPhoneNumber  v-if="user && !userInfo.phone"
+    <AddPhoneNumber  v-if="user && !userStore.userInfo.phone"
       :class="[
         {'visible transition-all duration-1000 bg-black bg-opacity-50 opacity-100': !clientStore.havePhone },
         {'invisible transition-all duration-1000 bg-black bg-opacity-50 opacity-0': clientStore.havePhone },
@@ -30,8 +30,6 @@ const clientStore = useClientStore();
 
 import { useUserStore } from '~/store/user';
 const  userStore = useUserStore();
-
-let { userInfo } = storeToRefs(userStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -84,7 +82,9 @@ onMounted(() => {
 onMounted( async () => {
   if (user.value) {
     const { data, error } = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
-    userInfo.value = data.value;
+    userStore.userInfo = data.value;
+    console.log(userStore.userInfo.role?.toLowerCase());
+    
   }
 
   if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
