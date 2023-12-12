@@ -6,7 +6,8 @@ export const useClientStore = defineStore('client', {
     isMenuOverlay: false,
     havePhone: true,
     isLoading: true,
-    roles: <RoleType[]>[] 
+    roles: <RoleType[]>[],
+    showHeadDetail: false,
   }),
   
 })
