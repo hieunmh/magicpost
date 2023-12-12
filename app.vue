@@ -88,8 +88,8 @@ onMounted( async () => {
   }
 
   if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
-    const { data, error } = await useFetch('/api/auth/getAllAggregationHead');
-    userStore.allAggregationHead = data.value;
+    const { data, error } = await useFetch('/api/auth/getAllHead');
+    userStore.allHead = data.value;
   }
 })
 

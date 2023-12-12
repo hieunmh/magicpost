@@ -5,8 +5,8 @@ import { serverSupabaseClient } from '#supabase/server';
 export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient<Database>(event);
 
-  const  allAggregationHead = await client.from('users').select('*').eq('role', 'aggregation_point_head');
+  const  allHead = await client.from('users').select('*').in('role', ['aggregation_point_head', 'transaction_point_head']);
 
-  return allAggregationHead.data;
+  return allHead.data;
 
 })

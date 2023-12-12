@@ -1,7 +1,8 @@
 <template>
   <MainLayout>
     <div class="w-full text-center">
-      <p class="text-2xl text-gray-500">{{ userInfo }}</p>
+      <p class="text-2xl text-gray-500">{{ userInfo.email }}</p>
+      <p class="text-2xl text-gray-500">0{{ userInfo.phone?.substring(2) }}</p>
       <p class="text-4xl font-semibold">{{ userInfo.role }}</p>
       <p class="text-4xl font-semibold">{{ userInfo.birthday }}</p>
       <div class="flex flex-col items-center">
