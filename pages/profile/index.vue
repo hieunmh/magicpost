@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 import MainLayout from '~/layouts/MainLayout.vue';
-definePageMeta({middleware: 'profile'});
+definePageMeta({middleware: 'loggedin'});
 
 import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
