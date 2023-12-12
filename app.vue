@@ -37,21 +37,7 @@ const router = useRouter();
 const user = useSupabaseUser();
 const client = useSupabaseClient();
 
-onMounted(() => {
-  setTimeout(() => {
-    clientStore.isLoading = false;
-  }, 1500);
-})
-
 let windowWidth = ref<number>(process.client ? window.innerWidth : 0);
-
-onMounted(() => {   
-  if (user.value && !user.value?.phone) {
-    setTimeout(() => {
-      clientStore.havePhone = false;
-    }, 1800);
-  }
-})
 
 onMounted(() => {
   clientStore.isMenuOverlay = false;
@@ -82,14 +68,26 @@ onMounted(() => {
 onMounted( async () => {
   if (user.value) {
     const { data, error } = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
-    userStore.userInfo = data.value;
-    console.log(userStore.userInfo.role?.toLowerCase());
-    
+    userStore.userInfo = data.value;  
   }
 
   if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
     const { data, error } = await useFetch('/api/auth/getAllHead');
     userStore.allHead = data.value;
+  }
+
+  clientStore.isLoading = false;
+
+  if (user.value && !userStore.userInfo.phone) {
+    setTimeout(() => {
+      clientStore.havePhone = false;
+    }, 300);
+  }
+})
+
+watchEffect(() => {
+  if (userStore.userInfo.role?.toLowerCase() != 'ceo' && route.fullPath == '/profile/ceo') {
+    router.push('/');
   }
 })
 
