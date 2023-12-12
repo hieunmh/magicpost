@@ -57,9 +57,6 @@ const router = useRouter();
 let phone = ref<string>('');
 let phoneError = ref<string>('');
 
-definePageMeta({middleware: ['loggedin', 'profile']});
-
-
 let incorrectError = ref<string>('');
 let success = ref<string>('');
 let isLoading = ref<boolean>(false);

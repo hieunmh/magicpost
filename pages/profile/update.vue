@@ -80,7 +80,7 @@ const client = useSupabaseClient();
 const user = useSupabaseUser();
 const router = useRouter();
 
-definePageMeta({middleware: ['loggedin', 'profile']});
+definePageMeta({middleware: 'loggedin'});
 
 let newPassword = ref<string>('');
 let newPasswordError = ref<string>('');

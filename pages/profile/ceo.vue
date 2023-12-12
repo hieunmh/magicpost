@@ -59,7 +59,6 @@ const showHeadDetail = (prop: UserType) => {
 
 } 
 
-
-definePageMeta({middleware: ['profile']});
+definePageMeta({middleware: 'loggedin'});
 
 </script>
