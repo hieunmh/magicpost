@@ -41,7 +41,7 @@
               </div>
             </NuxtLink>
 
-            <NuxtLink v-if="userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'"  
+            <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'ceo'"  
               to="/profile/ceo" class="font-semibold h-12 flex items-center justify-center"
             >
               <div class="font-semibold text-center w-full hover:text-[#189ab4]">
@@ -50,8 +50,7 @@
             </NuxtLink>
 
             <button v-if="user" @click="logOut()" class=" w-full rounded-lg h-12 font-semibold hover:text-[#189ab4]"> 
-              <Icon v-if="isLoading" name="eos-icons:loading" size="25"  />
-              <p v-else>Đăng xuất</p>
+              <p>Đăng xuất</p>
             </button>
           </div>
         </div>
@@ -96,7 +95,6 @@ const user = useSupabaseUser();
 
 const router = useRouter();
 
-let isLoading = ref<boolean>(false);
 
 let showMenu = ref<boolean>(false);
 
@@ -111,13 +109,9 @@ let menu = [
 const logOut = async () => {
 
   userStore.userInfo = <UserType>{};
-
-  isLoading.value = true;
   clientStore.isLoading = true;
   
   await client.auth.signOut();
-
-  isLoading.value = false;
 
   setTimeout(() => {
     clientStore.isLoading = false;

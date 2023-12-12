@@ -13,7 +13,7 @@
       ]"
     />
 
-    <AddPhoneNumber  v-if="user && !userStore.userInfo.phone"
+    <AddPhoneNumber  v-if="user && !userStore.userInfo?.phone"
       :class="[
         {'visible transition-all duration-1000 bg-black bg-opacity-50 opacity-100': !clientStore.havePhone },
         {'invisible transition-all duration-1000 bg-black bg-opacity-50 opacity-0': clientStore.havePhone },
@@ -80,7 +80,15 @@ onMounted( async () => {
     userStore.allHead = data.value;
   }
 
-  clientStore.isLoading = false;
+  if (!user.value) {
+    setTimeout(() => {
+      clientStore.isLoading = false;
+    }, 1500);
+  }
+
+  else {
+    clientStore.isLoading = false;
+  }
 
   if (user.value && !userStore.userInfo.phone) {
     setTimeout(() => {
