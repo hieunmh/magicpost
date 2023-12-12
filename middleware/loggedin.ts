@@ -20,12 +20,7 @@ export default defineNuxtRouteMiddleware( async (to, from) => {
     })
   }
 
-  if (!user.value && (from.fullPath == '/profile' || from.fullPath == '/profile/update')) {
+  if (!user.value && (from.fullPath == '/profile' || from.fullPath == '/profile/update' || from.fullPath == '/profile/ceo')) {
     return navigateTo('/');
   }
-
-  if (user.value && userStore.userInfo.role?.toLowerCase() !== 'ceo' && from.fullPath == '/profile/ceo') {
-    return navigateTo('/');
-  }
-
 })

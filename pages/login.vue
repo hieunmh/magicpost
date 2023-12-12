@@ -159,6 +159,11 @@ const login = async () => {
   else {
     const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
     userStore.userInfo = getuser.data.value;
+    
+    if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
+      const { data, error } = await useFetch('/api/auth/getAllHead');
+      userStore.allHead = data.value;
+    }
   }
 
   isLoading.value = false;
