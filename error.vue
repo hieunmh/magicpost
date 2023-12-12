@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex items-center justify-center">
+  <div class="w-full h-full fixed flex items-center justify-center">
     <div class="relative w-[500px] h-[500px] bg-white rounded-xl sm:shadow-xl sm:border-[1px] flex items-center justify-center">
       <Icon @click="backRouter()" name="ion:md-arrow-round-back" 
         size="40" class="absolute top-4 left-4 text-[#189ab4] cursor-pointer" 

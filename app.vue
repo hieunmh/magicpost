@@ -71,7 +71,11 @@ onMounted( async () => {
     userStore.userInfo = data.value;  
   }
 
-  if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
+  if (userStore.userInfo.role?.toLowerCase() != 'ceo' && route.fullPath == '/profile/ceo') {
+    router.push('/');
+  }
+
+  else if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
     const { data, error } = await useFetch('/api/auth/getAllHead');
     userStore.allHead = data.value;
   }
@@ -82,12 +86,6 @@ onMounted( async () => {
     setTimeout(() => {
       clientStore.havePhone = false;
     }, 300);
-  }
-})
-
-watchEffect(() => {
-  if (userStore.userInfo.role?.toLowerCase() != 'ceo' && route.fullPath == '/profile/ceo') {
-    router.push('/');
   }
 })
 
