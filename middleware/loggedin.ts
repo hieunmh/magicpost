@@ -24,7 +24,7 @@ export default defineNuxtRouteMiddleware( async (to, from) => {
     return navigateTo('/');
   }
 
-  if (user.value && userStore.userInfo.role?.toLowerCase() != 'ceo' && from.fullPath == '/profile/ceo') {
+  if (user.value && userStore.userInfo.role?.toLowerCase() !== 'ceo' && from.fullPath == '/profile/ceo') {
     return navigateTo('/');
   }
 
