@@ -58,7 +58,7 @@
 
           </div>
 
-          <button class="mt-6 w-full rounded-lg h-12 font-semibold"
+          <button class="mt-6 w-full rounded-lg h-12 font-semibold flex items-center justify-center text-center"
             :class="email && password && emailError.length < 1 && passwordError.length < 1 
             ? ' bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
             :disabled="!email || !password || emailError.length > 0 || passwordError.length > 0"

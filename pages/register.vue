@@ -96,7 +96,7 @@
           </div>
 
 
-          <button class="mt-6 w-full rounded-lg h-12 font-semibold"
+          <button class="mt-6 w-full rounded-lg h-12 font-semibold flex items-center justify-center text-center"
             :class="email && phone && password && confirmPassword && emailError.length < 1  &&
             phoneError.length < 1 && passwordError.length < 1 && confirmPasswordError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
@@ -247,7 +247,7 @@ const register = async () => {
     method: 'post',
     body: {
       email:  email.value,
-      phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+      phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
       id: user.value?.id,
     }
   })

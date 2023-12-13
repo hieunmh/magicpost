@@ -46,7 +46,7 @@
           
     
 
-          <button @click="resetPassword()" class="mt-6 w-full rounded-lg h-12 font-semibold"
+          <button @click="resetPassword()" class="mt-6 w-full rounded-lg h-12 font-semibold flex items-center justify-center text-center"
           :class="email && emailError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
           > 
