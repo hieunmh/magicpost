@@ -57,7 +57,7 @@
             <p class="text-green-600 font-semibold mt-1 text-[14px]">{{ success }}</p>
           </div>
           
-          <button @click="updatePassword()" class="mt-6 w-full rounded-lg h-12 font-semibold"
+          <button @click="updatePassword()" class="mt-6 w-full rounded-lg h-12 font-semibold flex items-center justify-center text-center"
           :class="newPassword && confirmNewPassword && newPasswordError.length < 1 && confirmNewPasswordError.length < 1
             ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
           > 

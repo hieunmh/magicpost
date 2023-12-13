@@ -24,8 +24,9 @@
             <p class="text-green-500 font-semibold mt-1 text-[14px]">{{ success }}</p>
           </div>
 
-          <button @click="addPhoneNumber" class="mt-6 w-full rounded-lg h-12 font-semibold"
+          <button @click="addPhoneNumber" class="mt-6 w-full rounded-lg h-12 font-semibold flex items-center justify-center text-center"
             :class="phoneError.length < 1 && phone ? 'bg-[#05445e] text-white': 'bg-[#e8e8e8] text-gray-500'"
+            :disabled="phone.length < 10 || phoneError.length > 0"
           > 
             <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class=" animate-spin"  />
             <p v-else>Thêm</p>
@@ -88,7 +89,10 @@ const addPhoneNumber = async () => {
     }
   })
 
-  console.log(data);
+  console.log(phone.value);
+  
+
+  userStore.userInfo.phone ='0' + phone.value;
   
 
   if (error && error.value?.message) {
