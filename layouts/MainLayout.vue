@@ -49,6 +49,22 @@
               </div>
             </NuxtLink>
 
+            <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'transaction_employee'"  
+              to="/profile/transactionemployee" class="font-semibold h-12 flex items-center justify-center"
+            >
+              <div class="font-semibold text-center w-full hover:text-[#189ab4]">
+                Transaction Employee
+              </div>
+            </NuxtLink>
+
+            <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'transaction_point_head'"  
+              to="/profile/transaction_point_head" class="font-semibold h-12 flex items-center justify-center"
+            >
+              <div class="font-semibold text-center w-full hover:text-[#189ab4]">
+                Transaction Point Head
+              </div>
+            </NuxtLink>
+
             <button v-if="user" @click="logOut()" class=" w-full rounded-lg h-12 font-semibold hover:text-[#189ab4]"> 
               <p>Đăng xuất</p>
             </button>

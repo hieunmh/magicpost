@@ -5,6 +5,8 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     userInfo: <UserType>{},
     allHead: <UserType[] | null>[],
+    allPackage: <UserType[] | null>[],
+    allTransactionEmployee: <UserType[] | null>[]
   }),
   
 })
