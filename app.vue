@@ -107,4 +107,34 @@ onMounted( async () => {
   }
 })
 
+onMounted( async () => {
+  const { data } = await useFetch('https://provinces.open-api.vn/api/p/');
+  clientStore.provinces = data.value;
+
+  clientStore.provinces.forEach((pro: any) => {
+    if (pro.name.includes('Tỉnh')) {
+      pro.name = pro.name.substring(5);
+    }
+
+    if (pro.name.includes('Thành phố')) {
+      pro.name = pro.name.substring(10)
+    }
+  })
+
+  clientStore.provinces.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name)
+  });
+})
+
+onMounted( async () => {
+  const { data } = await useFetch('https://provinces.open-api.vn/api/d/');
+  clientStore.districts = data.value;
+})
+
+onMounted( async () => {
+  const { data } = await useFetch('https://provinces.open-api.vn/api/w/');
+  clientStore.wards = data.value;
+ 
+} )
+
 </script> 

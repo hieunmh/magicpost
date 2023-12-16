@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-6">
+  <div class="mt-6 w-full h-full">
     <div class="w-full flex items-center justify-center">
       <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
         <div class="flex justify-between items-center">
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <div class="absolute top-20 w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
+    <div class="absolute top-20 w-full  mt-6 px-4 sm:px-10 flex items-center justify-center"
       :class="[
         {'-right-[1500px] transition-all duration-300': navigatorTab == 'follow' },
         {'right-0 transition-all duration-300': navigatorTab == 'cost' },     
@@ -57,19 +57,29 @@
       <div class="w-[1100px] sm:text-xl flex flex-col p-2 sm:p-6 rounded-xl sm:shadow-lg sm:border-[1px]">
         <div class="text-[#189ab4] mb-7 w-full text-lef font-semibold">Biểu phí dịch vụ </div>
 
-        <div class="md:flex">
-          <div class="md:w-[50%] w-full">
+        <div class="md:flex" >
+          <div class="md:w-[50%] w-full relative">
+            <SendAddress />
+
             <div class="font-semibold text-gray-500">Địa chỉ lấy hàng: </div>
-            <input type="text" class="bg-gray-100 mt-2 w-full font-semibold h-12 rounded-lg outline-none pl-4 text-sm sm:text-lg text-gray-500"
-            placeholder="Vui lòng chọn">
+
+            <input type="text" class="bg-gray-100 mt-2 w-full font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
+              placeholder="Vui lòng chọn"  @focus="clientStore.showSendAddress = true; clientStore.showReceiveAddress = false"
+              :value="sendAddress"
+            >
           </div>
 
           <div class="md:w-6 w-0" />
 
-          <div class="md:w-[50%] w-full">
+          <div class="md:w-[50%] w-full relative">
+            <ReceiveAddress />
+
             <div class="font-semibold text-gray-500">Địa chỉ người nhận: </div>
-            <input type="text" class="bg-gray-100 mt-2 w-full font-semibold h-12 rounded-lg outline-none pl-4 text-sm sm:text-lg text-gray-500"
-            placeholder="Vui lòng chọn">
+
+            <input type="text" class="bg-gray-100 mt-2 w-full font-semibold h-12 rounded-lg outline-none pl-4 text-sm text-gray-500"
+              placeholder="Vui lòng chọn" @focus="clientStore.showReceiveAddress = true; clientStore.showSendAddress = false"
+              :value="receiveAddress"
+            >
           </div>
         </div>
 
@@ -187,6 +197,9 @@
 
 <script lang="ts" setup>
 
+import { useClientStore } from '~/store/client';
+const clientStore = useClientStore();
+
 let navigatorTab = ref<string>('follow');
 
 let isChecked = ref<boolean>(false);
@@ -200,7 +213,6 @@ const toggleChecked = () => {
     isChecked.value = false;
   }
 }
-
 
 const increaseWeight = () => {
   if (weight.value) {
@@ -218,14 +230,20 @@ const decreaseWeight = () => {
   }
 }
 
-// watch(() => weight.value, () => {
-//   if (weight.value && weight.value < 0) {
-//     weight.value = 0;
-//   }
-// })
+
+let sendAddress = computed(() => {
+  return clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard 
+  ? clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard : '';
+})
+
+let receiveAddress = computed(() => {
+  return clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard 
+  ? clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard : '';
+})
 
 onMounted(() => {
   navigatorTab.value = 'follow';
 })
+
 
 </script>
