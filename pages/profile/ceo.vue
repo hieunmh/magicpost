@@ -19,6 +19,11 @@
             <div class="col-span-4">Phone:</div>
             <div class="col-span-8">0{{ head.phone?.substring(2) }}</div>
           </div>
+
+          <div class="grid grid-cols-12 h-8 items-center text-center">
+            <div class="col-span-4">Address:</div>
+            <div class="col-span-8">{{ head.address }}</div>
+          </div>
         </div>
       </div>
 
