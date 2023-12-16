@@ -29,8 +29,10 @@ import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
 import { useUserStore } from '~/store/user';
+import { usePackageStore } from './store/package';
 import Transaction_point_head from './pages/profile/transaction_point_head.vue';
-const  userStore = useUserStore();
+const userStore = useUserStore();
+const packageStore = usePackageStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -81,13 +83,15 @@ onMounted( async () => {
     userStore.allHead = data.value;
   }
 
-  if (userStore.userInfo.role?.toLowerCase() != 'transaction_point_heah' && route.fullPath == '/profile/transaction_point_head') {
+  if (userStore.userInfo.role?.toLowerCase() != 'transaction_point_head' && route.fullPath == '/profile/transaction_point_head') {
     router.push('/');
   }
   
   else if (userStore.userInfo.role?.toLowerCase() == 'transaction_point_head'){
-    const { data, error } = await useFetch('/api/auth/getAllTransactionEmployree');
+    const { data, error } = await useFetch('/api/auth/getAllTransactionEmployee');
+    const data2 = await useFetch('/api/auth/getAllPackage');
     userStore.allTransactionEmployee = data.value;
+    packageStore.allPackage = data2.data.value;
   }
 
   if (!user.value) {

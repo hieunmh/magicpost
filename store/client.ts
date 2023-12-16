@@ -21,6 +21,9 @@ export const useClientStore = defineStore('client', {
     receiveProvince: '',
     receiveDistrict: '',
     receiveWard: '',
+
+    showPackage: false,
+  
   }),
 
 })

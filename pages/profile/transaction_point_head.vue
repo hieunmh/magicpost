@@ -78,21 +78,15 @@
         <div class="w-[1100px] flex p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
           <div class="w-[1100px] mt-6 px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center">
             <div class="flex flex-col p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm md:text-lg font-semibold"
-              v-for="head in userStore.allPackage" @click="showHeadDetail(head)"
+              v-for="p in packageStore.allPackage" @click="showPackage(p)"
             >
               <div class="grid grid-cols-12 h-8 items-center text-center">
                 <div class="col-span-4">ID:</div>
-                <div class="col-span-8">{{ head.id.substring(0, 15) }}...</div>
+                <div class="col-span-8">{{ p.id.substring(0, 15) }}...</div>
               </div>
             </div>
           </div>
         </div>
-        <HeadDetail :headDetail="headDetail" 
-          :class="[
-            { 'visible transition-all duration-500 bg-black bg-opacity-50 opacity-100': clientStore.showHeadDetail },
-            { 'invisible transition-all duration-500 bg-black bg-opacity-50 opacity-0': !clientStore.showHeadDetail },
-          ]"
-        />
       </div>
     </div>
   </MainLayout> 
@@ -100,13 +94,17 @@
 <script lang="ts" setup>
 import MainLayout from '~/layouts/MainLayout.vue';
 
+import { PackageType } from '~/types/packageType';
 import { UserType } from '~/types/userType';
 
 import { useUserStore } from '~/store/user';
+import { usePackageStore } from '~/store/package';
 const userStore = useUserStore();
+const packageStore = usePackageStore();
 
 import { useClientStore } from '~/store/client';
 import HeadDetail from '~/components/HeadDetail.vue';
+
 const clientStore = useClientStore();
 
 let navigatorTab = ref<string>('follow');
@@ -130,6 +128,19 @@ const showHeadDetail = (prop: UserType) => {
   headDetail.value = prop;
   clientStore.showHeadDetail = true;
 
+} 
+
+let packages = ref<PackageType>({
+  created_at: '',
+  id: '',
+  receiver_id: null,
+  sender_id: null,
+  updated_at: null,
+});
+
+const showPackage = (prop: PackageType) => {
+  packages.value = prop;
+  clientStore.showPackage = true;
 } 
 
 definePageMeta({middleware: 'loggedin'});
