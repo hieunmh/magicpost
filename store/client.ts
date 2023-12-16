@@ -8,6 +8,19 @@ export const useClientStore = defineStore('client', {
     isLoading: true,
     roles: <RoleType[]>[],
     showHeadDetail: false,
+    provinces: <any>[],
+    districts: <any>[],
+    wards: <any>[],
+    
+    showSendAddress: false,
+    sendProvince: '',
+    sendDistrict: '',
+    sendWard: '',
+    
+    showReceiveAddress: false,
+    receiveProvince: '',
+    receiveDistrict: '',
+    receiveWard: '',
   }),
-  
+
 })
