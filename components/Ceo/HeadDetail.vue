@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full fixed z-50 top-[0] flex items-center justify-center bg-black bg-opacity-50"
+  <div class="w-full h-full fixed z-50 top-[0] px-4 sm:px-0 flex items-center justify-center bg-black bg-opacity-50"
     @click.self="clientStore.showHeadDetail = false"
   >
     <div class="w-[500px] h-[500px] bg-white rounded-xl font-semibold text-2xl" 

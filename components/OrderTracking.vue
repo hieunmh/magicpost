@@ -59,7 +59,7 @@
 
         <div class="md:flex" >
           <div class="md:w-[50%] w-full relative">
-            <SendAddress />
+            <AddressSend />
 
             <div class="font-semibold text-gray-500">Địa chỉ lấy hàng: </div>
 
@@ -72,7 +72,7 @@
           <div class="md:w-6 w-0" />
 
           <div class="md:w-[50%] w-full relative">
-            <ReceiveAddress />
+            <AddressReceive />
 
             <div class="font-semibold text-gray-500">Địa chỉ người nhận: </div>
 

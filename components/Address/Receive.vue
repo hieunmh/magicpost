@@ -36,7 +36,7 @@
       />
     </div> 
 
-    <div class="w-full h-[245px] overflow-y-scroll text-sm">
+    <div class="w-full h-[245px] overflow-y-scroll text-sm  scrollbar-hide">
       <option v-if="showReceiveProvince" v-for="(province) in clientStore.provinces" :key="province" 
         @click="getReceiveDistricts(province.code, province.name)"
         class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
