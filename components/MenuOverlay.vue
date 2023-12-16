@@ -37,6 +37,24 @@
           <div>CEO</div>
         </div>
       </NuxtLink>
+
+      <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'transaction_employee'" 
+        to="/profile/transactionemployee" @click="clientStore.isMenuOverlay = false"
+      >
+        <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
+          <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
+          <div>Transaction Employee</div>
+        </div>
+      </NuxtLink>
+
+      <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'transaction_point_head'" 
+        to="/profile/transaction_point_head" @click="clientStore.isMenuOverlay = false"
+      >
+        <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
+          <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
+          <div>Transaction Point Head</div>
+        </div>
+      </NuxtLink>
     </div>
 
     <div class="w-full absolute bottom-6 flex items-center justify-center">
