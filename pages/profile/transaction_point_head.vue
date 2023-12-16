@@ -84,11 +84,6 @@
                 <div class="col-span-4">ID:</div>
                 <div class="col-span-8">{{ head.id.substring(0, 15) }}...</div>
               </div>
-              
-              <div class="grid grid-cols-12 h-8 items-center text-center">
-                <div class="col-span-4">Status:</div>
-                <div class="col-span-8">{{ head. }}</div>
-              </div>
             </div>
           </div>
         </div>
