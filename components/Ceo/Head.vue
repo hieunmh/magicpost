@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1100px] grid grid-cols-1 sm:grid-cols-2 gap-8 h-[calc(100vh-250px)] overflow-auto scrollbar-hide">
+  <div class="sm:w-[1100px] grid grid-cols-1 sm:grid-cols-2 gap-8 h-[calc(100vh-250px)] overflow-auto scrollbar-hide">
     <div class="flex flex-col p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm md:text-lg font-semibold"
       v-for="head in userStore.allHead" @click="showHeadDetail(head)"
     >
@@ -30,7 +30,7 @@
       { 'visible transition-all duration-500 bg-black bg-opacity-50 opacity-100': clientStore.showHeadDetail },
       { 'invisible transition-all duration-500 bg-black bg-opacity-50 opacity-0': !clientStore.showHeadDetail },
     ]"
-    />
+  />
 </template>
 
 <script lang="ts" setup>

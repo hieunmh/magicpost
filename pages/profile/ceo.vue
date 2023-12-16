@@ -60,13 +60,13 @@
           {'-right-[1500px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       > 
-        <div class="w-[1100px] pb-4 border-b-2 border-b-[#189ab4]">
+        <!-- <div class="w-[1100px] pb-4 border-b-2 border-b-[#189ab4]">
           <select class="bg-gray-200 font-semibold text-gray-500 text-sm rounded-lg p-2.5 outline-none">
             <option class="h-16 text-red-500 font-semibold w-full" selected>Role</option>
             <option class="h-16 text-red-500 font-semibold w-full" value="US">Aggregation</option>
             <option class="h-16 text-red-500 font-semibold w-full" value="CA">Transaction</option>
           </select>
-        </div>
+        </div> -->
         <CeoHead />
       </div>
 
