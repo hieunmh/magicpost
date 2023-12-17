@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <div class="w-full px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center overflow-auto scrollbar-hide">
-      <div class="flex flex-col p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-lg font-semibold"
+    <div v-if="!userStore.isLoading" class="w-full px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center overflow-auto scrollbar-hide">
+      <div class="flex flex-col space-y-4 p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-lg font-semibold"
         v-for="head in userStore.allHead" @click="showHeadDetail(head)"
       >
         <div class="grid grid-cols-12 h-12 items-center text-center">
@@ -33,6 +33,28 @@
           <div class="col-span-4">Address:</div>
           <div class="col-span-8">{{ head.address }}</div>
         </div>
+      </div>
+    </div>
+
+    <div v-else class="w-full px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center animate-pulse">
+      <div class="flex flex-col space-y-4 p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-lg font-semibold">
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+        
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+      </div>
+
+      <div class="flex flex-col space-y-4 p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-lg font-semibold">
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+        
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
+
+        <div class="h-12 bg-gray-200 rounded-lg"></div>
       </div>
     </div>
   </div>
@@ -70,7 +92,17 @@ let headDetail = ref<UserType>({
 const showHeadDetail = (prop: UserType) => {
   headDetail.value = prop;
   clientStore.showHeadDetail = true;
-
 } 
+
+onMounted( async () => {
+  if (userStore.allHead?.length == 0) {
+    userStore.isLoading = true;
+
+    const allHead = await useFetch('/api/auth/getAllHead');
+    userStore.allHead = allHead.data.value;
+
+    userStore.isLoading = false;
+  }
+})
 
 </script>

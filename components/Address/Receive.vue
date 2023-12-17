@@ -1,63 +1,80 @@
 <template>
-  <div class="w-full h-[300px] bg-white absolute bottom-12 rounded-lg shadow-xl z-40 border-[1px]"
+  <div class="w-full h-full fixed top-0 left-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
     :class="clientStore.showReceiveAddress ? 'visible opacity-100 transition-all duration-300 ease-in' 
     : 'invisible opacity-0 transition-all duration-300 ease-in'"
+    @click.self="clientStore.showReceiveAddress = false"
   >
-    <div class="h-[46px] flex text-sm">
-      <button class="w-1/3 flex items-center justify-center text-center font-semibold text-gray-500 cursor-pointer"
-        @click="() => { showReceiveProvince = true; showReceiveDistrict = false; showReceiveWard = false; }"
-      >
-        Tỉnh / Thành phố
-      </button>
+    <div class="w-[500px] h-[396px] px-4 bg-white rounded-lg shadow-xl z-40 border-[1px]"
+      :class="clientStore.showReceiveAddress ? 'visible opacity-100 transition-all duration-300 ease-in' 
+      : 'invisible opacity-0 transition-all duration-300 ease-in'"
+    >
+      <div class="w-full h-[80px] py-4">
+        <input type="text" class="h-full w-full outline-none bg-gray-100 rounded-lg px-4 text-gray-500 font-semibold text-sm"
+          placeholder="Địa chỉ" :value="receiveAddress"
+        >
+      </div>
 
-      <button class="w-1/3 flex items-center justify-center text-center font-semibold text-gray-500 cursor-pointer"
-        @click="() => { showReceiveProvince = false; showReceiveDistrict = true; showReceiveWard = false; }" 
-        :disabled="province.length < 1"
-      >
-        Quận / Huyện
-      </button>
+      <div class="border-[1.5px] rounded-lg">
+        <div class="h-[46px] flex text-sm">
+          <button class="w-1/3 flex items-center justify-center text-center font-semibold cursor-pointer"
+            @click="() => { showReceiveProvince = true; showReceiveDistrict = false; showReceiveWard = false; }"
+            :class="showReceiveProvince ? 'text-[#189ab4]' : 'text-gray-500'"
+          >
+            Tỉnh / Thành phố
+          </button>
 
-      <button class="w-1/3 flex items-center justify-center text-center font-semibold text-gray-500 cursor-pointer"
-        @click="() => { showReceiveProvince = false; showReceiveDistrict = false; showReceiveWard = true; }" 
-        :disabled="district.length < 1"
-      >
-        Phường, xã
-      </button>
+          <button class="w-1/3 flex items-center justify-center text-center font-semibold cursor-pointer"
+            @click="() => { showReceiveProvince = false; showReceiveDistrict = true; showReceiveWard = false; }" 
+            :disabled="province.length < 1"
+            :class="showReceiveDistrict ? 'text-[#189ab4]' : 'text-gray-500'"
+          >
+            Quận / Huyện
+          </button>
 
-    </div>
+          <button class="w-1/3 flex items-center justify-center text-center font-semibold cursor-pointer"
+            @click="() => { showReceiveProvince = false; showReceiveDistrict = false; showReceiveWard = true; }" 
+            :disabled="district.length < 1"
+            :class="showReceiveWard ? 'text-[#189ab4]' : 'text-gray-500'"
+          >
+            Phường, xã
+          </button>
 
-    <div class="w-full h-1 bg-gray-300 relative">
-      <div class="w-1/3 h-full bg-[#189ab4] absolute" 
-        :class="[
-          {'left-0 transition-all duration-300': showReceiveProvince },
-          {'left-[calc(100%/3)] transition-all duration-300': showReceiveDistrict },
-          {'left-[calc(200%/3)] transition-all duration-300': showReceiveWard },
-        ]"
-      />
-    </div> 
+        </div>
 
-    <div class="w-full h-[245px] overflow-y-scroll text-sm  scrollbar-hide">
-      <option v-if="showReceiveProvince" v-for="(province) in clientStore.provinces" :key="province" 
-        @click="getReceiveDistricts(province.code, province.name)"
-        class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
-      >
-        {{ province.name }}
-      </option>
+        <div class="w-full h-1 bg-gray-300 relative">
+          <div class="w-1/3 h-full bg-[#189ab4] absolute" 
+            :class="[
+              {'left-0 transition-all duration-300': showReceiveProvince },
+              {'left-[calc(100%/3)] transition-all duration-300': showReceiveDistrict },
+              {'left-[calc(200%/3)] transition-all duration-300': showReceiveWard },
+            ]"
+          />
+        </div> 
 
-      <option v-if="showReceiveDistrict" v-for="(district) in filterDistrict" :key="district" 
-        @click="getReceiveWards(district.code, district.name)"
-        class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
-      >
-        {{ district.name }}
-      </option>
+        <div class="w-full h-[245px] overflow-y-scroll text-sm  scrollbar-hide">
+          <option v-if="showReceiveProvince" v-for="(province) in clientStore.provinces" :key="province" 
+            @click="getReceiveDistricts(province.code, province.name)"
+            class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
+          >
+            {{ province.name }}
+          </option>
 
-      <option v-if="showReceiveWard" v-for="(ward) in filterWard" :key="ward"
-        @click="clientStore.receiveWard = ' / ' + ward.name; clientStore.showReceiveAddress = false"
-        class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
-      >
-        {{ ward.name }}
-      </option>
-      
+          <option v-if="showReceiveDistrict" v-for="(district) in filterDistrict" :key="district" 
+            @click="getReceiveWards(district.code, district.name)"
+            class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
+          >
+            {{ district.name }}
+          </option>
+
+          <option v-if="showReceiveWard" v-for="(ward) in filterWard" :key="ward"
+            @click="clientStore.receiveWard = ' / ' + ward.name; clientStore.showReceiveAddress = false"
+            class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
+          >
+            {{ ward.name }}
+          </option>
+          
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -111,6 +128,11 @@ let province = computed(() => {
 
 let district = computed(() => {
   return clientStore.receiveDistrict ? clientStore.receiveDistrict : '';
+})
+
+let receiveAddress = computed(() => {
+  return clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard
+  ? clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard : '';
 })
 
 </script>

@@ -3,7 +3,8 @@ import { AggregationPointType } from '~/types/aggregationPointType';
 
 export const useAggregationStore = defineStore('aggregation', {
   state: () => ({
-    allAggregationPoint: <AggregationPointType[] | null>[]
+    allAggregationPoint: <AggregationPointType[] | null>[],
+    isLoading: false,
   }),
   
 })

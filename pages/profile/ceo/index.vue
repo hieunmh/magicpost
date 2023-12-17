@@ -78,15 +78,22 @@
 
 <script lang="ts" setup>
 import MainLayout from '~/layouts/MainLayout.vue';
-import { UserType } from '~/types/userType';
-
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
 
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
+import { useAggregationStore } from '~/store/aggregation';
+const aggregationStore = useAggregationStore();
 
 definePageMeta({middleware: 'loggedin'});
+
+onMounted( async () => {
+  if (aggregationStore.allAggregationPoint?.length == 0) {
+    aggregationStore.isLoading = true;
+    const allAgg = await useFetch('/api/auth/getAllAggregationPoints');
+    aggregationStore.allAggregationPoint = allAgg.data.value;
+    aggregationStore.isLoading = false;
+  }
+})
 
 </script>

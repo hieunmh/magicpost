@@ -3,7 +3,8 @@ import { TransactionPointType } from '~/types/transactionPointType';
 
 export const useTransactionStore = defineStore('transaction', {
   state: () => ({
-    allTransactionPoint: <TransactionPointType[] | null>[]
+    allTransactionPoint: <TransactionPointType[] | null>[],
+    isLoading: false,
   }),
   
 })
