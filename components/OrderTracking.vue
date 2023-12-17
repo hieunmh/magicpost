@@ -58,7 +58,7 @@
         <div class="text-[#189ab4] mb-7 w-full text-lef font-semibold">Biểu phí dịch vụ </div>
 
         <div class="md:flex" >
-          <div class="md:w-[50%] w-full relative">
+          <div class="md:w-[50%] w-full">
             <AddressSend />
 
             <div class="font-semibold text-gray-500">Địa chỉ lấy hàng: </div>
@@ -232,12 +232,12 @@ const decreaseWeight = () => {
 
 
 let sendAddress = computed(() => {
-  return clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard 
+  return clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard && !clientStore.showSendAddress
   ? clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard : '';
 })
 
 let receiveAddress = computed(() => {
-  return clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard 
+  return clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard && !clientStore.showReceiveAddress
   ? clientStore.receiveProvince + clientStore.receiveDistrict + clientStore.receiveWard : '';
 })
 

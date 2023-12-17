@@ -85,11 +85,8 @@ onMounted( async () => {
   }
 
   else if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
-    const { data, error } = await useFetch('/api/auth/getAllHead');
-    userStore.allHead = data.value;
-
-    const allAgg = await useFetch('/api/auth/getAllAggregationPoints');
-    aggregationStore.allAggregationPoint = allAgg.data.value;
+    // const { data, error } = await useFetch('/api/auth/getAllHead');
+    // userStore.allHead = data.value;
 
     const allTran = await useFetch('/api/auth/getAllTransactionPoints');
     transactionStore.allTransactionPoint = allTran.data.value;
@@ -106,16 +103,8 @@ onMounted( async () => {
     packageStore.allPackage = data2.data.value;
   }
 
-  if (!user.value) {
-    setTimeout(() => {
-      clientStore.isLoading = false;
-    }, 1500);
-  }
-
-  else {
-    clientStore.isLoading = false;
-  }
-
+  clientStore.isLoading = false;
+  
   if (user.value && !userStore.userInfo.phone) {
     setTimeout(() => {
       clientStore.havePhone = false;
