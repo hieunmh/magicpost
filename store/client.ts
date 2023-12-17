@@ -11,6 +11,8 @@ export const useClientStore = defineStore('client', {
     provinces: <any>[],
     districts: <any>[],
     wards: <any>[],
+
+    ceonavigatorTab: 'system',
     
     showSendAddress: false,
     sendProvince: '',
