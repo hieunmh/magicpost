@@ -61,7 +61,7 @@
             </div>
           </div>
         </div>
-        <HeadDetail :headDetail="headDetail" 
+        <CeoHeadDetail :headDetail="headDetail" 
           :class="[
             { 'visible transition-all duration-500 bg-black bg-opacity-50 opacity-100': clientStore.showHeadDetail },
             { 'invisible transition-all duration-500 bg-black bg-opacity-50 opacity-0': !clientStore.showHeadDetail },
