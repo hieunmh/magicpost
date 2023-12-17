@@ -45,36 +45,29 @@
 
       <div class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
         :class="[
-          {'right-[3000px] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
-          {'right-[1500px] transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
+          {'right-[3600px] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
+          {'right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
           {'-right-[0px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       > 
         <CeoSystemPoint />
       </div>
 
-      <div class="w-full mt-6 px-4 sm:px-10 flex flex-col items-center justify-center absolute"
+      <div class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
         :class="[
-          {'right-[1500px] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
+          {'right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
           {'right-0 transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
-          {'-right-[1500px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
+          {'-right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       > 
-        <!-- <div class="w-[1100px] pb-4 border-b-2 border-b-[#189ab4]">
-          <select class="bg-gray-200 font-semibold text-gray-500 text-sm rounded-lg p-2.5 outline-none">
-            <option class="h-16 text-red-500 font-semibold w-full" selected>Role</option>
-            <option class="h-16 text-red-500 font-semibold w-full" value="US">Aggregation</option>
-            <option class="h-16 text-red-500 font-semibold w-full" value="CA">Transaction</option>
-          </select>
-        </div> -->
         <CeoHead />
       </div>
 
       <div class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
         :class="[
           {'right-0 transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
-          {'-right-[1500px] transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
-          {'-right-[3000px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
+          {'-right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
+          {'-right-[3600px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       >
         <CeoStatistical />
@@ -92,10 +85,6 @@ const userStore = useUserStore();
 
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
-
-onMounted(() => {
-  clientStore.ceonavigatorTab = 'system';
-})
 
 
 definePageMeta({middleware: 'loggedin'});

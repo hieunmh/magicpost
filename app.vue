@@ -29,10 +29,14 @@ import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
 import { useUserStore } from '~/store/user';
-import { usePackageStore } from './store/package';
-import Transaction_point_head from './pages/profile/transaction_point_head.vue';
+import { usePackageStore } from '~/store/package';
+import { useAggregationStore } from '~/store/aggregation';
+import { useTransactionStore } from './store/transaction';
+
 const userStore = useUserStore();
 const packageStore = usePackageStore();
+const aggregationStore = useAggregationStore();
+const transactionStore = useTransactionStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -47,6 +51,8 @@ onMounted(() => {
   window.addEventListener('resize', function () {
     windowWidth.value = window.innerWidth;
   });
+
+  clientStore.ceonavigatorTab = 'system';
 })
 
 watch(() => windowWidth.value, () => {
@@ -81,6 +87,12 @@ onMounted( async () => {
   else if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
     const { data, error } = await useFetch('/api/auth/getAllHead');
     userStore.allHead = data.value;
+
+    const allAgg = await useFetch('/api/auth/getAllAggregationPoints');
+    aggregationStore.allAggregationPoint = allAgg.data.value;
+
+    const allTran = await useFetch('/api/auth/getAllTransactionPoints');
+    transactionStore.allTransactionPoint = allTran.data.value;
   }
 
   if (userStore.userInfo.role?.toLowerCase() != 'transaction_point_head' && route.fullPath == '/profile/transaction_point_head') {
