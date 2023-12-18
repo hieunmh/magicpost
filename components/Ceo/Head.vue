@@ -1,7 +1,7 @@
 <template>
-  <div class="w-[1100px] flex flex-col items-center gap-8 h-[calc(100vh-190px)]">
-    <div class="w-full flex items-center justify-center px-4 sm:px-10">
-      <div class="w-full px-4 sm:px-10 pb-4 flex items-center justify-center border-b-2 border-b-[#189ab4]">
+  <div class="w-[1100px] flex flex-col items-center h-[calc(100vh-120px)] pb-6">
+    <div class="w-full mt-2 flex items-center justify-center px-4 sm:px-10">
+      <div class="w-full px-4 sm:px-10 pb-2 flex items-center justify-center border-b-2 border-b-[#189ab4]">
         <select class="bg-gray-200 font-semibold text-gray-500 text-sm rounded-lg p-2.5 outline-none">
           <option class="h-16 text-gray-500 font-semibold w-full" selected>Role</option>
           <option class="h-16 text-gray-500 font-semibold w-full" value="US">Aggregation</option>
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div v-if="!userStore.isLoading" class="w-full px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center overflow-auto scrollbar-hide">
+    <div v-if="!userStore.isLoading" class="w-full pt-4 pb-4 px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center overflow-auto scrollbar-hide">
       <div class="flex flex-col space-y-4 p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-lg font-semibold"
         v-for="head in userStore.allHead" @click="showHeadDetail(head)"
       >

@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <div class="w-full flex items-center justify-center">
-      <div class="w-[1100px] flex flex-col items-center gap-8 h-[calc(100vh-100px)] overflow-auto scrollbar-hide">
+      <div class="w-[1100px] flex flex-col items-center gap-8 h-[calc(100vh-64px)] pb-6 overflow-auto scrollbar-hide">
         <div v-if="!transactionStore.isLoading" class="w-full mt-6 px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center">
           <div class="flex flex-col space-y-4 p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:sm font-semibold"
             v-for="tran in filterTransactionPoint" :key="tran.id"
@@ -60,10 +60,5 @@ const filterTransactionPoint = computed(() => {
   })
 })
 
-// onMounted( async () => {
-//   if (transactionStore.allTransactionPoint?.length == 0) {
-
-//   }
-// })
 
 </script>

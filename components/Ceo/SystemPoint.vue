@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[1100px] flex flex-col items-center gap-8 h-[calc(100vh-200px)] overflow-auto scrollbar-hide">
-    <div v-if="!aggregationStore.isLoading" class="w-full mt-6 px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center">
+  <div class="w-[1100px] pt-4 flex flex-col items-center gap-8 h-[calc(100vh-140px)] pb-4 overflow-auto scrollbar-hide">
+    <div v-if="!aggregationStore.isLoading" class="w-full px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center">
       <NuxtLink class="flex flex-col space-y-4 p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-sm font-semibold cursor-pointer"
         v-for="aggregation in aggregationStore.allAggregationPoint" :key="aggregation.id" :to="'/profile/ceo/' + aggregation.id"
       >

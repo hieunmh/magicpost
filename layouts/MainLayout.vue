@@ -20,7 +20,7 @@
           @mouseover="() => showMenu = true" @mouseleave="() => showMenu = false"
         >
           <div class="flex text-center items-center justify-between w-full text-gray-500 font-semibold">
-            <Icon name="material-symbols:account-circle" size="40" />
+            <Icon name="ic:baseline-account-circle" size="40" class="text-gray-300 rounded-full" />
             <div>{{ user.email?.substring(0, 4) }}****@gmail.com</div>
             <Icon name="ic:baseline-keyboard-arrow-down" size="30" />
           </div>
