@@ -85,8 +85,6 @@ onMounted( async () => {
   }
 
   else if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
-    // const { data, error } = await useFetch('/api/auth/getAllHead');
-    // userStore.allHead = data.value;
 
     const allTran = await useFetch('/api/auth/getAllTransactionPoints');
     transactionStore.allTransactionPoint = allTran.data.value;

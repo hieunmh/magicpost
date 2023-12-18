@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <div class="w-full h-full mt-6">
-      <div class="w-full flex items-center justify-center">
+      <div class="w-full h-[50px] flex items-center justify-center">
         <div class="sm:w-[800px] w-[400px] px-2 sm:px-16 md:px-0">
           <div class="flex justify-between md:text-lg sm:text-sm text-xs">
             <button class="w-1/3" @click="clientStore.ceonavigatorTab = 'system'">
@@ -32,9 +32,9 @@
           <div class="h-2 w-full bg-slate-60 relative">
             <div class="absolute h-[6px] w-1/3 rounded-full px-4 sm:px-10" 
               :class="[
-                {'left-[0px] transition-all duration-300': clientStore.ceonavigatorTab == 'system' },
-                {'left-[calc(100%/3)] transition-all duration-300': clientStore.ceonavigatorTab == 'account' },
-                {'left-[calc(200%/3)] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
+                {'left-[0px] transition-all duration-700': clientStore.ceonavigatorTab == 'system' },
+                {'left-[calc(100%/3)] transition-all duration-700': clientStore.ceonavigatorTab == 'account' },
+                {'left-[calc(200%/3)] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
               ]"
             >
               <div class=" h-full w-full bg-[#189ab4] rounded-full" />
@@ -43,31 +43,31 @@
         </div>
       </div>
 
-      <div class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
         :class="[
-          {'right-[3600px] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
-          {'right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
-          {'-right-[0px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
+          {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
+          {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'account'  },  
+          {'visible opacity-100 top-36 transition-all duration-700': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       > 
         <CeoSystemPoint />
       </div>
 
-      <div class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
         :class="[
-          {'right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
-          {'right-0 transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
-          {'-right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
+          {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
+          {'visible opacity-100 top-36 transition-all duration-700': clientStore.ceonavigatorTab == 'account'  },  
+          {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       > 
         <CeoHead />
       </div>
 
-      <div class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
         :class="[
-          {'right-0 transition-all duration-300': clientStore.ceonavigatorTab == 'statistical' },
-          {'-right-[1800px] transition-all duration-300': clientStore.ceonavigatorTab == 'account'  },  
-          {'-right-[3600px] transition-all duration-300': clientStore.ceonavigatorTab == 'system'  },     
+          {'visible opacity-100 top-36 transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
+          {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'account'  },  
+          {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'system'  },     
         ]"
       >
         <CeoStatistical />

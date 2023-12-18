@@ -3,7 +3,7 @@
     <div class="w-full flex items-center justify-center">
       <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
         <div class="flex justify-between items-center">
-          <button @click="navigatorTab = 'follow'" class="">
+          <button @click="navigatorTab = 'follow'" class="w-[50%]">
             <h1 class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
               :class="navigatorTab == 'follow' ? ' text-[#189ab4]' : 'text-gray-500'"
             >
@@ -11,7 +11,7 @@
             </h1>
           </button>
 
-          <button @click="navigatorTab = 'cost'" class="">
+          <button @click="navigatorTab = 'cost'" class="w-[50%]">
             <h1 class="font-semibold text-sm sm:text-2xl md:text-3xl  mb-4 text-center" 
               :class="navigatorTab == 'cost' ? 'text-[#189ab4]' : 'text-gray-500'"
             >
@@ -22,20 +22,23 @@
         </div>
 
         <div class="h-2 w-full bg-slate-60 relative">
-          <div class="absolute h-[6px] bg-[#189ab4] w-[30px] sm:w-[50px] md:w-[100px] rounded-full" 
+          <div class="w-[50%] px-8 absolute "
             :class="[
-              {'sm:left-[75px] left-[45px] transition-all duration-300': navigatorTab == 'follow' },
-              {'md:left-[calc(100%-150px)] sm:left-[calc(100%-110px)] left-[calc(100%-65px)] transition-all duration-300': navigatorTab == 'cost' },
+              {'left-0 transition-all duration-700': navigatorTab == 'follow' },
+              {'left-[50%] transition-all duration-700': navigatorTab == 'cost' },
             ]"
+          >
+            <div class="h-[6px] bg-[#189ab4] w-full rounded-full" 
           />
+          </div>
         </div>
       </div>
     </div>
 
     <div class="absolute top-20 w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
       :class="[
-        {'left-0 transition-all duration-300': navigatorTab == 'follow' },
-        {'-left-[1500px] transition-all duration-300': navigatorTab == 'cost' },
+        {'left-0 transition-all duration-700': navigatorTab == 'follow' },
+        {'-left-[100vw] transition-all duration-700': navigatorTab == 'cost' },
       ]"
     >
       <div class="w-[1100px] flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
@@ -50,8 +53,8 @@
 
     <div class="absolute top-20 w-full  mt-6 px-4 sm:px-10 flex items-center justify-center"
       :class="[
-        {'-right-[1500px] transition-all duration-300': navigatorTab == 'follow' },
-        {'right-0 transition-all duration-300': navigatorTab == 'cost' },     
+        {'-right-[100vw] transition-all duration-700': navigatorTab == 'follow' },
+        {'right-0 transition-all duration-700': navigatorTab == 'cost' },     
       ]"
     >
       <div class="w-[1100px] sm:text-xl flex flex-col p-2 sm:p-6 rounded-xl sm:shadow-lg sm:border-[1px]">
