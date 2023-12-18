@@ -1,205 +1,5 @@
 <template>
   <div class="w-[80%] p-2 sm:p-6 rounded-xl shadow-lg border-[1px] mb-7">
-    <div class="mb-7 w-full text-left font-semibold">Thông tin người gửi</div>
-    <div class="w-full md:flex mb-7">
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Họ và tên:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Số điện thoại:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-          v-model="phoneSender"
-          oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-          maxlength="10"
-          @blur="
-            () => {
-              if (phoneSender.length == 10) {
-                phoneError = '';
-                phoneSender = `(+84) ${phoneSender.substring(
-                  1,
-                  4
-                )} ${phoneSender.substring(4, 7)} ${phoneSender.substring(
-                  7,
-                  10
-                )}`;
-              }
-            }
-          "
-          @focus="
-            () => {
-              if (phoneSender.length == 17) {
-                phoneSender =
-                  '0' +
-                  phoneSender.substring(6, 9) +
-                  phoneSender.substring(10, 13) +
-                  phoneSender.substring(14, 17);
-              }
-            }
-          "
-        />
-      </div>
-    </div>
-
-    <div class="w-full md:flex mb-7">
-      <div class="md:w-[50%] relative">
-        <AddressSend />
-
-        <div class="font-semibold text-gray-500">
-          Tỉnh/Quận-Huyện/Phường-Xã:
-        </div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng chọn"
-          @focus="
-            clientStore.showSendAddress = true;
-            clientStore.showReceiveAddress = false;
-          "
-          :value="sendAddress"
-        />
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Mã bưu chính:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
-      </div>
-    </div>
-
-    <div class="w-full md:flex">
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Địa chỉ:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Ghi chú:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder=""
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="w-[80%] p-2 sm:p-6 rounded-xl shadow-lg border-[1px] mb-7">
-    <div class="mb-7 w-full text-lef font-semibold">Thông tin người nhận</div>
-    <div class="w-full md:flex mb-7">
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Họ và tên:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Số điện thoại:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-          v-model="phoneReceiver"
-          oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-          maxlength="10"
-          @blur="
-            () => {
-              if (phoneReceiver.length == 10) {
-                phoneError = '';
-                phoneReceiver = `(+84) ${phoneReceiver.substring(
-                  1,
-                  4
-                )} ${phoneReceiver.substring(4, 7)} ${phoneReceiver.substring(
-                  7,
-                  10
-                )}`;
-              }
-            }
-          "
-          @focus="
-            () => {
-              if (phoneReceiver.length == 17) {
-                phoneReceiver =
-                  '0' +
-                  phoneReceiver.substring(6, 9) +
-                  phoneReceiver.substring(10, 13) +
-                  phoneReceiver.substring(14, 17);
-              }
-            }
-          "
-        />
-      </div>
-    </div>
-
-    <div class="w-full md:flex mb-7">
-      <div class="md:w-[50%] relative">
-        <AddressReceive />
-
-        <div class="font-semibold text-gray-500">
-          Tỉnh/Quận-Huyện/Phường-Xã:
-        </div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng chọn"
-          @focus="
-            clientStore.showSendAddress = false;
-            clientStore.showReceiveAddress = true;
-          "
-          :value="receiveAddress"
-        />
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Mã bưu chính:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
-      </div>
-    </div>
-
-    <div class="w-full md:flex">
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Địa chỉ:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Ghi chú:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder=""
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="w-[80%] p-2 sm:p-6 rounded-xl shadow-lg border-[1px] mb-7">
     <div class="mb-7 w-full text-lef font-semibold text-xl">
       Thông tin đơn hàng
     </div>
@@ -213,7 +13,18 @@
           type="text"
           class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
           placeholder="Vui lòng nhập thông tin"
+          v-model="textInput"
+          @blur="
+            () => {
+              if (textInput.length < 1) {
+                textError = 'Vui lòng không để trống ';
+              }
+            }
+          "
         />
+        <p class="text-red-500 font-semibold mt-1 text-[14px]">
+          {{ textError }}
+        </p>
       </div>
 
       <div class="md:w-[50%]">
@@ -543,76 +354,32 @@
           type="text"
           class="bg-gray-100 mt-2 w-[80%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
           placeholder="Vui lòng nhập thông tin"
+          v-model="textInput1"
+          @blur="
+            () => {
+              if (textInput1.length < 1) {
+                textError1 = 'Vui lòng không để trống';
+              }
+            }
+          "
         />
+        <p class="text-red-500 font-semibold mt-1 text-[14px]">
+          {{ textError1 }}
+        </p>
       </div>
     </div>
   </div>
-
-  <div class="w-[80%] p-2 sm:p-6 rounded-xl shadow-lg border-[1px] mb-7">
-    <div class="mb-7 w-full text-lef font-semibold">Phí vận chuyển</div>
-    <div class="w-full flex mb-7">
-      <div class="w-[50%]">
-        <div class="font-semibold text-gray-500">Dịch vụ:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng chọn"
-        />
-      </div>
-    </div>
-
-    <div class="mb-7 bg-gray-300">
-      <div class="ml-2">Chi tiết giá</div>
-    </div>
-
-    <div>Phí vận chuyển(VND):</div>
-    <div>Phí thu hộ(COD):</div>
-    <div>Tổng giá trị:</div>
-  </div>
-
-  <button
-    class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10"
-  >
-    Tạo đơn
-  </button>
 </template>
 
 <script lang="ts" setup>
-import MainLayout from "~/layouts/MainLayout.vue";
-import { useClientStore } from "~/store/client";
-const clientStore = useClientStore();
-
-let navigatorTab = ref<string>("follow");
-
-let phoneSender = ref<string>("");
-let phoneReceiver = ref<string>("");
-
-let phoneError = ref<string>("");
-
-onMounted(() => {
-  navigatorTab.value = "follow";
-});
-
-let sendAddress = computed(() => {
-  return clientStore.sendProvince +
-    clientStore.sendDistrict +
-    clientStore.sendWard
-    ? clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard
-    : "";
-});
-
-let receiveAddress = computed(() => {
-  return clientStore.receiveProvince +
-    clientStore.receiveDistrict +
-    clientStore.receiveWard
-    ? clientStore.receiveProvince +
-        clientStore.receiveDistrict +
-        clientStore.receiveWard
-    : "";
-});
-
 let isChecked = ref<boolean>(false);
 let weight = ref<string>("0");
+
+let textInput1 = ref<string>("");
+let textInput = ref<string>("");
+
+let textError1 = ref<string>("");
+let textError = ref<string>("");
 
 const toggleChecked = () => {
   if (isChecked.value == false) {

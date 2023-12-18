@@ -7,11 +7,11 @@
         <div class="w-full flex items-center justify-center">
           <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
             <div class="flex justify-between items-center">
-              <button @click="navigatorTab = 'follow'" class="">
+              <button @click="navigatorTab = 'OrderForm'" class="">
                 <h1
                   class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
                   :class="
-                    navigatorTab == 'follow'
+                    navigatorTab == 'OrderForm'
                       ? ' text-[#189ab4]'
                       : 'text-gray-500'
                   "
@@ -20,11 +20,11 @@
                 </h1>
               </button>
 
-              <button @click="navigatorTab = 'cost'" class="">
+              <button @click="navigatorTab = 'Order'" class="">
                 <h1
                   class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
                   :class="
-                    navigatorTab == 'cost' ? 'text-[#189ab4]' : 'text-gray-500'
+                    navigatorTab == 'Order' ? 'text-[#189ab4]' : 'text-gray-500'
                   "
                 >
                   Đơn hàng
@@ -38,11 +38,11 @@
                 :class="[
                   {
                     'md:left-[px] sm:left-[30px] left-[12px] transition-all duration-300':
-                      navigatorTab == 'follow',
+                      navigatorTab == 'OrderForm',
                   },
                   {
                     'md:left-[calc(100%-115px)] sm:left-[calc(100%-75px)] left-[calc(100%-45px)] transition-all duration-300':
-                      navigatorTab == 'cost',
+                      navigatorTab == 'Order',
                   },
                 ]"
               />
@@ -53,14 +53,24 @@
         <div
           class="flex flex-col items-center justify-center mt-6 w-full absolute"
           :class="[
-            { 'left-0 transition-all duration-300': navigatorTab == 'follow' },
+            {
+              'left-0 transition-all duration-300': navigatorTab == 'OrderForm',
+            },
             {
               '-left-[1500px] transition-all duration-300':
-                navigatorTab == 'cost',
+                navigatorTab == 'Order',
             },
           ]"
         >
-          <TransactionEmployeeOrderForm />
+          <TransactionEmployeeFormOrderSender />
+          <TransactionEmployeeFormOrderReceiver />
+          <TransactionEmployeeFormOrder />
+          <TransactionEmployeeFormOrderCost />
+          <button
+            class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10"
+          >
+            Tạo đơn
+          </button>
         </div>
 
         <div
@@ -68,9 +78,9 @@
           :class="[
             {
               '-right-[1800px] transition-all duration-300':
-                navigatorTab == 'follow',
+                navigatorTab == 'OrderForm',
             },
-            { 'right-0 transition-all duration-300': navigatorTab == 'cost' },
+            { 'right-0 transition-all duration-300': navigatorTab == 'Order' },
           ]"
         >
           <TransactionEmployeeAllOrder />
@@ -84,7 +94,7 @@ import MainLayout from "~/layouts/MainLayout.vue";
 import { useClientStore } from "~/store/client";
 const clientStore = useClientStore();
 
-let navigatorTab = ref<string>("follow");
+let navigatorTab = ref<string>("OrderForm");
 
 let phoneSender = ref<string>("");
 let phoneReceiver = ref<string>("");
@@ -94,7 +104,7 @@ let phoneError = ref<string>("");
 let inputError = ref<string>("");
 
 onMounted(() => {
-  navigatorTab.value = "follow";
+  navigatorTab.value = "OrderForm";
 });
 
 let isChecked = ref<boolean>(false);
