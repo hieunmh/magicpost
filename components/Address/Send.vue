@@ -46,27 +46,51 @@
           />
         </div> 
 
-        <div class="w-full h-[245px] overflow-y-scroll text-sm scrollbar-hide">
-          <option v-if="showProvince" v-for="(province) in clientStore.provinces" :key="province" 
-            @click="getDistricts(province.code, province.name)"
-            class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
+        <div class="w-full h-[245px] overflow-y-scroll text-sm scrollbar-hide relative">
+          <div class="absolute w-full" 
+            :class="[
+              {'left-0 transition-all duration-300': showProvince },
+              {'-left-[100%] transition-all duration-300': showDistrict },
+              {'-left-[100%] transition-all duration-300': showWard },
+            ]"
           >
-            {{ province.name }}
-          </option>
+              <option v-for="(province) in clientStore.provinces" :key="province" 
+              @click="getDistricts(province.code, province.name)"
+              class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 hover:text-[#189ab4] flex items-center pl-6"
+            >
+              {{ province.name }}
+            </option>
+          </div>
 
-          <option v-if="showDistrict" v-for="(district) in filterDistrict" :key="district" 
-            @click="getWards(district.code, district.name)"
-            class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
+          <div class="absolute w-full"
+            :class="[
+              {'left-[100%] transition-all duration-300': showProvince },
+              {'left-0 transition-all duration-300': showDistrict },
+              {'-left-[100%] transition-all duration-300': showWard },
+            ]"
           >
-            {{ district.name }}
-          </option>
-
-          <option v-if="showWard" v-for="(ward) in filterWard" :key="ward"
-            @click="clientStore.sendWard = ' / ' + ward.name; clientStore.showSendAddress = false"
-            class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 flex items-center pl-6"
+            <option  v-for="(district) in filterDistrict" :key="district" 
+              @click="getWards(district.code, district.name)"
+              class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 hover:text-[#189ab4] flex items-center pl-6"
+            >
+              {{ district.name }}
+            </option>
+          </div>
+    
+          <div class="absolute w-full"
+            :class="[
+                {'left-[100%] transition-all duration-300': showProvince },
+                {'left-[100%] transition-all duration-300': showDistrict },
+                {'left-[0] transition-all duration-300': showWard },
+              ]"
           >
-            {{ ward.name }}
-          </option>
+            <option v-for="(ward) in filterWard" :key="ward"
+              @click="clientStore.sendWard = ' / ' + ward.name; clientStore.showSendAddress = false"
+              class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 hover:text-[#189ab4] flex items-center pl-6"
+            >
+              {{ ward.name }}
+            </option>
+          </div>
           
         </div>
       </div>

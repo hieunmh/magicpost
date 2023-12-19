@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="header" class="h-16 bg-white w-full flex items-center justify-between md:justify-evenly shadow-lg border-b-[1px]">
+    <div id="header" class="h-16 bg-white w-full flex items-center justify-between md:justify-evenly shadow-lg border-b-[1px] z-50">
       <NuxtLink to="/" class="pl-4 md:pl-0" @click="clientStore.isMenuOverlay = false">
         <h1 class="text-center font-bold text-[30px] text-[#189ab4]">
           <img src="/mgpost.png" width="100" alt="">
