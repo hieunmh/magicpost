@@ -41,13 +41,25 @@
         {'-left-[100vw] transition-all duration-500': navigatorTab == 'cost' },
       ]"
     >
-      <div class="w-[1100px] flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
-        <input type="text"  class="bg-gray-100 w-full outline-none rounded-lg pl-4 text-sm sm:text-xl font-semibold text-gray-500"
-          placeholder="Nhập mã đơn hàng"
-        >
-        <button class="bg-[#189ab4] w-28 sm:w-36 rounded-lg ml-2 sm:ml-6 text-white text-sm sm:text-xl font-semibold">
-          Theo dõi
-        </button>
+      <div class="w-[1100px] flex flex-col">
+        <div class="w-full flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
+          <input type="text" class="bg-gray-100 w-full outline-none rounded-lg pl-4 text-sm sm:text-xl font-semibold text-gray-500"
+            placeholder="Nhập mã đơn hàng"
+          >
+          <button class="bg-[#189ab4] hover:bg-[#189] w-28 sm:w-36 rounded-lg ml-2 sm:ml-6 text-white text-sm sm:text-xl font-semibold">
+            Theo dõi
+          </button>
+        </div>
+
+        <div class="w-full h-[300px] bg-white rounded-lg mt-6 shadow-lg border-[1px]">
+          <div class="w-full">
+
+          </div>
+
+          <div>
+            
+          </div>
+        </div>
       </div>
     </div>
 
