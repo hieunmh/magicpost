@@ -222,6 +222,7 @@ watch(() => phone.value, () => {
 
 const register = async () => {
   isLoading.value = true;
+  
   const {data, error} = await client.auth.signUp({
     email: email.value,
     password: password.value,
@@ -235,6 +236,15 @@ const register = async () => {
   }
 
   else {
+    await useFetch(`/api/auth/register`, {
+      method: 'post',
+      body: {
+        email:  email.value,
+        phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+        id: user.value?.id,
+      }
+    })
+    
     const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
     userStore.userInfo = getuser.data.value;
   }
@@ -243,22 +253,13 @@ const register = async () => {
     phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
   });
 
-  await useFetch(`/api/auth/register`, {
-    method: 'post',
-    body: {
-      email:  email.value,
-      phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
-      id: user.value?.id,
-    }
-  })
-
 
   isLoading.value = false;
 
+  router.push('/');
   clientStore.isLoading = true;
 
   setTimeout(() => {
-    router.push('/');
     clientStore.isLoading = false;
   }, 1000);
 }
