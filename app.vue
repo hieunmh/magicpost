@@ -101,6 +101,17 @@ onMounted( async () => {
     packageStore.allPackage = data2.data.value;
   }
 
+  if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
+    const { data, error } = await useFetch("/api/auth/getAllPackagesIn1Transaction");
+    const newPackage = await useFetch("/api/auth/getAllNewPackagesIn1Transaction");
+    const shippedPackage = await useFetch("/api/auth/getAllShippedPackagesIn1Transaction");
+    const sendPackage = await useFetch("/api/auth/getAllSendPackagesIn1Transaction");
+    packageStore.allNewPackage = newPackage.data.value;
+    packageStore.allShippedPackage = shippedPackage.data.value;
+    packageStore.allSendPackage = sendPackage.data.value;
+    packageStore.allPackage = data.value;
+  }
+
   clientStore.isLoading = false;
   
   if (user.value && !userStore.userInfo.phone) {
