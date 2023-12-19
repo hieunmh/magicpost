@@ -24,8 +24,8 @@
         <div class="h-2 w-full bg-slate-60 relative">
           <div class="w-[50%] px-8 absolute "
             :class="[
-              {'left-0 transition-all duration-700': navigatorTab == 'follow' },
-              {'left-[50%] transition-all duration-700': navigatorTab == 'cost' },
+              {'left-0 transition-all duration-500': navigatorTab == 'follow' },
+              {'left-[50%] transition-all duration-500': navigatorTab == 'cost' },
             ]"
           >
             <div class="h-[6px] bg-[#189ab4] w-full rounded-full" 
@@ -37,8 +37,8 @@
 
     <div class="absolute top-20 w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
       :class="[
-        {'left-0 transition-all duration-700': navigatorTab == 'follow' },
-        {'-left-[100vw] transition-all duration-700': navigatorTab == 'cost' },
+        {'left-0 transition-all duration-500': navigatorTab == 'follow' },
+        {'-left-[100vw] transition-all duration-500': navigatorTab == 'cost' },
       ]"
     >
       <div class="w-[1100px] flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
@@ -53,8 +53,8 @@
 
     <div class="absolute top-20 w-full  mt-6 px-4 sm:px-10 flex items-center justify-center"
       :class="[
-        {'-right-[100vw] transition-all duration-700': navigatorTab == 'follow' },
-        {'right-0 transition-all duration-700': navigatorTab == 'cost' },     
+        {'-right-[100vw] transition-all duration-500': navigatorTab == 'follow' },
+        {'right-0 transition-all duration-500': navigatorTab == 'cost' },     
       ]"
     >
       <div class="w-[1100px] sm:text-xl flex flex-col p-2 sm:p-6 rounded-xl sm:shadow-lg sm:border-[1px]">
