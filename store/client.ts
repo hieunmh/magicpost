@@ -13,6 +13,7 @@ export const useClientStore = defineStore('client', {
     wards: <any>[],
 
     ceonavigatorTab: 'system',
+    ordernavigatorTab: 'newOrder',
     
     showSendAddress: false,
     sendProvince: '',
