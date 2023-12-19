@@ -8,4 +8,5 @@ export type PackageType = {
   receiver_id: string | null;
   sender_id: string | null;
   updated_at: string | null;
+  sender_transaction_address: string | null;
 }
