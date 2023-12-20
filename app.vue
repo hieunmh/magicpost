@@ -106,9 +106,11 @@ onMounted( async () => {
     const newPackage = await useFetch("/api/auth/getAllNewPackagesIn1Transaction");
     const shippedPackage = await useFetch("/api/auth/getAllShippedPackagesIn1Transaction");
     const sendPackage = await useFetch("/api/auth/getAllSendPackagesIn1Transaction");
+    const waitPackage = await useFetch("/api/auth/getAllWaitPackagesIn1Transaction")
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allShippedPackage = shippedPackage.data.value;
     packageStore.allSendPackage = sendPackage.data.value;
+    packageStore.allWaitPackage = waitPackage.data.value;
     packageStore.allPackage = data.value;
   }
 

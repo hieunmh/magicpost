@@ -5,7 +5,7 @@
     >
       <div
         class="flex flex-col p-2 sm:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm md:text-lg font-semibold"
-        v-for="p in packageStore.allPackage"
+        v-for="p in packageStore.allWaitPackage"
         @click="showPackage(p)"
       >
         <div class="grid grid-cols-12 items-center text-center">
