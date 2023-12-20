@@ -8,6 +8,7 @@ export const usePackageStore = defineStore('package', {
     allNewPackage: <PackageType[] | null>[],
     allSendPackage: <PackageType[] | null>[],
     allShippedPackage: <PackageType[] | null>[],
+    allWaitPackage: <PackageType[] | null>[],
     allPackage: <PackageType[] | null>[],
     allPackageStatus: <PackageStatusType[] | null>[]
   }),
