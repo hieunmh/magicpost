@@ -42,23 +42,23 @@
         {'-left-[100vw] transition-all duration-500': navigatorTab == 'cost' },
       ]"
     >
-      <div class="w-[1100px] rounded-xl flex flex-col h-[calc(100vh-196px)] scrollbar-hide"
-        :class="packageStore.showPackageInfo && 'overflow-y-auto'"
+      <div class="w-[1100px] rounded-xl flex flex-col pb-6"
+        :class="packageStore.showPackageInfo && 'overflow-y-auto h-[calc(100vh-168px)] scrollbar-hide'"
       >
-        <div class="w-full flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
+        <form class="w-full flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
           <input type="text" class="bg-gray-100 w-full h-10 sm:h-16 outline-none rounded-lg pl-4 text-sm sm:text-xl font-semibold text-gray-500"
             placeholder="Nhập mã đơn hàng" v-model="packageCode"
           >
-          <button :disabled="packageCode.length == 0" @click="getPackageInfo()"
+          <button :disabled="packageCode.length == 0" @click.prevent="getPackageInfo()"
             class="bg-[#189ab4] hover:bg-[#189] w-28 sm:w-36 rounded-lg ml-2 
             sm:ml-6 text-white text-sm sm:text-xl font-semibold flex items-center justify-center text-center"
           >
             <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class="animate-spin"  />
             <p v-else>Theo dõi</p>
           </button>
-        </div>
+        </form>
 
-        <div class="w-full bg-gray-100 rounded-xl mt-6 shadow-lg p-6"
+        <div class="w-full bg-white rounded-xl mt-6 shadow-lg p-6 border-[1px]"
         :class="[
           {'visible transition-all duration-300 opacity-100': packageStore.showPackageInfo },
           {'invisible transition-all duration-300 opacity-0': !packageStore.showPackageInfo },
@@ -77,38 +77,6 @@
           </div>
 
           <div class="mt-4">
-            <div v-for="(packageIf, index) in packageInfo?.packageStatus?.reverse()" :key="index"
-              class="flex font-semibold items-center"
-            >
-              <div class="mr-2 text-center sm:text-base text-xs" 
-                :class="index == 0 ? 'text-green-500' : 'text-gray-400'"
-              >
-                <p>{{ new Date(packageIf.created_at).toLocaleDateString() }}</p>
-                <p>{{ new Date(packageIf.created_at).toLocaleTimeString('en-US', { hour12: false }) }}</p>
-              </div>
-
-              <div class="mx-1 flex flex-col items-center space-y-2">
-                <div class="h-4 w-[2px] bg-gray-300"
-                  :class="index == 0 ? 'invisible' : 'visible'"
-                />
-                <div>
-                  <Icon v-if="index == 0" 
-                    name="octicon:dot-fill-24" size="25" class="text-green-500"
-                  />
-                  <Icon v-else  name="octicon:dot-16" size="25" class="text-gray-300" />
-                </div>
-                <div class="h-4 w-[2px] bg-gray-300"
-                  
-                />
-              </div>
-
-              <div class="text-gray-400 sm:text-base text-xs"
-                :class="index == 0 ? 'text-green-500' : 'text-gray-400'"
-              >
-                {{ packageIf.current_location }}
-              </div>
-            </div>
-
             <div class="flex font-semibold items-center">
               <div class="mr-2 text-center sm:text-base text-xs text-gray-400">
                 <p>{{ new Date(String(packageInfo?.packageDetails?.created_at)).toLocaleDateString() }}</p>
@@ -116,16 +84,47 @@
               </div>
 
               <div class="mx-1 flex flex-col items-center space-y-2">
-                <div class="h-4 w-[2px] bg-gray-300" />
+                <div class="h-4 w-[2px] bg-gray-300 invisible" />
                 <div>
                   <Icon name="octicon:dot-16" size="25" class="text-gray-300" />
                 </div>
-                <div class="h-4 w-[2px] bg-gray-300 invisible" />
+                <div class="h-4 w-[2px] bg-gray-300" />
 
               </div>
 
               <div class="text-gray-400 sm:text-base text-xs">
                 Đơn hàng đã được tạo
+              </div>
+            </div>
+            <div v-for="(packageIf, index) in packageInfo?.packageStatus" :key="index"
+              class="flex font-semibold items-center"
+            >
+              <div class="mr-2 text-center sm:text-base text-xs" 
+                :class="index + 1 == packageInfo?.packageStatus.length ? 'text-green-500' : 'text-gray-400'"
+              >
+                <p>{{ new Date(packageIf.created_at).toLocaleDateString() }}</p>
+                <p>{{ new Date(packageIf.created_at).toLocaleTimeString('en-US', { hour12: false }) }}</p>
+              </div>
+
+              <div class="mx-1 flex flex-col items-center space-y-2">
+                <div class="h-4 w-[2px] bg-gray-300"/>
+
+                <div>
+                  <Icon v-if="index + 1 == packageInfo?.packageStatus.length" 
+                    name="octicon:dot-fill-24" size="25" class="text-green-500"
+                  />
+                  <Icon v-else name="octicon:dot-16" size="25" class="text-gray-300" />
+                </div>
+
+                <div class="h-4 w-[2px] bg-gray-300"
+                  :class="index + 1 == packageInfo?.packageStatus.length ? 'invisible' : 'visible'"
+                />
+              </div>
+
+              <div class="text-gray-400 sm:text-base text-xs"
+                :class="index + 1 == packageInfo?.packageStatus.length ? 'text-green-500' : 'text-gray-400'"
+              >
+                {{ packageIf.current_location }}
               </div>
             </div>
           </div>
@@ -343,11 +342,6 @@ onMounted(() => {
 })
 
 const getPackageInfo = async () => {
-
-  if (packageStore.packageInfo?.id) {
-    packageStore.showPackageInfo = true;
-    return;
-  }
 
   isLoading.value = true;
   const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`)
