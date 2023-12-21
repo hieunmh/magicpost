@@ -5,6 +5,7 @@ import { PackageType } from '~/types/packageType';
 
 export const usePackageStore = defineStore('package', {
   state: () => ({
+
     packageInfo: <PackageType & { packageDetails: PackageDetailType, packageStatus: PackageStatusType[] } | null>{},
     allPackage: <PackageType[] | null>[],
     allPackageStatus: <PackageStatusType[] | null>[],

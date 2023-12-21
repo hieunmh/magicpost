@@ -45,9 +45,9 @@
 
           <button
             class="w-1/4"
-            @click="clientStore.ordernavigatorTab = 'sendedOrder'"
+            @click="clientStore.ordernavigatorTab = 'sendOrder'"
             :class="
-              clientStore.ordernavigatorTab == 'sendedOrder'
+              clientStore.ordernavigatorTab == 'sendOrder'
                 ? 'text-[#189ab4]'
                 : 'text-gray-500'
             "
@@ -74,7 +74,7 @@
               },
               {
                 'left-[calc(300%/4)] transition-all duration-300':
-                  clientStore.ordernavigatorTab == 'sendedOrder',
+                  clientStore.ordernavigatorTab == 'sendOrder',
               },
             ]"
           >
@@ -101,7 +101,7 @@
         },
         {
           'right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
     >
@@ -125,7 +125,7 @@
         },
         {
           'right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
     >
@@ -149,7 +149,7 @@
         },
         {
           'right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
     >
@@ -173,11 +173,11 @@
         },
         {
           'right-0 transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
     >
-      <TransactionEmployeeOrderSendedOrder />
+      <TransactionEmployeeOrderSendOrder />
     </div>
   </div>
 </template>
