@@ -153,7 +153,7 @@ const login = async () => {
 
   if (error) {
     isLoading.value = false;
-    incorrectError.value = 'Sai số điện thoại hoặc mật khẩu';
+    incorrectError.value = 'Sai email hoặc mật khẩu';
     return;
   } 
   else {

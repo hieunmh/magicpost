@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-6 w-full h-full">
+  <div class="mt-6 w-full pb-8">
     <div class="w-full flex items-center justify-center">
       <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
         <div class="flex justify-between items-center">
@@ -35,35 +35,106 @@
       </div>
     </div>
 
-    <div class="absolute top-20 w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
+    <div class="fixed top-40 w-full px-4 sm:px-10 flex 
+      items-center justify-center"
       :class="[
         {'left-0 transition-all duration-500': navigatorTab == 'follow' },
         {'-left-[100vw] transition-all duration-500': navigatorTab == 'cost' },
       ]"
     >
-      <div class="w-[1100px] flex flex-col">
+      <div class="w-[1100px] rounded-xl flex flex-col h-[calc(100vh-196px)] scrollbar-hide"
+        :class="packageStore.showPackageInfo && 'overflow-y-auto'"
+      >
         <div class="w-full flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
-          <input type="text" class="bg-gray-100 w-full outline-none rounded-lg pl-4 text-sm sm:text-xl font-semibold text-gray-500"
-            placeholder="Nhập mã đơn hàng"
+          <input type="text" class="bg-gray-100 w-full h-10 sm:h-16 outline-none rounded-lg pl-4 text-sm sm:text-xl font-semibold text-gray-500"
+            placeholder="Nhập mã đơn hàng" v-model="packageCode"
           >
-          <button class="bg-[#189ab4] hover:bg-[#189] w-28 sm:w-36 rounded-lg ml-2 sm:ml-6 text-white text-sm sm:text-xl font-semibold">
-            Theo dõi
+          <button :disabled="packageCode.length == 0" @click="getPackageInfo()"
+            class="bg-[#189ab4] hover:bg-[#189] w-28 sm:w-36 rounded-lg ml-2 
+            sm:ml-6 text-white text-sm sm:text-xl font-semibold flex items-center justify-center text-center"
+          >
+            <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class="animate-spin"  />
+            <p v-else>Theo dõi</p>
           </button>
         </div>
 
-        <div class="w-full h-[300px] bg-white rounded-lg mt-6 shadow-lg border-[1px]">
-          <div class="w-full">
-
+        <div class="w-full bg-gray-100 rounded-xl mt-6 shadow-lg p-6"
+        :class="[
+          {'visible transition-all duration-300 opacity-100': packageStore.showPackageInfo },
+          {'invisible transition-all duration-300 opacity-0': !packageStore.showPackageInfo },
+        ]"
+        >
+          <div class="w-full text-gray-500 flex justify-between">
+            <div class="flex items-center justify-center text-center">
+              <p class="mr-2 text-lg sm:text-xl font-bold">Trạng thái: </p>
+              <p class="text-green-500 bg-green-100 px-2 py-1 rounded-lg text-base sm:text-xl font-semibold">
+                {{ packageStt }}
+              </p>
+            </div>
+            <button @click="packageStore.showPackageInfo = false">
+              <Icon name="material-symbols:cancel-rounded" size="30" class="text-gray-300 hover:text-gray-400" />
+            </button>
           </div>
 
-          <div>
-            
+          <div class="mt-4">
+            <div v-for="(packageIf, index) in packageInfo?.packageStatus?.reverse()" :key="index"
+              class="flex font-semibold items-center"
+            >
+              <div class="mr-2 text-center sm:text-base text-xs" 
+                :class="index == 0 ? 'text-green-500' : 'text-gray-400'"
+              >
+                <p>{{ new Date(packageIf.created_at).toLocaleDateString() }}</p>
+                <p>{{ new Date(packageIf.created_at).toLocaleTimeString('en-US', { hour12: false }) }}</p>
+              </div>
+
+              <div class="mx-1 flex flex-col items-center space-y-2">
+                <div class="h-4 w-[2px] bg-gray-300"
+                  :class="index == 0 ? 'invisible' : 'visible'"
+                />
+                <div>
+                  <Icon v-if="index == 0" 
+                    name="octicon:dot-fill-24" size="25" class="text-green-500"
+                  />
+                  <Icon v-else  name="octicon:dot-16" size="25" class="text-gray-300" />
+                </div>
+                <div class="h-4 w-[2px] bg-gray-300"
+                  
+                />
+              </div>
+
+              <div class="text-gray-400 sm:text-base text-xs"
+                :class="index == 0 ? 'text-green-500' : 'text-gray-400'"
+              >
+                {{ packageIf.current_location }}
+              </div>
+            </div>
+
+            <div class="flex font-semibold items-center">
+              <div class="mr-2 text-center sm:text-base text-xs text-gray-400">
+                <p>{{ new Date(String(packageInfo?.packageDetails?.created_at)).toLocaleDateString() }}</p>
+                <p>{{ new Date(String(packageInfo?.packageDetails?.created_at)).toLocaleTimeString('en-US', { hour12: false }) }}</p>
+              </div>
+
+              <div class="mx-1 flex flex-col items-center space-y-2">
+                <div class="h-4 w-[2px] bg-gray-300" />
+                <div>
+                  <Icon name="octicon:dot-16" size="25" class="text-gray-300" />
+                </div>
+                <div class="h-4 w-[2px] bg-gray-300 invisible" />
+
+              </div>
+
+              <div class="text-gray-400 sm:text-base text-xs">
+                Đơn hàng đã được tạo
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
-    <div class="absolute top-20 w-full  mt-6 px-4 sm:px-10 flex items-center justify-center"
+    <div class="fixed top-40 w-full  mt-6 px-4 sm:px-10 flex items-center justify-center"
       :class="[
         {'-right-[100vw] transition-all duration-500': navigatorTab == 'follow' },
         {'right-0 transition-all duration-500': navigatorTab == 'cost' },     
@@ -212,10 +283,21 @@
 
 <script lang="ts" setup>
 
+const client = useSupabaseClient();
+
 import { useClientStore } from '~/store/client';
 const clientStore = useClientStore();
 
+import { usePackageStore } from '~/store/package';
+const packageStore = usePackageStore();
+
 let navigatorTab = ref<string>('follow');
+let packageCode = ref<string>('');
+let packageStt = ref<string | null | undefined>('');
+
+let isLoading = ref<boolean>(false);
+
+let { packageInfo } = storeToRefs(packageStore);
 
 let isChecked = ref<boolean>(false);
 let weight = ref<string>('0');
@@ -259,6 +341,36 @@ let receiveAddress = computed(() => {
 onMounted(() => {
   navigatorTab.value = 'follow';
 })
+
+const getPackageInfo = async () => {
+
+  if (packageStore.packageInfo?.id) {
+    packageStore.showPackageInfo = true;
+    return;
+  }
+
+  isLoading.value = true;
+  const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`)
+  packageInfo.value = data.value;
+  packageStt.value = packageInfo.value?.packageStatus[packageInfo.value.packageStatus.length - 1].status;
+  isLoading.value = false;
+
+  packageStore.showPackageInfo = true;
+  
+  client.channel('update status').on('postgres_changes', {
+      event: '*',
+      schema: 'public',
+      table: 'packageStatus',
+      filter: `package_id=in.(${packageInfo.value?.packageStatus[packageInfo.value.packageStatus.length - 1].package_id})`,
+    }, 
+
+    async (payload: any) => {
+      const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`)
+      packageInfo.value = data.value;
+      packageStt.value = packageInfo.value?.packageStatus[packageInfo.value.packageStatus.length - 1].status; 
+    }
+  ).subscribe()
+}
 
 
 </script>

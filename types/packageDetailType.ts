@@ -7,7 +7,6 @@ export type PackageDetailType = {
   id: string;
   mainCharge: number | null;
   notes: string | null;
-  package_id: string | null;
   package_info: string | null;
   receiver_address: string;
   receiver_name: string | null;

@@ -229,13 +229,23 @@ const register = async () => {
   })
 
 
-  if (error?.message == 'User already registered') {
+  if (error?.message) {
     isLoading.value = false;
-    incorrectError.value = 'Số điện thoại đã được đăng ký';
+    emailError.value = 'Email đã được đăng ký';
     return;
   }
 
   else {
+    const res = await client.auth.updateUser({ 
+      phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
+    });
+
+    if (res.error) {
+      isLoading.value = false;
+      phoneError.value = 'Số điện thoại đã được đăng ký';
+      return;
+    }
+
     await useFetch(`/api/auth/register`, {
       method: 'post',
       body: {
@@ -248,10 +258,6 @@ const register = async () => {
     const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
     userStore.userInfo = getuser.data.value;
   }
-
-  await client.auth.updateUser({ 
-    phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
-  });
 
 
   isLoading.value = false;
