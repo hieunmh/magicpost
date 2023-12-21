@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia';
+import { PackageDetailType } from '~/types/packageDetailType';
 import { PackageStatusType } from '~/types/packageStatusType';
 import { PackageType } from '~/types/packageType';
 
 export const usePackageStore = defineStore('package', {
   state: () => ({
-    packageInfo: <PackageType>{},
-    allNewPackage: <PackageType[] | null>[],
-    allSendPackage: <PackageType[] | null>[],
-    allShippedPackage: <PackageType[] | null>[],
-    allWaitPackage: <PackageType[] | null>[],
+
+    packageInfo: <PackageType & { packageDetails: PackageDetailType, packageStatus: PackageStatusType[] } | null>{},
     allPackage: <PackageType[] | null>[],
-    allPackageStatus: <PackageStatusType[] | null>[]
+    allPackageStatus: <PackageStatusType[] | null>[],
+    showPackageInfo: false,
   }),
 })

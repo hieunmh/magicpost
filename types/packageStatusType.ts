@@ -5,8 +5,7 @@ import { Database } from "./supabaseType";
 export type PackageStatusType = {
   created_at: string;
   current_location: string | null;
-  id: string ;
+  id: string;
   package_id: string | null;
   status: string | null;
-  updated_at: string | null;
 }

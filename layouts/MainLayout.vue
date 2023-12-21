@@ -92,9 +92,11 @@
       </button>
 
     </div>
-    
-    <slot />
   </div>
+  
+  <main class="h-[600px] w-full overflow-auto">
+    <slot />
+  </main>
 </template>
 
 <script lang="ts" setup>
