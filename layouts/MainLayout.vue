@@ -94,9 +94,9 @@
     </div>
   </div>
   
-  <main class="h-[600px] w-full overflow-auto">
+  <div class="">
     <slot />
-  </main>
+  </div>
 </template>
 
 <script lang="ts" setup>
