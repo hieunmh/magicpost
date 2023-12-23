@@ -35,8 +35,7 @@
       </div>
     </div>
 
-    <div class="fixed top-40 w-full px-4 sm:px-10 flex 
-      items-center justify-center"
+    <div class="fixed top-40 w-full px-4 sm:px-10 flex items-center justify-center"
       :class="[
         {'left-0 transition-all duration-500': navigatorTab == 'follow' },
         {'-left-[100vw] transition-all duration-500': navigatorTab == 'cost' },

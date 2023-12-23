@@ -1,88 +1,73 @@
 <template>
   <MainLayout>
-    <div
-      class="relative h-[calc(100vh-64px)] overflow-y-scroll scroll-smooth w-full"
-    >
-      <div class="mt-6">
-        <div class="w-full flex items-center justify-center">
-          <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
-            <div class="flex justify-between items-center">
-              <button @click="navigatorTab = 'OrderForm'" class="">
-                <h1
-                  class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
-                  :class="
-                    navigatorTab == 'OrderForm'
-                      ? ' text-[#189ab4]'
-                      : 'text-gray-500'
-                  "
-                >
-                  Tạo đơn hàng
-                </h1>
-              </button>
+    <div class="w-full flex items-center justify-center mt-6">
+      <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
+        <div class="flex justify-between items-center">
+          <button @click="navigatorTab = 'OrderForm'" class="w-[50%]">
+            <h1 class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
+              :class="navigatorTab == 'OrderForm' ? ' text-[#189ab4]' : 'text-gray-500'"
+            >
+              Tạo đơn hàng
+            </h1>
+          </button>
 
-              <button @click="navigatorTab = 'Order'" class="">
-                <h1
-                  class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
-                  :class="
-                    navigatorTab == 'Order' ? 'text-[#189ab4]' : 'text-gray-500'
-                  "
-                >
-                  Đơn hàng
-                </h1>
-              </button>
-            </div>
+          <button @click="navigatorTab = 'Order'" class="w-[50%]">
+            <h1 class="font-semibold text-sm sm:text-2xl md:text-3xl  mb-4 text-center" 
+              :class="navigatorTab == 'Order' ? 'text-[#189ab4]' : 'text-gray-500'"
+            >
+              Đơn hàng
+            </h1>
 
-            <div class="h-2 w-full bg-slate-60 relative">
-              <div
-                class="absolute h-[6px] bg-[#189ab4] w-[30px] sm:w-[50px] md:w-[100px] rounded-full"
-                :class="[
-                  {
-                    'md:left-[px] sm:left-[30px] left-[12px] transition-all duration-300':
-                      navigatorTab == 'OrderForm',
-                  },
-                  {
-                    'md:left-[calc(100%-115px)] sm:left-[calc(100%-75px)] left-[calc(100%-45px)] transition-all duration-300':
-                      navigatorTab == 'Order',
-                  },
-                ]"
-              />
-            </div>
+          </button> 
+        </div>
+
+        <div class="h-2 w-full bg-slate-60 relative">
+          <div class="w-[50%] px-8 absolute "
+            :class="[
+              {'left-0 transition-all duration-300': navigatorTab == 'OrderForm' },
+              {'left-[50%] transition-all duration-300': navigatorTab == 'Order' },
+            ]"
+          >
+            <div class="h-[6px] bg-[#189ab4] w-full rounded-full" 
+          />
           </div>
         </div>
+      </div>
+    </div>
 
-        <div
-          class="flex flex-col items-center justify-center mt-6 w-full absolute"
-          :class="[
-            {
-              'left-0 transition-all duration-300': navigatorTab == 'OrderForm',
-            },
-            {
-              '-left-[1500px] transition-all duration-300':
-                navigatorTab == 'Order',
-            },
-          ]"
-        >
-          <TransactionEmployeeFormOrderSender />
-          <TransactionEmployeeFormOrderReceiver />
-          <TransactionEmployeeFormOrder />
-          <TransactionEmployeeFormOrderCost />
-          <button
-            class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10"
-          >
-            Tạo đơn
-          </button>
+    <div class="h-[calc(100vh-160px)] overflow-y-auto scrollbar-hide relative w-full">
+      <div class="flex items-center justify-center px-4 sm:px-10 mt-6 w-full absolute"
+        :class="[
+          { 'left-0 transition-all duration-300': navigatorTab == 'OrderForm' },
+          { '-left-[100vw] transition-all duration-300': navigatorTab == 'Order' },
+        ]"
+      > 
+        <div class="flex flex-col w-[1100px] rounded-xl shadow-lg mb-6 border-[1px] p-6">
+          <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
+            <TransactionEmployeeFormOrderSender class="w-full" />
+            <TransactionEmployeeFormOrderReceiver class="w-full" />
+          </div>
+
+          <div class="flex flex-col w-full">
+            <TransactionEmployeeFormOrder class="w-full" />
+            
+            <TransactionEmployeeFormOrderCost class="w-full" />
+
+            <button class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+              Tạo đơn
+            </button>
+          </div>
         </div>
+        
+      </div>
 
-        <div
-          class="absolute top-20 w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
-          :class="[
-            {
-              '-right-[1800px] transition-all duration-300':
-                navigatorTab == 'OrderForm',
-            },
-            { 'right-0 transition-all duration-300': navigatorTab == 'Order' },
-          ]"
-        >
+      <div class=" absolute w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
+        :class="[
+          { '-right-[100vw] transition-all duration-300': navigatorTab == 'OrderForm' },
+          { 'right-0 transition-all duration-300': navigatorTab == 'Order' },
+        ]"
+      >
+        <div class="w-[1100px] flex flex-col">
           <TransactionEmployeeAllOrder />
         </div>
       </div>
@@ -118,43 +103,35 @@ const toggleChecked = () => {
   }
 };
 
-watch(
-  () => phoneSender.value,
-  () => {
-    if (phoneSender.value.startsWith("(+84)")) return;
-    if (!phoneSender.value.startsWith("0")) {
-      phoneError.value = "Số điện thoại phải bắt đầu bằng 0";
-    } else if (phoneSender.value.length < 10 && phoneSender.value.length > 0) {
-      phoneError.value = "Số điện thoại phải đủ 10 chữ số";
-    } else {
-      phoneError.value = "";
-    }
-  }
-);
+watch(() => phoneSender.value, () => {
+  if (phoneSender.value.startsWith("(+84)")) return;
 
-watch(
-  () => phoneReceiver.value,
-  () => {
-    if (phoneReceiver.value.startsWith("(+84)")) return;
-    if (!phoneReceiver.value.startsWith("0")) {
-      phoneError.value = "Số điện thoại phải bắt đầu bằng 0";
-    } else if (
-      phoneReceiver.value.length < 10 &&
-      phoneReceiver.value.length > 0
-    ) {
-      phoneError.value = "Số điện thoại phải đủ 10 chữ số";
-    } else {
-      phoneError.value = "";
-    }
+  if (!phoneSender.value.startsWith("0")) {
+    phoneError.value = "Số điện thoại phải bắt đầu bằng 0";
+  } else if (phoneSender.value.length < 10 && phoneSender.value.length > 0) {
+    phoneError.value = "Số điện thoại phải đủ 10 chữ số";
+  } else {
+    phoneError.value = "";
   }
-);
+});
 
-watch(
-  () => textInput.value,
-  () => {
-    if (textInput.value.length == 0) {
-      inputError.value = "Vui lòng không để trống";
-    }
+watch(() => phoneReceiver.value, () => {
+  if (phoneReceiver.value.startsWith("(+84)")) return;
+  if (!phoneReceiver.value.startsWith("0")) {
+    phoneError.value = "Số điện thoại phải bắt đầu bằng 0";
+  } else if (
+    phoneReceiver.value.length < 10 &&
+    phoneReceiver.value.length > 0
+  ) {
+    phoneError.value = "Số điện thoại phải đủ 10 chữ số";
+  } else {
+    phoneError.value = "";
   }
-);
+} );
+
+watch(() => textInput.value,() => {
+  if (textInput.value.length == 0) {
+    inputError.value = "Vui lòng không để trống";
+  }
+});
 </script>

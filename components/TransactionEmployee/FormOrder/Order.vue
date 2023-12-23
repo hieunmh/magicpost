@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[80%] p-2 sm:p-6 rounded-xl shadow-lg border-[1px] mb-7">
+  <div class="mb-6">
     <div class="mb-7 w-full text-lef font-semibold text-xl">
       Thông tin đơn hàng
     </div>
@@ -191,7 +191,7 @@
     <div class="w-full mb-7 mt-5">
       <div class="md:w-[50%]">
         <div class="font-semibold text-gray-500">Thời gian lấy hàng:</div>
-        <div class="flex">
+        <!-- <div class="flex">
           <select name="time" class="border-[1px] w-[200px]">
             <option value="today">Today</option>
             <option value="tomorrow"></option>
@@ -200,7 +200,7 @@
           <select class="border-[1px] ml-2 w-[200px]">
             <option value="today">10h đến trước 19h</option>
           </select>
-        </div>
+        </div> -->
       </div>
     </div>
 
