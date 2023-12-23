@@ -92,11 +92,10 @@
       </button>
 
     </div>
-  </div>
-  
-  <div class="">
     <slot />
   </div>
+  
+
 </template>
 
 <script lang="ts" setup>

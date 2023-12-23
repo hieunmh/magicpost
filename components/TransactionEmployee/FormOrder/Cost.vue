@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[80%] p-2 sm:p-6 rounded-xl shadow-lg border-[1px] mb-7">
+  <div class="">
     <div class="mb-7 w-full text-lef font-semibold">Phí vận chuyển</div>
     <div class="w-full flex mb-7">
       <div class="w-[50%]">
