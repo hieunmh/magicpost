@@ -86,7 +86,7 @@ onMounted( async () => {
 
   else if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
 
-    const allTran = await useFetch('/api/auth/getAllTransactionPoints');
+    const allTran = await useFetch('/api/auth/Transaction/getAllTransactionPoints');
     transactionStore.allTransactionPoint = allTran.data.value;
   }
 
@@ -95,22 +95,20 @@ onMounted( async () => {
   }
   
   else if (userStore.userInfo.role?.toLowerCase() == 'transaction_point_head'){
-    const { data, error } = await useFetch('/api/auth/getAllTransactionEmployee');
-    const data2 = await useFetch('/api/auth/getAllPackage');
+    const { data, error } = await useFetch('/api/auth/Transaction/getAllTransactionEmployee');
+    const data2 = await useFetch('/api/auth/Packages/getAllPackage');
     userStore.allTransactionEmployee = data.value;
     packageStore.allPackage = data2.data.value;
   }
 
   if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
-    const { data, error } = await useFetch("/api/auth/getAllPackagesIn1Transaction");
-    const newPackage = await useFetch("/api/auth/getAllNewPackagesIn1Transaction");
-    const shippedPackage = await useFetch("/api/auth/getAllShippedPackagesIn1Transaction");
-    const sendPackage = await useFetch("/api/auth/getAllSendPackagesIn1Transaction");
-    const waitPackage = await useFetch("/api/auth/getAllWaitPackagesIn1Transaction")
+    const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
+    const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
+    const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
+    const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allShippedPackage = shippedPackage.data.value;
     packageStore.allSendPackage = sendPackage.data.value;
-    packageStore.allWaitPackage = waitPackage.data.value;
     packageStore.allPackage = data.value;
   }
 

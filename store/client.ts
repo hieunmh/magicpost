@@ -14,19 +14,29 @@ export const useClientStore = defineStore('client', {
 
     ceonavigatorTab: 'system',
     ordernavigatorTab: 'newOrder',
-    
+
     showSendAddress: false,
     sendProvince: '',
     sendDistrict: '',
     sendWard: '',
-    
+
     showReceiveAddress: false,
     receiveProvince: '',
     receiveDistrict: '',
     receiveWard: '',
 
     showPackage: false,
-  
+
+    showNewSendAddress: false,
+    newSendProvince: '',
+    newSendDistrict: '',
+    newSendWard: '',
+
+    showNewReceiveAddress: false,
+    newReceiveProvince: '',
+    newReceiveDistrict: '',
+    newReceiveWard: '',
+
   }),
 
 })
