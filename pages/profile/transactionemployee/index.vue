@@ -53,7 +53,7 @@
             
             <TransactionEmployeeFormOrderCost class="w-full" />
 
-            <button class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+            <button @click="print()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
               Tạo đơn
             </button>
           </div>
@@ -134,4 +134,9 @@ watch(() => textInput.value,() => {
     inputError.value = "Vui lòng không để trống";
   }
 });
+
+const print = () => {
+  window.print()
+}
+
 </script>

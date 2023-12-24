@@ -3,9 +3,6 @@
     <div class="mb-7 w-full text-lef font-semibold text-xl">
       Thông tin đơn hàng
     </div>
-    <div class="mb-5 bg-gray-300">
-      <div class="ml-2">Thông tin đơn hàng</div>
-    </div>
     <div class="w-full flex mb-7">
       <div class="md:w-[50%]">
         <div class="font-semibold text-gray-500">Tên sản phẩm:</div>
@@ -51,90 +48,6 @@
             class="h-12 absolute cursor-not-allowed top-0 rounded-lg bg-gray-200 opacity-60 w-full"
           />
         </div>
-      </div>
-    </div>
-
-    <div class="w-full md:flex mb-7">
-      <div class="md:w-[50%] relative">
-        <div class="md:w-full font-semibold text-gray-500">
-          Kích thước đơn hàng:
-        </div>
-        <div class="flex md:w-[95%] mt-2 justify-between">
-          <div class="w-[31%] relative">
-            <div class="w-full rounded-lg bg-gray-100 flex items-center">
-              <input
-                type="text"
-                oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                class="bg-gray-100 w-full h-12 rounded-lg outline-none pl-4 text-sm sm:text-xl text-gray-500 font-semibold"
-                :class="[{ 'cursor-not-allowed': isChecked }]"
-                :disabled="isChecked"
-                placeholder="Dài"
-              />
-              <span
-                class="text-gray-400 bg-gray-100 px-2 border-l-2 rounded-r-lg text-xs sm:text-lg font-semibold"
-              >
-                CM
-              </span>
-            </div>
-            <div
-              v-if="isChecked"
-              class="h-12 absolute cursor-not-allowed top-0 rounded-lg bg-gray-200 opacity-60 w-full"
-            />
-          </div>
-
-          <div class="w-[31%] relative">
-            <div class="w-full rounded-lg bg-gray-100 flex items-center">
-              <input
-                type="text"
-                oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                class="bg-gray-100 w-full h-12 rounded-lg outline-none pl-4 text-sm sm:text-xl text-gray-500 font-semibold"
-                :class="[{ 'cursor-not-allowed': isChecked }]"
-                :disabled="isChecked"
-                placeholder="Rộng"
-              />
-              <span
-                class="text-gray-400 bg-gray-100 px-2 border-l-2 rounded-r-lg text-xs sm:text-lg font-semibold"
-              >
-                CM
-              </span>
-            </div>
-            <div
-              v-if="isChecked"
-              class="h-12 absolute cursor-not-allowed top-0 rounded-lg bg-gray-200 opacity-60 w-full"
-            />
-          </div>
-
-          <div class="w-[31%] relative">
-            <div class="w-full rounded-lg bg-gray-100 flex items-center">
-              <input
-                type="text"
-                oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                class="bg-gray-100 w-full h-12 rounded-lg outline-none pl-4 text-sm sm:text-xl text-gray-500 font-semibold"
-                :class="[{ 'cursor-not-allowed': isChecked }]"
-                :disabled="isChecked"
-                placeholder="Cao"
-              />
-              <span
-                class="text-gray-400 bg-gray-100 px-2 border-l-2 rounded-r-lg text-xs sm:text-lg font-semibold"
-              >
-                CM
-              </span>
-            </div>
-            <div
-              v-if="isChecked"
-              class="h-12 absolute cursor-not-allowed top-0 rounded-lg bg-gray-200 opacity-60 w-full"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="md:w-[50%]">
-        <div class="font-semibold text-gray-500">Số lượng sản phẩm:</div>
-        <input
-          type="text"
-          class="bg-gray-100 mt-2 w-[95%] font-semibold h-12 rounded-lg outline-none px-4 text-sm text-gray-500"
-          placeholder="Vui lòng nhập thông tin"
-        />
       </div>
     </div>
 
