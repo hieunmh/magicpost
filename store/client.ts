@@ -33,9 +33,9 @@ export const useClientStore = defineStore('client', {
     newSendWard: '',
 
     showNewReceiveAddress: false,
-    NewReceiveProvince: '',
-    NewReceiveDistrict: '',
-    NewReceiveWard: '',
+    newReceiveProvince: '',
+    newReceiveDistrict: '',
+    newReceiveWard: '',
 
   }),
 
