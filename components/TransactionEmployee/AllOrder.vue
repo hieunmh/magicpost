@@ -4,7 +4,7 @@
       <div class="sm:w-[80%] w-[400px] px-2 sm:px-16 md:px-0">
         <div class="flex justify-between md:text-lg sm:text-sm text-xs">
           <button
-            class="w-1/4"
+            class="w-1/3"
             @click="clientStore.ordernavigatorTab = 'newOrder'"
           >
             <h1
@@ -20,19 +20,7 @@
           </button>
 
           <button
-            class="w-1/4"
-            @click="clientStore.ordernavigatorTab = 'waitOrder'"
-            :class="
-              clientStore.ordernavigatorTab == 'waitOrder'
-                ? 'text-[#189ab4]'
-                : 'text-gray-500'
-            "
-          >
-            <h1 class="font-semibold mb-4 text-center">Đơn hàng chờ chuyển</h1>
-          </button>
-
-          <button
-            class="w-1/4"
+            class="w-1/3"
             @click="clientStore.ordernavigatorTab = 'shippedOrder'"
             :class="
               clientStore.ordernavigatorTab == 'shippedOrder'
@@ -44,7 +32,7 @@
           </button>
 
           <button
-            class="w-1/4"
+            class="w-1/3"
             @click="clientStore.ordernavigatorTab = 'sendOrder'"
             :class="
               clientStore.ordernavigatorTab == 'sendOrder'
@@ -58,22 +46,18 @@
 
         <div class="h-2 w-full bg-slate-60 relative">
           <div
-            class="absolute h-[6px] w-1/4 rounded-full px-4 sm:px-10"
+            class="absolute h-[6px] w-1/3 rounded-full px-4 sm:px-10"
             :class="[
               {
                 'left-[0px] transition-all duration-300':
                   clientStore.ordernavigatorTab == 'newOrder',
               },
               {
-                'left-[calc(100%/4)] transition-all duration-300':
-                  clientStore.ordernavigatorTab == 'waitOrder',
-              },
-              {
-                'left-[calc(200%/4)] transition-all duration-300':
+                'left-[calc(100%/3)] transition-all duration-300':
                   clientStore.ordernavigatorTab == 'shippedOrder',
               },
               {
-                'left-[calc(300%/4)] transition-all duration-300':
+                'left-[calc(200%/3)] transition-all duration-300':
                   clientStore.ordernavigatorTab == 'sendOrder',
               },
             ]"
@@ -92,15 +76,11 @@
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
-          'right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'waitOrder',
-        },
-        {
-          'right-[100vw] transition-all duration-300':
+          'right-[500vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'shippedOrder',
         },
         {
-          'right-[100vw] transition-all duration-300':
+          'right-[500vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
@@ -108,47 +88,20 @@
       <TransactionEmployeeOrderNewOrder />
     </div>
 
-    <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
-      :class="[
-        {
-          '-right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'newOrder',
-        },
-        {
-          'right-0 transition-all duration-300':
-            clientStore.ordernavigatorTab == 'waitOrder',
-        },
-        {
-          'right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
-        },
-        {
-          'right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendOrder',
-        },
-      ]"
-    >
-      <TransactionEmployeeOrderWaitOrder />
-    </div>
 
     <div
       class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
       :class="[
         {
-          '-right-[100vw] transition-all duration-300':
+          '-right-[500vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
-        },
-        {
-          '-right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'waitOrder',
         },
         {
           'right-0 transition-all duration-300':
             clientStore.ordernavigatorTab == 'shippedOrder',
         },
         {
-          'right-[100vw] transition-all duration-300':
+          'right-[500vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
@@ -160,15 +113,11 @@
       class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
       :class="[
         {
-          '-right-[100vw] transition-all duration-300':
+          '-right-[500vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
-          '-right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'waitOrder',
-        },
-        {
-          '-right-[100vw] transition-all duration-300':
+          '-right-[500vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'shippedOrder',
         },
         {

@@ -22,6 +22,5 @@
   </div>
 </template>
 <script lang="ts" setup>
-let textInput = ref<string>("");
-let textError = ref<string>("");
+
 </script>

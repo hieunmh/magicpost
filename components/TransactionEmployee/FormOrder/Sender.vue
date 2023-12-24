@@ -22,16 +22,16 @@
 
     <div class="w-full flex flex-col mb-4">
       <div class="w-full h-20 mb-4">
-        <AddressSend />
+        <AddressNewSend />
 
         <div class="font-semibold text-gray-500">Tỉnh / Quận-Huyện / Phường-Xã:</div>  
 
         <input type="text" class="w-full py-2 border-b-[1px] font-semibold outline-none text-sm text-gray-500"
           placeholder="Vui lòng chọn"
-          @focus="clientStore.showSendAddress = true; clientStore.showReceiveAddress = false"
-          :value="sendAddress"
+          @focus="clientStore.showNewSendAddress = true; clientStore.showNewReceiveAddress = false"
+          :value="newSendAddress"
           @blur="() => {
-            if (sendAddress.length < 1) {
+            if (newSendAddress.length < 1) {
               addressTextError = 'Vui lòng không để trống ';
             }
           }"
@@ -115,11 +115,11 @@ let addressTextError = ref<string>("");
 
 let phoneError = ref<string>("");
 
-let sendAddress = computed(() => {
-  return clientStore.sendProvince +
-    clientStore.sendDistrict +
-    clientStore.sendWard
-    ? clientStore.sendProvince + clientStore.sendDistrict + clientStore.sendWard
+let newSendAddress = computed(() => {
+  return clientStore.newSendProvince +
+    clientStore.newSendDistrict +
+    clientStore.newSendWard && !clientStore.showNewSendAddress
+    ? clientStore.newSendProvince + clientStore.newSendDistrict + clientStore.newSendWard
     : "";
 });
 
