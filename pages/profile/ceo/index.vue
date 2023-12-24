@@ -86,14 +86,21 @@ import { useAggregationStore } from '~/store/aggregation';
 const aggregationStore = useAggregationStore();
 
 definePageMeta({middleware: 'loggedin'});
+const client = useSupabaseClient();
 
 onMounted( async () => {
   if (aggregationStore.allAggregationPoint?.length == 0) {
     aggregationStore.isLoading = true;
-    const allAgg = await useFetch('/api/auth/getAllAggregationPoints');
+    const allAgg = await useFetch('/api/auth/aggregation/getAllAggregationPoints');
     aggregationStore.allAggregationPoint = allAgg.data.value;
     aggregationStore.isLoading = false;
   }
+
 })
 
+onMounted (async () => {
+  
+  const user_id = client.auth.getUser();
+  console.log(user_id);
+})
 </script>

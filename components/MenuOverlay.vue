@@ -55,6 +55,15 @@
           <div>Transaction Point Head</div>
         </div>
       </NuxtLink>
+
+      <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'aggregation_point_head'" 
+        to="/profile/aggregation" @click="clientStore.isMenuOverlay = false"
+      >
+        <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
+          <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
+          <div>Aggregation Point Head</div>
+        </div>
+      </NuxtLink>
     </div>
 
     <div class="w-full absolute bottom-6 flex items-center justify-center">
