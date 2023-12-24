@@ -68,6 +68,14 @@
               </div>
             </NuxtLink>
 
+            <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'aggregation_point_head'"  
+              to="/profile/aggregation" class="font-semibold h-12 flex items-center justify-center"
+            >
+              <div class="font-semibold text-center w-full hover:text-[#189ab4]">
+                Aggregation Point Head
+              </div>
+            </NuxtLink>
+
             <button v-if="user" @click="logOut()" class=" w-full rounded-lg h-12 font-semibold hover:text-[#189ab4]"> 
               <p>Đăng xuất</p>
             </button>
