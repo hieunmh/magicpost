@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="h-[calc(100vh-160px)] overflow-y-auto scrollbar-hide relative w-full">
+    <div class="h-[calc(100vh-160px)] overflow-y-auto overflow-x-hidden scrollbar-hide relative w-full">
       <div class="flex items-center justify-center px-4 sm:px-10 mt-6 w-full absolute"
         :class="[
           { 'left-0 transition-all duration-300': navigatorTab == 'OrderForm' },
