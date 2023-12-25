@@ -11,8 +11,8 @@
           </div>
         </div>
 
-        <div class="text-gray-500 text-sm sm:text-base font-semibold space-y-2 mt-8 lg:mt-0">
-          <p class="font-bold text-xl">Vận chuyển</p>
+        <div class="text-gray-400 text-sm sm:text-base font-semibold space-y-2 mt-8 lg:mt-0">
+          <p class="font-bold text-xl text-gray-500">Vận chuyển</p>
           <p>Lên đơn với MGP</p>
           <p>Ước tính cước phí</p>
           <p>Quy định đóng gói hàng hóa</p>
@@ -24,8 +24,8 @@
           <p>Danh Mục Hàng Hóa Không Nhận Vận Chuyển</p>
         </div>
 
-        <div class="text-gray-500 text-sm sm:text-base font-semibold space-y-2 mt-8 lg:mt-0">
-          <p class="font-bold text-xl">Dịch vụ</p>
+        <div class="text-gray-400 text-sm sm:text-base font-semibold space-y-2 mt-8 lg:mt-0">
+          <p class="font-bold text-xl text-gray-500">Dịch vụ</p>
           <p>Dịch vụ lấy hàng MGP</p>
           <p>Dịch vụ thu tiền hộ</p>
           <p>Ưu đãi dành cho Khách hàng</p>
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div id="Copyright" class="w-full mt-6 flex flex-col lg:flex-row items-centr justify-center lg:justify-between border-t-[1px] py-2">
+      <div id="Copyright" class="w-full mt-4 mb-12 flex flex-col lg:flex-row items-centr justify-center lg:justify-between border-t-[1px] py-2">
         <div class="block lg:hidden">
           <div class="text-gray-400 text-sm font-semibold cursor-pointer">
             <p class="hover:text-[#189ab4] mr-10">Chính sách bảo mật</p>
@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="lg:hidden block w-full items-center text-center text-gray-500 font-semibold my-6">
+        <div class="lg:hidden block w-full items-center text-center text-gray-500 font-semibold my-4">
           <p class="">Công ty TNHH MGP MagicPost</p>
           <div class="flex items-center justify-center">
             <Icon name="material-symbols:my-location-rounded" class="text-[20px] mr-1" />
