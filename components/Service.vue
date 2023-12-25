@@ -51,26 +51,26 @@
             <div class="w-1/2 flex flex-col items-center px-4">
               <div class="flex items-center justify-center">
                 <Icon name="carbon:location-filled" class="text-[#189ab4] text-2xl sm:text-4xl lg:text-5xl mr-2" />
-                <p class="text-[#189ab4] font-bold text-2xl sm:text-4xl lg:text-5xl">63</p>
+                <p class="text-[#189ab4] font-bold text-3xl sm:text-4xl lg:text-5xl">63</p>
               </div>
-              <p class=" text-xs sm:text-xl lg:text-2xl font-semibold text-gray-400 mt-4">Phủ sóng 63 tỉnh thành</p>
+              <p class=" text-xs sm:text-base lg:text-2xl font-semibold text-gray-400 mt-4">Phủ sóng 63 tỉnh thành</p>
             </div>
 
             <div class="w-1/2 flex flex-col items-center px-4">
               <div class="flex items-center justify-center">
                 <Icon name="icon-park-outline:home-two" class="text-[#05445e] text-2xl sm:text-4xl lg:text-5xl mr-2" />
-                <p class="text-[#05445e] font-bold text-2xl sm:text-4xl lg:text-5xl">1000+</p>
+                <p class="text-[#05445e] font-bold text-3xl sm:text-4xl lg:text-5xl">1000+</p>
               </div>
-              <p class=" text-xs sm:text-xl lg:text-2xl font-semibold text-gray-400 mt-4">Kho trên toàn quốc</p>
+              <p class=" text-xs sm:text-base lg:text-2xl font-semibold text-gray-400 mt-4">Kho trên toàn quốc</p>
             </div>
           </div>
 
-          <div class="w-full mt-12 md:mt-0 md:w-1/3 flex flex-col items-center px-4">
+          <div class="w-full mt-4 md:mt-0 md:w-1/3 flex flex-col items-center px-4">
             <div class="flex items-center justify-center">
               <Icon name="heroicons:users-solid" class="text-[#FFB014] text-2xl sm:text-4xl lg:text-5xl mr-2" />
-              <p class="text-[#FFB014] font-bold text-2xl sm:text-4xl lg:text-5xl">1 tr +</p>
+              <p class="text-[#FFB014] font-bold text-xl sm:text-4xl lg:text-5xl">1 tr +</p>
             </div>
-            <p class=" text-xs sm:text-xl lg:text-2xl font-semibold text-gray-400 mt-4">Khách hàng tin cậy</p>
+            <p class=" text-xs sm:text-base lg:text-2xl font-semibold text-gray-400 mt-4">Khách hàng tin cậy</p>
           </div>
         </div>
       </div>

@@ -44,19 +44,18 @@ const router = useRouter();
 const user = useSupabaseUser();
 const client = useSupabaseClient();
 
-let windowWidth = ref<number>(process.client ? window.innerWidth : 0);
-
 onMounted(() => {
   clientStore.isMenuOverlay = false;
+  clientStore.windowWidth = window.innerWidth;
   window.addEventListener('resize', function () {
-    windowWidth.value = window.innerWidth;
+    clientStore.windowWidth = window.innerWidth;
   });
 
   clientStore.ceonavigatorTab = 'system';
 })
 
-watch(() => windowWidth.value, () => {
-  if (windowWidth.value >= 767) {
+watch(() => clientStore.windowWidth, () => {
+  if (clientStore.windowWidth >= 767) {
     clientStore.isMenuOverlay = false;
   }
 })

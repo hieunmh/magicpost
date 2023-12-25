@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-fit flex justify-center mt-16">
+  <div class="w-full h-fit flex justify-center mt-4 md:mt-16 bg-slate-100 pt-10">
     <div class="w-[1400px] px-4 sm:px-16">
       <div class="w-full lg:flex justify-between">
         <div class="flex flex-col font-semibold items-center text-center text-gray-500">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div id="Copyright" class="w-full mt-4 mb-12 flex flex-col lg:flex-row items-centr justify-center lg:justify-between border-t-[1px] py-2">
+      <div id="Copyright" class="w-full mt-4 mb-10 flex flex-col lg:flex-row items-centr justify-center lg:justify-between border-t-[1px] py-2">
         <div class="block lg:hidden">
           <div class="text-gray-400 text-sm font-semibold cursor-pointer">
             <p class="hover:text-[#189ab4] mr-10">Chính sách bảo mật</p>
