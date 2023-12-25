@@ -20,7 +20,7 @@
       ]"
     />
 
-    <NuxtPage/>
+    <NuxtPage />
   </div>
 </template>
 
@@ -115,8 +115,8 @@ onMounted( async () => {
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
     const { data, error } = await useFetch('/api/auth/aggregation/getAllAggregationEmployee');
     const data2 = await useFetch('/api/auth/Packages/getAllPackage');
-    userStore.allAggrEmployee = data.value;
-    aggregationStore.allPackage = data2.data.value;
+    // userStore.allAggrEmployee = data.value;
+    // aggregationStore.allPackage = data2.data.value;
   }
 
   clientStore.isLoading = false;
