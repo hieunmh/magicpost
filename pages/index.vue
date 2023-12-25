@@ -1,7 +1,9 @@
 <template>
-  <MainLayout>
-    <OrderTracking />
-  </MainLayout>
+    <MainLayout>
+      <div class="min-h-screen">
+        <OrderTracking />
+      </div>
+    </MainLayout>
 </template>
 
 <script lang="ts" setup>

@@ -20,7 +20,7 @@
       ]"
     />
 
-    <NuxtPage/>
+    <NuxtPage />
   </div>
 </template>
 
@@ -106,17 +106,17 @@ onMounted( async () => {
     const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
     const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
     const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
-    packageStore.allNewPackage = newPackage.data.value;
-    packageStore.allShippedPackage = shippedPackage.data.value;
-    packageStore.allSendPackage = sendPackage.data.value;
+    // packageStore.allNewPackage = newPackage.data.value;
+    // packageStore.allShippedPackage = shippedPackage.data.value;
+    // packageStore.allSendPackage = sendPackage.data.value;
     packageStore.allPackage = data.value;
   }
 
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
     const { data, error } = await useFetch('/api/auth/aggregation/getAllAggregationEmployee');
     const data2 = await useFetch('/api/auth/Packages/getAllPackage');
-    userStore.allAggrEmployee = data.value;
-    aggregationStore.allPackage = data2.data.value;
+    // userStore.allAggrEmployee = data.value;
+    // aggregationStore.allPackage = data2.data.value;
   }
 
   clientStore.isLoading = false;
