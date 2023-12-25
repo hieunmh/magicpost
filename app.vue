@@ -112,6 +112,13 @@ onMounted( async () => {
     packageStore.allPackage = data.value;
   }
 
+  if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
+    const { data, error } = await useFetch('/api/auth/aggregation/getAllAggregationEmployee');
+    const data2 = await useFetch('/api/auth/Packages/getAllPackage');
+    userStore.allAggrEmployee = data.value;
+    aggregationStore.allPackage = data2.data.value;
+  }
+
   clientStore.isLoading = false;
   
   if (user.value && !userStore.userInfo.phone) {
