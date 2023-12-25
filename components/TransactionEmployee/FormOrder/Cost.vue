@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="mb-7 w-full text-lef font-semibold">Phí vận chuyển</div>
+    <div class="mb-7 w-full text-lef font-semibold text-xl">Phí vận chuyển</div>
     <div class="w-full flex mb-7">
       <div class="w-[50%]">
         <div class="font-semibold text-gray-500">Dịch vụ:</div>

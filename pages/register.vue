@@ -153,7 +153,6 @@ let phoneError = ref<string>('');
 
 let incorrectError = ref<string>('');
 
-
 let isLoading = ref<boolean>(false);
 
 const togglePassword = () => {

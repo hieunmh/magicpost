@@ -3,20 +3,20 @@
     <div class="mb-6 w-full text-left text-lg text-[#189ab4] font-semibold">2. Thông tin người nhận</div>
 
     <div class="w-full md:flex flex-col mb-4 h-20">
-      <div class="w-full">
+      <div class="w-full ">
         <div class="font-semibold text-gray-500 flex text-center items-center">Họ và tên:</div>
-        <input type="text" v-model="textInput" placeholder="Vui lòng nhập thông tin"
+        <input type="text" v-model="nameInput" placeholder="Vui lòng nhập thông tin"
           class="font-semibold outline-none w-full py-2 text-sm text-gray-500 border-b-[1.5px]"
           @blur="() => {
-            if (textInput.length < 1) {
-              textError = 'Vui lòng không để trống ';
+            if (nameInput.length < 1) {
+              nameTextError = 'Vui lòng không để trống ';
             }
           }"
         />
       </div>
 
       <p class="text-red-500 font-semibold mt-1 text-[14px]">
-        {{ textError }}
+        {{ nameTextError }}
       </p>
     </div>
 
@@ -24,40 +24,37 @@
       <div class="w-full h-20 mb-4">
         <AddressNewReceive />
 
-        <div class="font-semibold text-gray-500">Tỉnh / Quận-Huyện / Phường-Xã:</div>  
+          <div class="font-semibold text-gray-500">Tỉnh / Quận-Huyện / Phường-Xã:</div>  
 
-        <input type="text" class="w-full py-2 border-b-[1px] font-semibold outline-none text-sm text-gray-500"
-          placeholder="Vui lòng chọn"
-          @focus="clientStore.showNewSendAddress = false; clientStore.showNewReceiveAddress = true"
-          :value="newReceiveAddress"
-          @blur="() => {
-            if (newReceiveAddress.length < 1) {
-              addressTextError = 'Vui lòng không để trống ';
-            }
-          }"
-        />
+          <input type="text" class="w-full py-2 border-b-[1px] font-semibold outline-none text-sm text-gray-500"
+            placeholder="Vui lòng chọn"
+            @focus="clientStore.showNewSendAddress = false; clientStore.showNewReceiveAddress = true"
+            :value="newReceiveAddress"
+            @blur="() => {
+              if (newReceiveAddress.length < 1) {
+                addressError = 'Vui lòng không để trống ';
+              }
+            }"
+          />
         <p class="text-red-500 font-semibold mt-1 text-[14px]">
-          {{ addressTextError }}
+          {{ addressError }}
         </p>
       </div>
 
       <div class="w-full h-20">
-        <div class="font-semibold text-gray-500">Địa chỉ cụ thể:</div>
-        <input type="text" class="w-full font-semibold py-2 outline-none text-sm text-gray-500 border-b-[1px]"
-          placeholder="Vui lòng nhập thông tin"
-          @blur="
-            () => {
-              if (addressTextInput.length < 1) {
-                addressError = 'Vui lòng không để trống ';
-              }
-              else {
-                addressError = '';
-              }
+        <div class="w-full ">
+        <div class="font-semibold text-gray-500 flex text-center items-center">Địa chỉ cụ thể:</div>
+        <input type="text" v-model="addressTextInput" placeholder="Vui lòng nhập thông tin"
+          class="font-semibold outline-none w-full py-2 text-sm text-gray-500 border-b-[1.5px]"
+          @blur="() => {
+            if (addressTextInput.length < 1) {
+              addressTextError = 'Vui lòng không để trống ';
             }
-          "
+          }"
         />
+        </div>
         <p class="text-red-500 font-semibold mt-1 text-[14px]">
-          {{ addressError }}
+          {{ addressTextError }}
         </p>
       </div>
     </div>
@@ -83,9 +80,10 @@
               phoneReceiver = '0' + phoneReceiver.substring(6, 9) + phoneReceiver.substring(10, 13) + phoneReceiver.substring(14, 17);
             }
           }"
+
         />
         <p class="text-red-500 font-semibold mt-1 text-[14px]">
-          {{ textError }}
+          {{ phoneTextError }}
         </p>
       </div>
 
@@ -105,10 +103,10 @@ const clientStore = useClientStore();
 
 let phoneReceiver = ref<string>("");
 
-let textInput = ref<string>("");
+let nameInput = ref<string>("");
 let addressTextInput = ref<string>("");
 
-let textError = ref<string>("");
+let nameTextError = ref<string>("");
 let phoneTextError = ref<string>("");
 let addressError = ref<string>("");
 let addressTextError = ref<string>("");
@@ -124,4 +122,29 @@ let newReceiveAddress = computed(() => {
 });
 
 let phoneError = ref<string>("");
+
+watch(() => nameInput.value, () => {
+  if(nameInput.value.length != 0) {
+    nameTextError.value = '';
+  }
+})
+
+watch(() => addressTextInput.value, () => {
+  if(addressTextInput.value.length != 0) {
+    addressTextError.value = '';
+  }
+})
+
+watch(() => phoneReceiver.value, () => {
+  if(phoneReceiver.value.length != 0) {
+    phoneTextError.value = '';
+  }
+})
+
+watch(() => newReceiveAddress.value, () => {
+  if(newReceiveAddress.value.length != 0) {
+    addressError.value = '';
+  }
+})
+
 </script>

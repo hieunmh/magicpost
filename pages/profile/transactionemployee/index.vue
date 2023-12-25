@@ -42,22 +42,23 @@
           { '-left-[100vw] transition-all duration-300': navigatorTab == 'Order' },
         ]"
       > 
-        <div class="flex flex-col w-[1100px] rounded-xl shadow-lg mb-6 border-[1px] p-6">
-          <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
-            <TransactionEmployeeFormOrderSender class="w-full" />
-            <TransactionEmployeeFormOrderReceiver class="w-full" />
-          </div>
+      <form class="mt-10" @submit.prevent="Create()">
+          <div class="flex flex-col w-[1100px] rounded-xl shadow-lg mb-6 border-[1px] p-6">
+            <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
+              <TransactionEmployeeFormOrderSender class="w-full" />
+              <TransactionEmployeeFormOrderReceiver class="w-full" />
+            </div>
 
-          <div class="flex flex-col w-full">
-            <TransactionEmployeeFormOrder class="w-full" />
-            
-            <TransactionEmployeeFormOrderCost class="w-full" />
+            <div class="flex flex-col w-full">
+              <TransactionEmployeeFormOrder class="w-full" />
+              <TransactionEmployeeFormOrderCost class="w-full" />
 
-            <button @click="print()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
-              Tạo đơn
-            </button>
+              <button @click="print()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+                Tạo đơn
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
         
       </div>
 
@@ -87,6 +88,8 @@ let textInput = ref<string>("");
 
 let phoneError = ref<string>("");
 let inputError = ref<string>("");
+
+let isLoading = ref<boolean>(false);
 
 onMounted(() => {
   navigatorTab.value = "OrderForm";
@@ -137,6 +140,10 @@ watch(() => textInput.value,() => {
 
 const print = () => {
   window.print()
+}
+
+const Create = () => {
+  isLoading.value = true;
 }
 
 </script>
