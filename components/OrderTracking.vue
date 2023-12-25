@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-6 w-[100vw] pb-8 overflow-y-auto overflow-x-hidden h-[calc(100vh-64px)] scrollbar-hide">
+  <div class="pt-6 w-[100vw] overflow-y-auto overflow-x-hidden h-[calc(100vh-64px)] scrollbar-hide">
     <div class="w-full flex items-center justify-center">
       <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
         <div class="flex justify-between items-center">
@@ -35,10 +35,11 @@
       </div>
     </div>
 
-    <div class="relative"
+    <div class="relative transition-all duration-500"
+      :style="[{ 'height' : calHeight }]"
       :class="[
-        { 'h-[300px] transition-all duration-500': navigatorTab == 'follow' },
-        { 'h-[540px] transition-all duration-500': navigatorTab == 'cost' },
+        {'mb-0 sm:mb-28': navigatorTab == 'follow' },
+        {'mb-6 sm:mb-0': navigatorTab == 'cost' },
       ]"
     >
       <div class="absolute top-6 w-full px-4 sm:px-10 flex items-center justify-center"
@@ -63,10 +64,10 @@
             </button>
           </form>
 
-          <div class="w-full bg-white rounded-xl mt-6 shadow-lg p-6 border-[1px]"
+          <div class="w-full bg-white rounded-xl mt-6 shadow-lg p-2 sm:p-6 border-[1px]"
           :class="[
-            {'visible transition-all duration-300 opacity-100': packageStore.showPackageInfo },
-            {'invisible transition-all duration-300 opacity-0': !packageStore.showPackageInfo },
+            {'visible transition-all duration-500 opacity-100': packageStore.showPackageInfo },
+            {'invisible transition-all duration-500 opacity-0': !packageStore.showPackageInfo },
           ]"
           >
             <div class="w-full text-gray-500 flex justify-between">
@@ -83,7 +84,7 @@
 
             <div class="mt-4">
               <div class="flex font-semibold items-center">
-                <div class="mr-2 text-center sm:text-base text-xs text-gray-400">
+                <div class="mr-2 text-center sm:text-base text-xs text-gray-400 w-[90px]">
                   <p>{{ new Date(String(packageInfo?.packageDetails?.created_at)).toLocaleDateString() }}</p>
                   <p>{{ new Date(String(packageInfo?.packageDetails?.created_at)).toLocaleTimeString('en-US', { hour12: false }) }}</p>
                 </div>
@@ -104,7 +105,7 @@
               <div v-for="(packageIf, index) in packageInfo?.packageStatus" :key="index"
                 class="flex font-semibold items-center"
               >
-                <div class="mr-2 text-center sm:text-base text-xs" 
+                <div class="mr-2 text-center sm:text-base text-xs w-[90px]" 
                   :class="index + 1 == packageInfo?.packageStatus.length ? 'text-green-500' : 'text-gray-400'"
                 >
                   <p>{{ new Date(packageIf.created_at).toLocaleDateString() }}</p>
@@ -310,6 +311,20 @@ let { packageInfo } = storeToRefs(packageStore);
 
 let isChecked = ref<boolean>(false);
 let weight = ref<string>('0');
+
+let calHeight = computed(() => {
+  if (navigatorTab.value == 'follow') {
+    if (packageStore.showPackageInfo) {
+      return `${Number(packageInfo?.value?.packageStatus.length)*75+280}px`
+    } else {
+      return '100px';
+    }
+  }
+
+  if (navigatorTab.value == 'cost') {
+    return '520px'
+  }
+})
 
 const toggleChecked = () => {
   if (isChecked.value == false) {
