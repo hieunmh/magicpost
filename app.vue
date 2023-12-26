@@ -20,7 +20,7 @@
       ]"
     />
 
-    <NuxtPage/>
+    <NuxtPage />
   </div>
 </template>
 
@@ -44,19 +44,18 @@ const router = useRouter();
 const user = useSupabaseUser();
 const client = useSupabaseClient();
 
-let windowWidth = ref<number>(process.client ? window.innerWidth : 0);
-
 onMounted(() => {
   clientStore.isMenuOverlay = false;
+  clientStore.windowWidth = window.innerWidth;
   window.addEventListener('resize', function () {
-    windowWidth.value = window.innerWidth;
+    clientStore.windowWidth = window.innerWidth;
   });
 
   clientStore.ceonavigatorTab = 'system';
 })
 
-watch(() => windowWidth.value, () => {
-  if (windowWidth.value >= 767) {
+watch(() => clientStore.windowWidth, () => {
+  if (clientStore.windowWidth >= 767) {
     clientStore.isMenuOverlay = false;
   }
 })
@@ -105,39 +104,23 @@ onMounted( async () => {
   
   if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
-<<<<<<< Updated upstream
-    const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
-    const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
-    const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
-    packageStore.allNewPackage = newPackage.data.value;
-    packageStore.allShippedPackage = shippedPackage.data.value;
-    packageStore.allSendPackage = sendPackage.data.value;
-=======
-
-    const newPackage = await useFetch("/api/auth/Transaction/getAllNewPackagesInTransaction");
+    
+    // const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
     // const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
-    const sentPackage = await useFetch("/api/auth/Transaction/getAllSentPackagesInTransaction");
-    packageStore.allNewPackage = newPackage.data.value;
+    // const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
+    // packageStore.allNewPackage = newPackage.data.value;
     // packageStore.allShippedPackage = shippedPackage.data.value;
-    packageStore.allSentPackage = sentPackage.data.value;
->>>>>>> Stashed changes
+    // packageStore.allSendPackage = sendPackage.data.value;
     packageStore.allPackage = data.value;
-
   }
 
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
     const { data, error } = await useFetch('/api/auth/aggregation/getAllAggregationEmployee');
-<<<<<<< Updated upstream
-    const data2 = await useFetch('/api/auth/Packages/getAllPackage');
-    userStore.allAggrEmployee = data.value;
-    aggregationStore.allPackage = data2.data.value;
-=======
     const newPackage = await useFetch('/api/auth/aggregation/getAllNewPackagesInAggregation');
     const sentPackage = await useFetch('/api/auth/aggregation/getAllSentPackagesInAggregation');
     userStore.allAggrEmployee = data.value;
     aggregationStore.allPackage = newPackage.data.value;
     aggregationStore.allSentPackage = sentPackage.data.value;
->>>>>>> Stashed changes
   }
 
   clientStore.isLoading = false;
