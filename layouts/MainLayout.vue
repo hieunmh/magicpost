@@ -1,6 +1,5 @@
 <template>
   <Header />
-  <Transfer />
   <main class="min-h-screen">
     <slot/>
 </main>
@@ -9,7 +8,6 @@
 
 <script lang="ts" setup>
  
-
 
 </script>
 

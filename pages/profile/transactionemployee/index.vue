@@ -24,8 +24,8 @@
         <div class="h-2 w-full bg-slate-60 relative">
           <div class="w-[50%] px-8 absolute "
             :class="[
-              {'left-0 transition-all duration-300': navigatorTab == 'OrderForm' },
-              {'left-[50%] transition-all duration-300': navigatorTab == 'Order' },
+              {'left-0 transition-all duration-500': navigatorTab == 'OrderForm' },
+              {'left-[50%] transition-all duration-500': navigatorTab == 'Order' },
             ]"
           >
             <div class="h-[6px] bg-[#189ab4] w-full rounded-full" 
@@ -35,15 +35,16 @@
       </div>
     </div>
 
-    <div class="h-[calc(100vh-160px)] overflow-y-auto overflow-x-hidden scrollbar-hide relative w-full">
-      <div class="flex items-center justify-center px-4 sm:px-10 mt-6 w-full absolute"
+    <div class="h-[calc(100vh-160px)] w-full overflow-y-auto overflow-x-hidden scrollbar-hide relative">
+      <div class="absolute top-6 w-full px-4 sm:px-10 flex items-center justify-center"
         :class="[
-          { 'left-0 transition-all duration-300': navigatorTab == 'OrderForm' },
-          { '-left-[100vw] transition-all duration-300': navigatorTab == 'Order' },
+          { 'left-0 transition-all duration-500': navigatorTab == 'OrderForm' },
+          { '-left-[500vw] transition-all duration-500': navigatorTab == 'Order' },
         ]"
       > 
-      <form class="mt-10 items-center justify-center" @submit.prevent="Create()">
-          <div class="flex flex-col w-[1100px] rounded-xl shadow-lg mb-6 border-[1px] p-6">
+      <form class="w-[1100px] mt-10 items-center justify-center" @submit.prevent="Create()">
+        <div class="w-full">
+          <div class="flex flex-col w-full rounded-xl shadow-lg mb-6 border-[1px] p-6">
             <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
               <TransactionEmployeeFormOrderSender class="w-full" />
               <TransactionEmployeeFormOrderReceiver class="w-full" />
@@ -58,14 +59,15 @@
               </button>
             </div>
           </div>
-        </form>
+        </div>  
+      </form>
         
       </div>
 
       <div class=" absolute w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
         :class="[
-          { '-right-[100vw] transition-all duration-300': navigatorTab == 'OrderForm' },
-          { 'right-0 transition-all duration-300': navigatorTab == 'Order' },
+          { '-right-[500vw] transition-all duration-500': navigatorTab == 'OrderForm' },
+          { 'right-0 transition-all duration-500': navigatorTab == 'Order' },
         ]"
       >
         <div class="w-[1100px] flex flex-col">
