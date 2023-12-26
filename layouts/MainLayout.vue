@@ -1,5 +1,6 @@
 <template>
   <Header />
+  <Transfer />
   <main class="min-h-screen">
     <slot/>
 </main>
