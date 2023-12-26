@@ -93,13 +93,15 @@ onMounted( async () => {
     router.push('/');
   }
   
+  
   else if (userStore.userInfo.role?.toLowerCase() == 'transaction_point_head'){
     const { data, error } = await useFetch('/api/auth/Transaction/getAllTransactionEmployee');
-    const data2 = await useFetch('/api/auth/Packages/getAllPackage');
+    // const data2 = await useFetch('/api/auth/Packages/getAllPackage'); // sai o day
     userStore.allTransactionEmployee = data.value;
-    packageStore.allPackage = data2.data.value;
+    // packageStore.allPackage = data2.data.value;
   }
 
+  
   if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
     // const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
@@ -113,9 +115,11 @@ onMounted( async () => {
 
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
     const { data, error } = await useFetch('/api/auth/aggregation/getAllAggregationEmployee');
-    const data2 = await useFetch('/api/auth/Packages/getAllPackage');
-    // userStore.allAggrEmployee = data.value;
-    // aggregationStore.allPackage = data2.data.value;
+    const newPackage = await useFetch('/api/auth/aggregation/getAllNewPackagesInAggregation');
+    const sentPackage = await useFetch('/api/auth/aggregation/getAllSentPackagesInAggregation');
+    userStore.allAggrEmployee = data.value;
+    aggregationStore.allPackage = newPackage.data.value;
+    aggregationStore.allSentPackage = sentPackage.data.value;
   }
 
   clientStore.isLoading = false;

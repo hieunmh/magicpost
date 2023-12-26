@@ -8,4 +8,5 @@ export type PackageStatusType = {
   id: string;
   package_id: string | null;
   status: string | null;
+  isPassed: boolean | false;
 }
