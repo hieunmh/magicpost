@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   const address = transPoint?.data?.aggregation_points?.address;
   const status = 'Đang giao hàng';
 
-  const allNewPackage = await client.from('packages').select(`
+  const allNewPackages = await client.from('packages').select(`
         *,
         packageDetails (*),
         packageStatus!inner(*)
@@ -28,5 +28,5 @@ export default defineEventHandler(async (event) => {
     .eq('packageStatus.current_location', address || '')
     .eq('packageStatus.isPassed', false);
     
-  return allNewPackage.data;
+  return allNewPackages.data;
 })

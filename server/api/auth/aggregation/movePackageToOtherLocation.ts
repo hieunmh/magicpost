@@ -25,10 +25,10 @@ export default defineEventHandler(async (event) => {
 
   // get packageId 
 
-  const insertNewPkStatus = await client
+  const insertNewPkStatusData = await client
   .from('packageStatus')
   .insert({ package_id: packageId, status: 'Đang giao hàng', current_location: address || ''})
 
-  return insertNewPkStatus.data;
+  return insertNewPkStatusData.data;
 
 })

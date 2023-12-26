@@ -114,9 +114,9 @@ onMounted( async () => {
   }
 
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
-    const { data, error } = await useFetch('/api/auth/aggregation/getAllAggregationEmployee');
-    const newPackage = await useFetch('/api/auth/aggregation/getAllNewPackagesInAggregation');
-    const sentPackage = await useFetch('/api/auth/aggregation/getAllSentPackagesInAggregation');
+    const { data, error } = await useFetch('/api/auth/Aggregation/getAllAggregationEmployee');
+    const newPackage = await useFetch('/api/auth/Aggregation/getAllNewPackagesInAggregation');
+    const sentPackage = await useFetch('/api/auth/Aggregation/getAllSentPackagesInAggregation');
     userStore.allAggrEmployee = data.value;
     aggregationStore.allPackage = newPackage.data.value;
     aggregationStore.allSentPackage = sentPackage.data.value;
