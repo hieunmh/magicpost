@@ -104,7 +104,6 @@ onMounted( async () => {
   
   if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
-    
     // const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
     // const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
     // const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");

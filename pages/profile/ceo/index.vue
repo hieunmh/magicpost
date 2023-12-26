@@ -91,8 +91,10 @@ const client = useSupabaseClient();
 onMounted( async () => {
   if (aggregationStore.allAggregationPoint?.length == 0) {
     aggregationStore.isLoading = true;
-    const allAgg = await useFetch('/api/auth/aggregation/getAllAggregationPoints');
+    const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
     aggregationStore.allAggregationPoint = allAgg.data.value;
+    console.log(allAgg.data.value);
+    
     aggregationStore.isLoading = false;
   }
 
