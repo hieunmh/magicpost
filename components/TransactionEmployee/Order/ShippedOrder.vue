@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1100px] flex p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
+  <div class="md:w-[1100px] w-full flex p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
     <div
       class="w-[1100px] mt-6 px-4 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 md:gap-10 items-center justify-center"
     >
