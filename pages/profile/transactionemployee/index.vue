@@ -42,7 +42,7 @@
           { '-left-[100vw] transition-all duration-300': navigatorTab == 'Order' },
         ]"
       > 
-      <form class="mt-10" @submit.prevent="Create()">
+      <form class="mt-10 items-center justify-center" @submit.prevent="Create()">
           <div class="flex flex-col w-[1100px] rounded-xl shadow-lg mb-6 border-[1px] p-6">
             <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
               <TransactionEmployeeFormOrderSender class="w-full" />
