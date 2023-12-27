@@ -87,11 +87,8 @@ onMounted( async () => {
     const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
     aggregationStore.allAggregationPoint = allAgg.data.value;
 
-    clientStore.isLoading = false;
-
     const allTran = await useFetch('/api/auth/Transaction/getAllTransactionPoints');
     transactionStore.allTransactionPoint = allTran.data.value;
-    
 
     const data = await useFetch('/api/auth/Ceo/getAllAggregationHead');
     aggregationStore.allAggHead = data.data.value;
