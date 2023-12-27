@@ -8,7 +8,7 @@
             <Icon name="ic:round-log-out" class="text-[20px] mr-1" />
             <div class="flex items-center">
               <p class="w-[100px]">Hàng gửi:</p>
-              <p>123</p>
+              <Vue3autocounter :ref="countSend" :startAmount="10000" :endAmount="sendPackage" :duration="3" />
             </div>
           </div>
 
@@ -16,7 +16,7 @@
             <Icon name="ic:round-log-in" class="text-[20px] mr-1" />
             <div class="flex items-center">
               <p class="w-[100px]">Hàng nhận:</p>
-              <p>123</p>
+              <Vue3autocounter :ref="countSend" :startAmount="100" :endAmount="sendPackage" :duration="1" />
             </div>
           </div>
         </div>
@@ -82,5 +82,21 @@
 <script lang="ts" setup>
 import { useAggregationStore } from '~/store/aggregation';
 const aggregationStore = useAggregationStore();
+
+import Vue3autocounter from 'vue3-autocounter';
+
+
+const sendPackage = ref<number>(0);
+
+const countSend = ref<number>(0);
+
+onMounted( async () => {
+  const data = await useFetch('/api/auth/Ceo/getAllNewAndFinishedPackages');
+  console.log(data.data.value.length);
+
+  sendPackage.value = Number(data.data?.value?.length) | 0;
+})
+
+
 
 </script>
