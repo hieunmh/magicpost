@@ -4,7 +4,7 @@
       <div class="w-full h-[50px] flex items-center justify-center">
         <div class="sm:w-[800px] w-[400px] px-2 sm:px-16 md:px-0">
           <div class="flex justify-between md:text-lg sm:text-sm text-xs">
-            <button class="w-1/3" @click="clientStore.ceonavigatorTab = 'system'">
+            <button class="w-1/2" @click="clientStore.ceonavigatorTab = 'system'">
               <h1 class="font-semibold mb-4 text-center" 
                 :class="clientStore.ceonavigatorTab == 'system' ? 'text-[#189ab4]' : 'text-gray-500'"
               >
@@ -12,15 +12,15 @@
               </h1>
             </button>
 
-            <button class="w-1/3" @click="clientStore.ceonavigatorTab = 'account'"
+            <!-- <button class="w-1/3" @click="clientStore.ceonavigatorTab = 'account'"
               :class="clientStore.ceonavigatorTab == 'account' ? 'text-[#189ab4]' : 'text-gray-500'"
             >
               <h1 class="font-semibold mb-4 text-center">
                 Quản lý tài khoản
               </h1>
-            </button> 
+            </button>  -->
 
-            <button class="w-1/3" @click="clientStore.ceonavigatorTab = 'statistical'"
+            <button class="w-1/2" @click="clientStore.ceonavigatorTab = 'statistical'"
               :class="clientStore.ceonavigatorTab == 'statistical' ? 'text-[#189ab4]' : 'text-gray-500'"
             >
               <h1 class="font-semibold mb-4 text-center">
@@ -30,11 +30,11 @@
           </div>
 
           <div class="h-2 w-full bg-slate-60 relative">
-            <div class="absolute h-[6px] w-1/3 rounded-full px-4 sm:px-10" 
+            <div class="absolute h-[6px] w-1/2 rounded-full px-4 sm:px-10" 
               :class="[
                 {'left-[0px] transition-all duration-700': clientStore.ceonavigatorTab == 'system' },
-                {'left-[calc(100%/3)] transition-all duration-700': clientStore.ceonavigatorTab == 'account' },
-                {'left-[calc(200%/3)] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
+                {'left-[calc(100%/2)] transition-all duration-700': clientStore.ceonavigatorTab == 'account' },
+                {'left-[calc(100%/2)] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
               ]"
             >
               <div class=" h-full w-full bg-[#189ab4] rounded-full" />
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
+      <div class="w-full flex items-center justify-center fixed"
         :class="[
           {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
           {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'account'  },  
@@ -53,7 +53,7 @@
         <CeoSystemPoint />
       </div>
 
-      <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
+      <!-- <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
         :class="[
           {'invisible opacity-0 top-[100vh] transition-all duration-700': clientStore.ceonavigatorTab == 'statistical' },
           {'visible opacity-100 top-36 transition-all duration-700': clientStore.ceonavigatorTab == 'account'  },  
@@ -61,7 +61,7 @@
         ]"
       > 
         <CeoHead />
-      </div>
+      </div> -->
 
       <div class="w-full px-4 sm:px-10 flex items-center justify-center fixed"
         :class="[
@@ -93,16 +93,19 @@ onMounted( async () => {
     aggregationStore.isLoading = true;
     const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
     aggregationStore.allAggregationPoint = allAgg.data.value;
-    console.log(allAgg.data.value);
     
     aggregationStore.isLoading = false;
   }
 
+
 })
 
-onMounted (async () => {
-  
-  const user_id = client.auth.getUser();
-  console.log(user_id);
+onMounted( async () => {
+  if (!aggregationStore.allAggHead) {
+    const data = await useFetch('/api/auth/Ceo/getAllAggregationHead');
+    aggregationStore.allAggHead = data.data.value;
+  }
 })
+
+
 </script>
