@@ -79,6 +79,10 @@
 import MainLayout from '~/layouts/MainLayout.vue';
 import { useTransactionStore } from '~/store/transaction';
 import { useAggregationStore } from '~/store/aggregation';
+import { routerKey } from 'vue-router';
+import { AggregationType } from '~/types/aggregationType';
+import { UserType } from '~/types/userType';
+
 const aggregationStore = useAggregationStore();
 const transactionStore = useTransactionStore();
 
@@ -86,24 +90,16 @@ const route = useRoute();
 const router = useRouter();
 
 
-// const filterTransactionPoint = computed(() => {
-//   return transactionStore.allTransactionPoint?.filter(tran => {
-//     return tran.aggregation_id == aggregationStore.id;
-//   })
-// });
+const filterTransactionPoint = computed(() => {
+  return transactionStore.allTransactionPoint?.filter(tran => {
+    return tran.aggregation_id == aggregationStore.id;
+  })
+});
 
-const filterTransactionPoint = transactionStore.allTransactionPoint?.filter(tran => {
-  return tran.aggregation_id == aggregationStore.id;
-})
-
-// const aggHead = computed(() => {
-//   return aggregationStore.allAggHead?.find(aggHead => {
-//     return aggHead.aggregation_point_id == aggregationStore.id;
-//   })
-// })
-
-const aggHead = aggregationStore.allAggHead?.find(aggHead => {
-  return aggHead.aggregation_point_id == aggregationStore.id;
+const aggHead = computed(() => {
+  return aggregationStore.allAggHead?.find(aggHead => {
+    return aggHead.aggregation_point_id == aggregationStore.id;
+  })
 })
 
 const name = computed(() => {
@@ -111,6 +107,13 @@ const name = computed(() => {
   if (route.params.id == 'mientrung') return 'Miền Trung';
   if (route.params.id == 'miennam') return 'Miền Nam';
   if (route.params.id == 'mientay') return 'Miền Tây';
+})
+
+onMounted(() => {
+  if (route.params.id == 'mienbac') aggregationStore.id = '9db383cd-732d-4af0-ac4c-9dc0f4457721';
+  if (route.params.id == 'mientrung') aggregationStore.id = 'b4beb09a-573e-447b-85cf-ce71179c5e08';
+  if (route.params.id == 'miennam') aggregationStore.id = '2cdfc55a-8e69-4165-8deb-aebca75277f3';
+  if (route.params.id == 'mientay') aggregationStore.id = '5d536975-c696-47b4-b489-1c8d83d05579';
 })
 
 
