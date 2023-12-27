@@ -1,9 +1,13 @@
 <template>
+  <div class="hidden md:block">
     <MainLayout>
-      <div class="min-h-screen">
         <OrderTracking />
-      </div>
     </MainLayout>
+  </div>
+
+  <div class="block md:hidden">
+    <OrderTracking />
+  </div>
 </template>
 
 <script lang="ts" setup>

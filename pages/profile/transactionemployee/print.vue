@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Number(clientStore.windowWidth) >= 1024" class="w-full h-full flex items-center justify-center">
+  <div class="hidden w-full h-full lg:flex items-center justify-center">
     <div class="w-[1100px] h-[780px] bg-white border-[1px rounded-xl p-6">
       <div id="logo + QR" class="w-full px-10 pt-2">
         <NuxtLink to="/" id="logo">
@@ -166,7 +166,7 @@
     </div>
   </div>
 
-  <div v-else class="w-full h-screen px-4 sm:px-10 flex items-center justify-center">
+  <div class=" w-full h-screen px-4 sm:px-10 flex lg:hidden items-center justify-center">
     <div class="font-semibold text-2xl text-justify text-gray-500 flex flex-col items-center">
       <NuxtLink to="/" id="logo">
         <img src="/mgpost.png" alt="" class="h-[60px]">
@@ -177,9 +177,6 @@
 </template>
 
 <script lang="ts" setup>
-
-import { useClientStore } from '~/store/client';
-const clientStore = useClientStore();
 
 let isChecked = ref<boolean>(false);
 

@@ -1,8 +1,31 @@
 <template>
-  <div class="w-[1100px] pt-4 flex flex-col items-center gap-8 h-[calc(100vh-140px)] pb-24 overflow-auto scrollbar-hide">
+  <div class="w-[1100px] pt-4 flex flex-col items-center h-[calc(100vh-100px)] pb-24 overflow-auto scrollbar-hide">
+    <div class="w-full flex items-center justify-center pb-4 sm:pb-6 md:pb-8">
+      <div class="w-[1100px] flex items-center justify-center font-semibold text-gray-500 px-4 md:px-10">
+        <div class="w-full shadow-lg border-[1px] rounded-xl p-2 md:p-6">
+          <p class="text-2xl text-center">Thống kê</p>
+          <div class="flex items-center justify-center h-10">
+            <Icon name="ic:round-log-out" class="text-[20px] mr-1" />
+            <div class="flex items-center">
+              <p class="w-[100px]">Hàng gửi:</p>
+              <p>123</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-center h-10">
+            <Icon name="ic:round-log-in" class="text-[20px] mr-1" />
+            <div class="flex items-center">
+              <p class="w-[100px]">Hàng nhận:</p>
+              <p>123</p>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
     <div v-if="!aggregationStore.isLoading" 
       class="w-full px-4 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-center justify-center"
-    >
+    > 
       <NuxtLink class="flex flex-col space-y-4 p-2 md:p-6 rounded-xl shadow-lg border-[1px] text-gray-500 text-xs sm:text-sm xl:text-sm font-semibold cursor-pointer"
         v-for="aggregation in aggregationStore.allAggregationPoint" :key="aggregation.id" :to="'/profile/ceo/' + aggregation.notes"
         @click="aggregationStore.id = aggregation.id"
