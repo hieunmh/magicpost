@@ -48,12 +48,10 @@
           {'-left-[100vw] transition-all duration-500': navigatorTab == 'cost' },
         ]"
       >
-        <div class="w-[1100px] rounded-xl flex flex-col pb-6"
-          :class="packageStore.showPackageInfo && ''"
-        >
+        <div class="w-[1100px] rounded-xl flex flex-col pb-6">
           <form class="w-full flex h-14 sm:h-28 p-2 sm:p-6 rounded-xl shadow-lg border-[1px]">
             <input type="text" class="bg-gray-100 w-full h-10 sm:h-16 outline-none rounded-lg pl-4 text-sm sm:text-xl font-semibold text-gray-500"
-              placeholder="Nhập mã đơn hàng" v-model="packageCode"
+              placeholder="Nhập mã đơn hàng" v-model="packageCode" @focus="errorSearch = ''; packageStore.showPackageInfo = false"
             >
             <button :disabled="packageCode.length == 0" @click.prevent="getPackageInfo()"
               class="bg-[#189ab4] hover:bg-[#189] w-28 sm:w-36 rounded-lg ml-2 
@@ -63,6 +61,7 @@
               <p v-else>Theo dõi</p>
             </button>
           </form>
+          <p v-if="!packageStore.showPackageInfo" class="mt-2 text-lg font-semibold text-red-500 text-center">{{ errorSearch }}</p>
 
           <div class="w-full bg-white rounded-xl mt-6 shadow-lg p-2 sm:p-6 border-[1px]"
           :class="[
@@ -312,6 +311,8 @@ let { packageInfo } = storeToRefs(packageStore);
 let isChecked = ref<boolean>(false);
 let weight = ref<string>('0');
 
+let errorSearch = ref<string>('');
+
 let calHeight = computed(() => {
   if (navigatorTab.value == 'follow') {
     if (packageStore.showPackageInfo) {
@@ -370,6 +371,12 @@ const getPackageInfo = async () => {
 
   isLoading.value = true;
   const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`)
+  if (!data.value) {
+    isLoading.value = false;
+    errorSearch.value = 'Không tìm thấy đơn hàng!'
+    return;
+  }
+  
   packageInfo.value = data.value;
   packageStt.value = packageInfo.value?.packageStatus[packageInfo.value.packageStatus.length - 1].status;
   isLoading.value = false;

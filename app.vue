@@ -117,9 +117,9 @@ onMounted( async () => {
     const { data, error } = await useFetch('/api/auth/Aggregation/getAllAggregationEmployee');
     const newPackage = await useFetch('/api/auth/Aggregation/getAllNewPackagesInAggregation');
     const sentPackage = await useFetch('/api/auth/Aggregation/getAllSentPackagesInAggregation');
-    userStore.allAggrEmployee = data.value;
-    aggregationStore.allPackage = newPackage.data.value;
-    aggregationStore.allSentPackage = sentPackage.data.value;
+    // userStore.allAggrEmployee = data.value;
+    // aggregationStore.allPackage = newPackage.data.value;
+    // aggregationStore.allSentPackage = sentPackage.data.value;
   }
 
   clientStore.isLoading = false;

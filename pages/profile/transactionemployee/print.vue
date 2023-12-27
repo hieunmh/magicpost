@@ -100,8 +100,7 @@
               </div>
 
               <div class="w-[50%] font-bold text-black">
-                <p>7. Chữ ký người gửi</p>
-                
+                <p class="text-center">Chữ ký người gửi</p>
               </div>
             </div>
           </div>
