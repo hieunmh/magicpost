@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <div class="w-full flex items-center justify-center">
-      <div class="w-[1100px] flex flex-col items-center h-[calc(100vh-64px)] pb-12 overflow-auto scrollbar-hide">
+      <div class="w-[1100px] flex flex-col items-center h-[calc(100vh-64px)] pb-20 overflow-auto scrollbar-hide">
         <div v-if="!transactionStore.isLoading" class="w-full mt-4 px-4 md:px-10">
           <button @click="router.back()" class="w-full flex">
             <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />

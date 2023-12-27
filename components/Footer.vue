@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div id="Copyright" class="w-full mt-4 mb-12 flex flex-col lg:flex-row items-centr justify-center lg:justify-between border-t-[1px] py-2">
+      <div id="Copyright" class="w-full mt-4 mb-14 flex flex-col lg:flex-row items-centr justify-center lg:justify-between border-t-[1px] py-2">
         <div class="block lg:hidden">
           <div class="text-gray-400 text-sm font-semibold cursor-pointer">
             <p class="hover:text-[#189ab4] mr-10">Chính sách bảo mật</p>
