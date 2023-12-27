@@ -84,12 +84,21 @@ onMounted( async () => {
   }
 
   else if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
+    const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
+    aggregationStore.allAggregationPoint = allAgg.data.value;
+
+    clientStore.isLoading = false;
 
     const allTran = await useFetch('/api/auth/Transaction/getAllTransactionPoints');
     transactionStore.allTransactionPoint = allTran.data.value;
+    
+
+    const data = await useFetch('/api/auth/Ceo/getAllAggregationHead');
+    aggregationStore.allAggHead = data.data.value;
+
   }
 
-  if (userStore.userInfo.role?.toLowerCase() != 'transaction_point_head' && route.fullPath == '/profile/transaction_point_head') {
+  else if (userStore.userInfo.role?.toLowerCase() != 'transaction_point_head' && route.fullPath == '/profile/transaction_point_head') {
     router.push('/');
   }
   
@@ -102,7 +111,7 @@ onMounted( async () => {
   }
 
   
-  if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
+  else if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
     // const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
     // const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");

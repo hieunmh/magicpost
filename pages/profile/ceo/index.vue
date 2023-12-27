@@ -88,24 +88,6 @@ const aggregationStore = useAggregationStore();
 definePageMeta({middleware: 'loggedin'});
 const client = useSupabaseClient();
 
-onMounted( async () => {
-  if (aggregationStore.allAggregationPoint?.length == 0) {
-    aggregationStore.isLoading = true;
-    const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
-    aggregationStore.allAggregationPoint = allAgg.data.value;
-    
-    aggregationStore.isLoading = false;
-  }
-
-
-})
-
-onMounted( async () => {
-  if (!aggregationStore.allAggHead) {
-    const data = await useFetch('/api/auth/Ceo/getAllAggregationHead');
-    aggregationStore.allAggHead = data.data.value;
-  }
-})
 
 
 </script>
