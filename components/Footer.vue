@@ -11,7 +11,7 @@
           </div>
         </div>
 
-        <div class="text-gray-400 text-sm sm:text-base font-semibold space-y-2 mt-8 lg:mt-0">
+        <div class="text-gray-400 text-xs sm:text-sm font-semibold space-y-2 mt-8 lg:mt-0">
           <p class="font-bold text-xl text-gray-500">Vận chuyển</p>
           <p>Lên đơn với MGP</p>
           <p>Ước tính cước phí</p>
@@ -24,7 +24,7 @@
           <p>Danh Mục Hàng Hóa Không Nhận Vận Chuyển</p>
         </div>
 
-        <div class="text-gray-400 text-sm sm:text-base font-semibold space-y-2 mt-8 lg:mt-0">
+        <div class="text-gray-400 text-xs sm:text-sm font-semibold space-y-2 mt-8 lg:mt-0">
           <p class="font-bold text-xl text-gray-500">Dịch vụ</p>
           <p>Dịch vụ lấy hàng MGP</p>
           <p>Dịch vụ thu tiền hộ</p>

@@ -79,9 +79,6 @@
 import MainLayout from '~/layouts/MainLayout.vue';
 import { useTransactionStore } from '~/store/transaction';
 import { useAggregationStore } from '~/store/aggregation';
-import { routerKey } from 'vue-router';
-import { AggregationType } from '~/types/aggregationType';
-import { UserType } from '~/types/userType';
 
 const aggregationStore = useAggregationStore();
 const transactionStore = useTransactionStore();

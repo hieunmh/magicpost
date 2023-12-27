@@ -3,25 +3,39 @@ import type { Database } from "@/types/supabaseType";
 import { serverSupabaseClient } from '#supabase/server';
 import { Packages } from "#build/components";
 
+
+// chuc nang them cua customer thoi
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const client = await serverSupabaseClient<Database>(event);
 
+  const sender_name = body.sender_name;
+  const receiver_name = body.receiver_name;
+  // const sender_address = body.sender_address;
   const receiver_address = body.receiver_address;
-  const id = body.id;
-  const mainCharge = body.mainCharge;
+  const sender_phone_no = body.sender_phone_no;
+  const receiver_phone_no = body.receiver_phone_no;
   const notes = body.notes;
   const package_info = body.package_info;
-  const receiver_name = body.receiver_name;
-  const receiver_phone_no = body.receiver_phone_no;
-  const sender_name = body.sender_name;
-  const sender_phone_no = body.sender_phone_no;
-  const created_at = body.created_at;
+  const mainCharge = body.mainCharge;
   const totalCharge = body.totalCharge;
 
+  
+  // get sender_id 
+  const user = await client.auth.getUser();
+  const sender_id = user.data.user?.id;
+
+  // tao ra package truoc lay ra package_id
+  // can insert vao bang package sau do lay ra last_id vua tao
+  // gan id vua tao vao bang packageDetails
+  // insert du lieu vao bang packageDetails
+  
+
+  //insert du lieu vao bang package status, voi address cua transaction dang gui
+
+
+
   const data = await client.from('packageDetails').insert({
-    created_at: created_at,
-    id: id,
     mainCharge: mainCharge,
     notes: notes,
     package_id: '',
@@ -34,4 +48,6 @@ export default defineEventHandler(async (event) => {
     totalCharge: totalCharge,
     updated_at: string | null,
   })
+
+
 })

@@ -12,7 +12,7 @@
           <li v-for="(item, index) in menu" class="px-5 cursor-pointer text-gray-500 hover:text-[#189ab4]">
             {{ item }}
           </li>
-          <NuxtLink to="/profile/transactionemployee/print">
+          <NuxtLink to="/profile/transactionemployee/print" class="hidden lg:block">
             <li class="px-5 cursor-pointer text-gray-500 hover:text-[#189ab4]">In giấy biên nhận</li>
           </NuxtLink>
         </ul>
@@ -99,7 +99,6 @@
 
       <button class="md:hidden block pr-4" @click="clientStore.isMenuOverlay = true">
         <Icon name="ci:hamburger-md" size="40" class="text-gray-400" />
-        
       </button>
 
     </div>

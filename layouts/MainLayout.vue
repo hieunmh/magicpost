@@ -1,13 +1,12 @@
 <template>
-  <Header />
+  <Header class="" />
+  
   <main class="min-h-screen">
     <slot/>
-</main>
-
+  </main>
 </template>
 
 <script lang="ts" setup>
- 
 
 </script>
 

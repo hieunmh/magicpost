@@ -8,8 +8,8 @@
   <div v-else class="h-full w-full fixed">
     <MenuOverlay 
       :class="[
-        {'max-h-[100vh] -left-[0] transition-all duration-500 visible': clientStore.isMenuOverlay },
-        {'max-h-[100vh] -left-[100%] transition-all duration-500 invisible': !clientStore.isMenuOverlay },
+        {'max-h-[100vh] opacity-100 transition-all duration-500 visible': clientStore.isMenuOverlay },
+        {'max-h-[100vh] opacity-0 transition-all duration-500 invisible': !clientStore.isMenuOverlay },
       ]"
     />
 
@@ -126,6 +126,8 @@ onMounted( async () => {
     // userStore.allAggrEmployee = data.value;
     // aggregationStore.allPackage = newPackage.data.value;
     // aggregationStore.allSentPackage = sentPackage.data.value;
+
+    const test = await useFetch('/api/auth/Ceo/getAllNewAndFinishedPackages');
   }
 
   clientStore.isLoading = false;
