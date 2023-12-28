@@ -13,5 +13,6 @@ export const usePackageStore = defineStore('package', {
     id: '',
     allNewPackage: <PackageType[] | null>[],
     allSendPackage: <PackageType[] | null>[],
+    allShippedPackage: <PackageType[] | null>[],
   }),
 })

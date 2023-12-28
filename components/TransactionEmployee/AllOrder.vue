@@ -21,18 +21,6 @@
 
           <button
             class="w-1/3"
-            @click="clientStore.ordernavigatorTab = 'shippedOrder'"
-            :class="
-              clientStore.ordernavigatorTab == 'shippedOrder'
-                ? 'text-[#189ab4]'
-                : 'text-gray-500'
-            "
-          >
-            <h1 class="font-semibold mb-4 text-center">Đơn hàng đang chuyển</h1>
-          </button>
-
-          <button
-            class="w-1/3"
             @click="clientStore.ordernavigatorTab = 'sendOrder'"
             :class="
               clientStore.ordernavigatorTab == 'sendOrder'
@@ -41,6 +29,18 @@
             "
           >
             <h1 class="font-semibold mb-4 text-center">Đơn hàng đã chuyển</h1>
+          </button>
+
+          <button
+            class="w-1/3"
+            @click="clientStore.ordernavigatorTab = 'cancelOrder'"
+            :class="
+              clientStore.ordernavigatorTab == 'cancelOrder'
+                ? 'text-[#189ab4]'
+                : 'text-gray-500'
+            "
+          >
+            <h1 class="font-semibold mb-4 text-center">Đơn hàng bị hủy</h1>
           </button>
         </div>
 
@@ -54,11 +54,11 @@
               },
               {
                 'left-[calc(100%/3)] transition-all duration-300':
-                  clientStore.ordernavigatorTab == 'shippedOrder',
+                  clientStore.ordernavigatorTab == 'sendOrder',
               },
               {
                 'left-[calc(200%/3)] transition-all duration-300':
-                  clientStore.ordernavigatorTab == 'sendOrder',
+                  clientStore.ordernavigatorTab == 'cancelOrder',
               },
             ]"
           >
@@ -77,11 +77,11 @@
         },
         {
           '-left-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
         {
           '-left-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendOrder',
+            clientStore.ordernavigatorTab == 'cancelOrder',
         },
       ]"
     >
@@ -98,15 +98,15 @@
         },
         {
           '-left-0 transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
         {
           '-left-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendOrder',
+            clientStore.ordernavigatorTab == 'cancelOrder',
         },
       ]"
     >
-      <TransactionEmployeeOrderShippedOrder />
+      <TransactionEmployeeOrderSendOrder />
     </div>
 
     <div
@@ -118,15 +118,15 @@
         },
         {
           '-right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
         {
           'right-0 transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendOrder',
+            clientStore.ordernavigatorTab == 'cancelOrder',
         },
       ]"
     >
-      <TransactionEmployeeOrderSendOrder />
+      <TransactionEmployeeOrderCancelOrder />
     </div>
   </div>
 </template>

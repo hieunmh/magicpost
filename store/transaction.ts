@@ -12,6 +12,7 @@ export const useTransactionStore = defineStore('transaction', {
     allTranHead: <(TransactionType & { users: UserType })[] | null>[],
     allNewPackage: <PackageType[] | null>[],
     allSentPackage: <PackageType[] | null>[],
+    aggAddress: '',
   }),
 
 })

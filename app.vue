@@ -117,13 +117,12 @@ onMounted( async () => {
   
   else if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
-    // const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
-    // const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
-    // const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
-    // packageStore.allNewPackage = newPackage.data.value;
-    // packageStore.allShippedPackage = shippedPackage.data.value;
-    // packageStore.allSendPackage = sendPackage.data.value;
-    
+    const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
+    const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
+    const aggregations = await useFetch("/api/auth/Aggregation/getAllAggregationPoints");
+    clientStore.aggregations = aggregations.data.value;
+    packageStore.allNewPackage = newPackage.data.value;
+    packageStore.allSendPackage = sendPackage.data.value;
     packageStore.allPackage = data.value;
   }
 

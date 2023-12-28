@@ -75,7 +75,7 @@
       <div class="ml-2">Hình thức gửi hàng</div>
     </div>
 
-    <div class="w-full mb-7">
+    <!-- <div class="w-full mb-7">
       <div class="font-semibold text-gray-500 mb-1">Loại hình gửi hàng</div>
       <div class="flex items-center justify-center md:justify-start">
         <Icon
@@ -120,7 +120,7 @@
           Gửi tại điểm
         </p>
       </div>
-    </div>
+    </div> -->
 
     <div class="mb-7 bg-gray-300">
       <div class="ml-2">Thông tin dịch vụ</div>
