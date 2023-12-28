@@ -1,16 +1,16 @@
 <template>
   <div class="w-[1100px] pt-4 flex flex-col items-center h-[calc(100vh-100px)] pb-20 overflow-auto scrollbar-hide">
-    <div class="w-full flex items-center justify-center pb-4 sm:pb-6 md:pb-8">
+    <div class="w-full flex items-center justify-center pb-4">
       <div class="w-[1100px] flex items-center justify-center font-semibold text-gray-500 px-4 md:px-10">
-        <div class="w-full shadow-lg border-[1px] rounded-xl p-2 md:p-6">
-          <p class="text-2xl text-center">Thống kê</p>
+        <div class="w-full rounded-xl">
+          <p class="text-3xl text-center font-bold">MGP MagicPost</p>
           <div class="flex items-center justify-center h-10">
             <Icon name="ic:round-log-out" class="text-[20px] mr-1" />
             <div class="flex items-center">
               <p class="w-[100px]">Hàng gửi:</p>
               <Vue3autocounter v-if="ceoStore.show" 
                 :ref="ceoStore.sendPackage" :startAmount="1000" 
-                :endAmount="ceoStore.sendPackage" :duration="1" 
+                :endAmount="ceoStore.sendPackage" :duration="1.5" 
               />
               <p v-else>{{ ceoStore.sendPackage }}</p>
             </div>
@@ -22,7 +22,7 @@
               <p class="w-[100px]">Hàng nhận:</p>
               <Vue3autocounter v-if="ceoStore.show" 
                 :ref="ceoStore.receivePackage" :startAmount="1000" 
-                :endAmount="ceoStore.receivePackage" :duration="1" 
+                :endAmount="ceoStore.receivePackage" :duration="1.5" 
               />
               <p v-else>{{ ceoStore.receivePackage }}</p>
             </div>
