@@ -9,6 +9,8 @@ export const useAggregationStore = defineStore('aggregation', {
     isLoading: false,
     id: '',
     allAggHead: <(AggregationType & { users: UserType })[] | null>[],
+    sendPackage: <number | undefined>(0),
+    receivePackage: < number | undefined>(0),
   }),
 
 })

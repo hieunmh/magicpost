@@ -6,5 +6,9 @@ export const useCeoStore = defineStore('ceo', {
     receivePackage: <number | undefined>(0),
     show: true,
     loading: true,
+    showUpdate: false,
+    showUpdateTran: false,
+    newEmail: <string>(''),
+    newPhone: <string>(''),
   }),
 })
