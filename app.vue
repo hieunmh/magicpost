@@ -135,7 +135,7 @@ onMounted( async () => {
     // aggregationStore.allPackage = newPackage.data.value;
     // aggregationStore.allSentPackage = sentPackage.data.value;
 
-    const test = await useFetch('/api/auth/Ceo/getAllNewAndFinishedPackages');
+    const test = await useFetch('/api/auth/Transaction/getAllCancelPackagesInTransaction');
   }
 
   clientStore.isLoading = false;
