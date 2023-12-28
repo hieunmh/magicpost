@@ -92,9 +92,16 @@ const clientStore = useClientStore();
 import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
 
+import { useAggregationStore } from '~/store/aggregation';
+const aggregationStore = useAggregationStore();
+
+import { useTransactionStore } from '~/store/transaction';
+const transactionStore = useTransactionStore();
+
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const router = useRouter();
+const route = useRoute();
 
 definePageMeta({middleware: 'loggedin'});
 
@@ -161,14 +168,26 @@ const login = async () => {
     userStore.userInfo = getuser.data.value;
   }
 
+
   isLoading.value = false;
 
   clientStore.isLoading = true;
+  if (userStore.userInfo.role?.toLowerCase() == 'ceo') {
+    const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
+    aggregationStore.allAggregationPoint = allAgg.data.value;
+
+    const allTran = await useFetch('/api/auth/Transaction/getAllTransactionPoints');
+    transactionStore.allTransactionPoint = allTran.data.value;
+
+    const data = await useFetch('/api/auth/Ceo/getAllAggregationHead');
+    aggregationStore.allAggHead = data.data.value;
+
+  }
   router.push('/');
 
   setTimeout(() => {
     clientStore.isLoading = false;
-  }, 1500);
+  }, 500);
 }
 
 const loginWithGoogle = async () => {

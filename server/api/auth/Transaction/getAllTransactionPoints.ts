@@ -7,7 +7,6 @@ export default defineEventHandler(async (event) => {
 
   const allTrans = await client.from('transaction_points').select('*');
 
-  console.log(allTrans.data);
   return allTrans.data;
 
 })

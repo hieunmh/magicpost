@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1100px] pt-4 flex flex-col items-center h-[calc(100vh-100px)] pb-24 overflow-auto scrollbar-hide">
+  <div class="w-[1100px] pt-4 flex flex-col items-center h-[calc(100vh-100px)] pb-20 overflow-auto scrollbar-hide">
     <div class="w-full flex items-center justify-center pb-4 sm:pb-6 md:pb-8">
       <div class="w-[1100px] flex items-center justify-center font-semibold text-gray-500 px-4 md:px-10">
         <div class="w-full shadow-lg border-[1px] rounded-xl p-2 md:p-6">
@@ -8,7 +8,11 @@
             <Icon name="ic:round-log-out" class="text-[20px] mr-1" />
             <div class="flex items-center">
               <p class="w-[100px]">Hàng gửi:</p>
-              <Vue3autocounter :ref="countSend" :startAmount="10000" :endAmount="sendPackage" :duration="3" />
+              <Vue3autocounter v-if="ceoStore.show" 
+                :ref="ceoStore.sendPackage" :startAmount="1000" 
+                :endAmount="ceoStore.sendPackage" :duration="1" 
+              />
+              <p v-else>{{ ceoStore.sendPackage }}</p>
             </div>
           </div>
 
@@ -16,7 +20,11 @@
             <Icon name="ic:round-log-in" class="text-[20px] mr-1" />
             <div class="flex items-center">
               <p class="w-[100px]">Hàng nhận:</p>
-              <Vue3autocounter :ref="countSend" :startAmount="100" :endAmount="sendPackage" :duration="1" />
+              <Vue3autocounter v-if="ceoStore.show" 
+                :ref="ceoStore.receivePackage" :startAmount="1000" 
+                :endAmount="ceoStore.receivePackage" :duration="1" 
+              />
+              <p v-else>{{ ceoStore.receivePackage }}</p>
             </div>
           </div>
         </div>
@@ -83,18 +91,35 @@
 import { useAggregationStore } from '~/store/aggregation';
 const aggregationStore = useAggregationStore();
 
+import { useCeoStore } from '~/store/ceo';
+const ceoStore = useCeoStore();
+
 import Vue3autocounter from 'vue3-autocounter';
 
+import { PackageType } from '~/types/packageType';
+import { PackageStatusType } from '~/types/packageStatusType';
 
-const sendPackage = ref<number>(0);
 
-const countSend = ref<number>(0);
+const allPackage = ref<(PackageType & { Sent: number, packageStatus: PackageStatusType[] })[]>();
 
 onMounted( async () => {
-  const data = await useFetch('/api/auth/Ceo/getAllNewAndFinishedPackages');
-  console.log(data.data.value.length);
+  if (ceoStore.loading) {
+    const data = await useFetch('/api/auth/Ceo/getAllNewAndFinishedPackages');
 
-  sendPackage.value = Number(data.data?.value?.length) | 0;
+    allPackage.value = data.data.value;
+
+    ceoStore.sendPackage = allPackage.value?.filter(pk => {
+      return pk.Sent == 1;
+    }).length;
+
+    ceoStore.receivePackage =  allPackage.value?.filter(pk => {
+      return pk.Sent == 0;
+    }).length;
+    
+
+    ceoStore.loading = false;
+    ceoStore.show = false;
+  }
 })
 
 
