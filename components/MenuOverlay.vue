@@ -11,7 +11,7 @@
       <div class="flex flex-col items-center justify-between h-16 border-b-[1px] bg-transparent">
         <div class="flex items-center justify-between w-full h-full">
           <button class="h-16 w-16 rounded-full items-center" @click="clientStore.isMenuOverlay = false">
-            <Icon name="material-symbols:cancel-rounded" size="40" class="text-gray-300" />
+            <Icon name="solar:close-square-bold" size="40" class="text-gray-300" />
           </button>
         </div>
       
