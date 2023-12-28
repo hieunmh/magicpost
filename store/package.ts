@@ -7,8 +7,11 @@ export const usePackageStore = defineStore('package', {
   state: () => ({
 
     packageInfo: <PackageType & { packageDetails: PackageDetailType, packageStatus: PackageStatusType[] } | null>{},
-    allPackage: <PackageType[] | null>[],
+    allPackage: <(PackageType & { packageDetails: PackageDetailType, packageStatus: PackageStatusType[] })[] | null>[],
     allPackageStatus: <PackageStatusType[] | null>[],
     showPackageInfo: false,
+    id: '',
+    allNewPackage: <PackageType[] | null>[],
+    allSendPackage: <PackageType[] | null>[],
   }),
 })
