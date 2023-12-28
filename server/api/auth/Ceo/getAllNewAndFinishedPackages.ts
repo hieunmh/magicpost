@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   //chua gui sent = 0
 
   const allPackages:any = await client
-    .from('packageDetails')
+    .from('packages')
     .select(`
       *, 
       packageStatus(*)
@@ -19,8 +19,8 @@ export default defineEventHandler(async (event) => {
 
   const packagesWithSentStatus = allPackages.data.map((pk: { packageStatus: string | any[]; }) => ({
     ...pk,
-    Sent: pk.packageStatus.length > 0 && pk.packageStatus[pk.packageStatus.length - 1].status === status ? 1 : 0
-  }));
+    Sent: pk.packageStatus?.length > 0 && pk.packageStatus[pk.packageStatus?.length - 1].status === status ? 1 : 0
+  }));  
   
   return packagesWithSentStatus;
 })

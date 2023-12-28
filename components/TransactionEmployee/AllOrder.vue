@@ -72,15 +72,15 @@
       class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
       :class="[
         {
-          'right-0 transition-all duration-300':
+          'left-0 transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
-          'right-[500vw] transition-all duration-300':
+          '-left-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'shippedOrder',
         },
         {
-          'right-[500vw] transition-all duration-300':
+          '-left-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
@@ -93,15 +93,15 @@
       class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
       :class="[
         {
-          '-right-[500vw] transition-all duration-300':
+          'left-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
-          'right-0 transition-all duration-300':
+          '-left-0 transition-all duration-300':
             clientStore.ordernavigatorTab == 'shippedOrder',
         },
         {
-          'right-[500vw] transition-all duration-300':
+          '-left-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'sendOrder',
         },
       ]"
@@ -113,11 +113,11 @@
       class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
       :class="[
         {
-          '-right-[500vw] transition-all duration-300':
+          '-right-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
-          '-right-[500vw] transition-all duration-300':
+          '-right-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'shippedOrder',
         },
         {
