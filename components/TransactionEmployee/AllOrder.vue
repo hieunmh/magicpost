@@ -69,7 +69,7 @@
     </div>
 
     <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      class="w-full mt-6 px-4 md:px-20 flex items-center justify-center absolute"
       :class="[
         {
           'left-0 transition-all duration-300':
@@ -90,7 +90,7 @@
 
 
     <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      class="w-full mt-6 px-4 md:px-20 flex items-center justify-center absolute"
       :class="[
         {
           'left-[100vw] transition-all duration-300':
@@ -110,7 +110,7 @@
     </div>
 
     <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      class="w-full mt-6 px-4 md:px-20 flex items-center justify-center absolute"
       :class="[
         {
           '-right-[100vw] transition-all duration-300':

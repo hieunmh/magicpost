@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     transaction_points!inner(*)
   `).eq('user_id', userId || '').single();
   const address = transPoint?.data?.transaction_points?.address;
-  const status = 'Chờ xử lý';
+  const status = 'Đang giao hàng';
 
   const allNewPackage = await client.from('packages').select(`
         *,
