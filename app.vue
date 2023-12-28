@@ -105,7 +105,14 @@ onMounted( async () => {
   
   else if (userStore.userInfo.role?.toLowerCase() == 'transaction_point_head'){
     const { data, error } = await useFetch('/api/auth/Transaction/getAllTransactionEmployee');
+    const newPackage = await useFetch('/api/auth/Transaction/getAllNewPackagesInTransaction');
+    const sentPackage = await useFetch('/api/auth/Transaction/getAllSentPackagesInTransaction');
+
     // const data2 = await useFetch('/api/auth/Packages/getAllPackage'); // sai o day
+    transactionStore.allNewPackage = newPackage.data.value;
+    transactionStore.allSentPackage = sentPackage.data.value;
+    packageStore.allNewPackage = newPackage.data.value;
+    packageStore.allSendPackage = sentPackage.data.value;
     userStore.allTransactionEmployee = data.value;
     // packageStore.allPackage = data2.data.value;
   }
@@ -119,6 +126,7 @@ onMounted( async () => {
     // packageStore.allNewPackage = newPackage.data.value;
     // packageStore.allShippedPackage = shippedPackage.data.value;
     // packageStore.allSendPackage = sendPackage.data.value;
+    
     packageStore.allPackage = data.value;
   }
 
