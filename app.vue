@@ -93,6 +93,9 @@ onMounted( async () => {
     const data = await useFetch('/api/auth/Ceo/getAllAggregationHead');
     aggregationStore.allAggHead = data.data.value;
 
+    const allTranHead = await useFetch('/api/auth/Ceo/getAllTransactionHead');
+    transactionStore.allTransactionHead = allTranHead.data.value;
+
   }
 
   else if (userStore.userInfo.role?.toLowerCase() != 'transaction_point_head' && route.fullPath == '/profile/transaction_point_head') {
@@ -146,7 +149,7 @@ onMounted( async () => {
   if (user.value && !userStore.userInfo.phone) {
     setTimeout(() => {
       clientStore.havePhone = false;
-    }, 300);
+    }, 0);
   }
 })
 

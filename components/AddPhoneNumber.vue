@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full fixed z-50 top-[0] flex items-center justify-center">
-    <div class="sm:mx-0 mx-4 w-[500px] bg-white h-[500px] lg:ml-20 rounded-xl sm:shadow-xl sm:border-[1px]">
+    <div class="sm:mx-0 mx-4 w-[500px] bg-white h-[500px] rounded-xl sm:shadow-xl sm:border-[1px]">
       <NuxtLink to="/">
         <h1 class="text-center flex flex-col items-center justify-center font-bold text-[20px] translate-y-10 text-[#189ab4] mb-10">
           <img src="/mgpost.png" width="150" alt="">
@@ -88,8 +88,6 @@ const addPhoneNumber = async () => {
       userId: user.value?.id,
     }
   })
-
-  console.log(phone.value);
   
 
   userStore.userInfo.phone ='0' + phone.value;

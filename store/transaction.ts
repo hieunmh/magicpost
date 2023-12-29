@@ -8,8 +8,8 @@ export const useTransactionStore = defineStore('transaction', {
   state: () => ({
     allTransactionPoint: <TransactionPointType[] | null>[],
     isLoading: false,
+    allTransactionHead: <(TransactionType & { users: UserType })[] | null>[],
     id: '',
-    allTranHead: <(TransactionType & { users: UserType })[] | null>[],
     allNewPackage: <PackageType[] | null>[],
     allSentPackage: <PackageType[] | null>[],
     aggAddress: '',
