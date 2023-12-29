@@ -87,7 +87,7 @@
             :disabled="!phone || !password || phoneError.length > 0 || passwordError.length > 0"
           > 
             <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="25" class="animate-spin"  />
-            <p v-else>Tạo tài khoản</p>
+            <p v-else>Tạo tài khoản</p> 
           </button>
         </form>
   </div>
@@ -213,20 +213,27 @@ const register = async () => {
       phoneError.value = 'Số điện thoại đã được đăng ký';
       return;
     }
-
-    await useFetch(`/api/auth/register`, {
+    
+    if(userStore.userInfo.role?.toLowerCase() == "transaction_point_head") {
+      await useFetch(`/api/auth/Transaction/createNewAccountTransaction`, {
       method: 'post',
       body: {
         email:  email.value,
         phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
-        id: user.value?.id,
+        password: password.value
       }
     })
-    
-    const getuser = await useFetch(`/api/auth/getUserById/${user.value?.id}`);
-    userStore.userInfo = getuser.data.value;
+    } else if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
+      await useFetch(`/api/auth/Aggregation/createNewAccountAggregation`, {
+      method: 'post',
+      body: {
+        email:  email.value,
+        phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+        password: password.value
+      }
+    })
+    }
   }
-
 
   isLoading.value = false;
 
