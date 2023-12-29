@@ -6,7 +6,8 @@ export const useUserStore = defineStore('user', {
     userInfo: <UserType>{},
     allHead: <UserType[] | null>[],
     allTransactionEmployee: <UserType[] | null>[],
+    allAggregationEmployee: <UserType[] | null>[],
     isLoading: false,
   }),
-  
+
 })

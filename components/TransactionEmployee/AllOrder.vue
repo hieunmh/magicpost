@@ -21,18 +21,6 @@
 
           <button
             class="w-1/3"
-            @click="clientStore.ordernavigatorTab = 'shippedOrder'"
-            :class="
-              clientStore.ordernavigatorTab == 'shippedOrder'
-                ? 'text-[#189ab4]'
-                : 'text-gray-500'
-            "
-          >
-            <h1 class="font-semibold mb-4 text-center">Đơn hàng đang chuyển</h1>
-          </button>
-
-          <button
-            class="w-1/3"
             @click="clientStore.ordernavigatorTab = 'sendOrder'"
             :class="
               clientStore.ordernavigatorTab == 'sendOrder'
@@ -41,6 +29,18 @@
             "
           >
             <h1 class="font-semibold mb-4 text-center">Đơn hàng đã chuyển</h1>
+          </button>
+
+          <button
+            class="w-1/3"
+            @click="clientStore.ordernavigatorTab = 'cancelOrder'"
+            :class="
+              clientStore.ordernavigatorTab == 'cancelOrder'
+                ? 'text-[#189ab4]'
+                : 'text-gray-500'
+            "
+          >
+            <h1 class="font-semibold mb-4 text-center">Đơn hàng bị hủy</h1>
           </button>
         </div>
 
@@ -54,11 +54,11 @@
               },
               {
                 'left-[calc(100%/3)] transition-all duration-300':
-                  clientStore.ordernavigatorTab == 'shippedOrder',
+                  clientStore.ordernavigatorTab == 'sendOrder',
               },
               {
                 'left-[calc(200%/3)] transition-all duration-300':
-                  clientStore.ordernavigatorTab == 'sendOrder',
+                  clientStore.ordernavigatorTab == 'cancelOrder',
               },
             ]"
           >
@@ -69,19 +69,19 @@
     </div>
 
     <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      class="w-full mt-6 px-4 md:px-10 flex items-center justify-center absolute"
       :class="[
         {
           'left-0 transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
-          '-left-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
+          '-left-[200vw] transition-all duration-300':
+            clientStore.ordernavigatorTab == 'sendOrder',
         },
         {
-          '-left-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendOrder',
+          '-left-[200vw] transition-all duration-300':
+            clientStore.ordernavigatorTab == 'cancelOrder',
         },
       ]"
     >
@@ -90,43 +90,43 @@
 
 
     <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
+      class="w-full mt-6 px-4 md:px-10 flex items-center justify-center absolute"
       :class="[
         {
-          'left-[100vw] transition-all duration-300':
+          'left-[200vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'newOrder',
         },
         {
           '-left-0 transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
-        },
-        {
-          '-left-[100vw] transition-all duration-300':
             clientStore.ordernavigatorTab == 'sendOrder',
         },
-      ]"
-    >
-      <TransactionEmployeeOrderShippedOrder />
-    </div>
-
-    <div
-      class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
-      :class="[
         {
-          '-right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'newOrder',
-        },
-        {
-          '-right-[100vw] transition-all duration-300':
-            clientStore.ordernavigatorTab == 'shippedOrder',
-        },
-        {
-          'right-0 transition-all duration-300':
-            clientStore.ordernavigatorTab == 'sendOrder',
+          '-left-[200vw] transition-all duration-300':
+            clientStore.ordernavigatorTab == 'cancelOrder',
         },
       ]"
     >
       <TransactionEmployeeOrderSendOrder />
+    </div>
+
+    <div
+      class="w-full mt-6 px-4 md:px-10 flex items-center justify-center absolute"
+      :class="[
+        {
+          '-right-[200vw] transition-all duration-300':
+            clientStore.ordernavigatorTab == 'newOrder',
+        },
+        {
+          '-right-[200vw] transition-all duration-300':
+            clientStore.ordernavigatorTab == 'sendOrder',
+        },
+        {
+          'right-0 transition-all duration-300':
+            clientStore.ordernavigatorTab == 'cancelOrder',
+        },
+      ]"
+    >
+      <TransactionEmployeeOrderCancelOrder />
     </div>
   </div>
 </template>

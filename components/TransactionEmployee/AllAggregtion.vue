@@ -8,14 +8,14 @@
       <div class="w-full h-[80px] py-4">
         <input type="text" class="h-full w-full outline-none bg-gray-100 rounded-lg px-4 text-gray-500 font-semibold text-sm mb-2"
           placeholder="Địa chỉ" :value="agg"
-          @click="showProvince=true"
+          @click="showAggregation=true"
         >
         <div class="w-full h-[316px] overflow-y-scroll text-sm scrollbar-hide border-[1.5px] rounded-lg">
-          <option v-if="showProvince" v-for="(province) in clientStore.provinces" :key="province" 
-            @click="clientStore.showAggLocation = false"
+          <option v-if="showAggregation" v-for="(aggregation) in clientStore.aggregations" :key=" aggregation" 
+            @click="clientStore.showAggLocation = false; transactionStore.aggAddress = aggregation.address"
             class="cursor-pointer h-10 font-semibold text-gray-500 hover:bg-gray-100 hover:text-[#189ab4] flex items-center pl-6"
           >
-            {{ province.name }}
+            {{ aggregation.address }}
           </option>
         </div>
       </div>
@@ -26,13 +26,15 @@
 <script lang="ts" setup>
 
 import { useClientStore } from '~/store/client';
+import { useTransactionStore } from '~/store/transaction';
 const clientStore = useClientStore();
+const transactionStore = useTransactionStore();
 
-let showProvince = ref<boolean>(true);
+let showAggregation = ref<boolean>(true);
 
 let agg = computed(() => {
-  return clientStore.sendProvince 
-  ? clientStore.sendProvince : '';
+  return transactionStore.aggAddress
+  ? transactionStore.aggAddress : '';
 })
 
 </script>
