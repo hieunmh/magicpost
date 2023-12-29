@@ -18,6 +18,10 @@ export default defineEventHandler(async (event) => {
   const address = body.address;
   const packageId = body.packageId;
 
+  console.log(packageId);
+  console.log(address);
+  console.log(packageStatusId);
+
   const updateOldPk = await client
     .from('packageStatus')
     .update({ isPassed: true })
@@ -28,6 +32,7 @@ export default defineEventHandler(async (event) => {
   const insertNewPkStatusData = await client
     .from('packageStatus')
     .insert({ package_id: packageId, status: 'Đang giao hàng', current_location: address || '' })
+
 
   return insertNewPkStatusData.data;
 

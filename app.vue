@@ -117,7 +117,7 @@ onMounted( async () => {
 
 
   else if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
-    const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
+    const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesInfo");
     const newPackage = await useFetch("/api/auth/Transaction/getAllNewPackagesInTransaction");
     const sendPackage = await useFetch("/api/auth/Transaction/getAllSentPackagesInTransaction");
     const cancelPackage = await useFetch("/api/auth/Transaction/getAllCancelPackagesInTransaction");
@@ -129,6 +129,7 @@ onMounted( async () => {
     packageStore.allSendPackage = sendPackage.data.value;
     packageStore.allCancelPackage = cancelPackage.data.value;
     packageStore.allPackage = data.value;
+    console.log(packageStore.allPackage);
   }
 
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {

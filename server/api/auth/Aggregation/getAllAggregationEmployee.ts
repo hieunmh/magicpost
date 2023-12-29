@@ -4,7 +4,7 @@ import { serverSupabaseClient } from '#supabase/server';
 
 
 export default defineEventHandler(async (event) => {
-  
+
   const client = await serverSupabaseClient<Database>(event);
   const user = await client.auth.getUser();
   const userId = user.data.user?.id;
@@ -18,7 +18,8 @@ export default defineEventHandler(async (event) => {
   `)
     .eq('aggregation.aggregation_point_id', aggregationPointId || '')
     .eq('role', 'aggregation_employee')
-  
+
+
   return allAgEmployee.data;
 
 })

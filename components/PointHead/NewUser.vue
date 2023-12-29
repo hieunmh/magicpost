@@ -90,6 +90,7 @@
             <p v-else>Tạo tài khoản</p> 
           </button>
         </form>
+        <p class="text-red-500 font-semibold mt-1 text-[14px]">{{ createError }}</p>
   </div>
 </template>
 <script lang="ts" setup>
@@ -123,6 +124,7 @@ let phoneError = ref<string>('');
 let incorrectError = ref<string>('');
 
 let isLoading = ref<boolean>(false);
+let createError = ref<string>("");
 
 const togglePassword = () => {
   if (passwordType.value == 'text') {
@@ -190,50 +192,35 @@ watch(() => phone.value, () => {
 
 const register = async () => {
   isLoading.value = true;
-  
-  const {data, error} = await client.auth.signUp({
-    email: email.value,
-    password: password.value,
-  })
-
-
-  if (error?.message) {
-    isLoading.value = false;
-    emailError.value = 'Email đã được đăng ký';
-    return;
-  }
-
-  else {
-    const res = await client.auth.updateUser({ 
-      phone: `+84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`
-    });
-
-    if (res.error) {
+  if(userStore.userInfo.role?.toLowerCase() == "transaction_point_head") {
+    const createNewAcc =  await useFetch(`/api/auth/Transaction/createNewAccountTransaction`, {
+      method: 'post',
+      body: {
+        email:  email.value,
+        phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
+        password: password.value
+      }
+    })
+    if (!createNewAcc) {
       isLoading.value = false;
-      phoneError.value = 'Số điện thoại đã được đăng ký';
-      return;
+      createError.value = 'Không tạo được tài khoản'
     }
-    
-    if(userStore.userInfo.role?.toLowerCase() == "transaction_point_head") {
-      await useFetch(`/api/auth/Transaction/createNewAccountTransaction`, {
-      method: 'post',
+  } else if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
+    const createNewAcc = await useFetch(`/api/auth/Aggregation/createNewAccountAggregation`, {
+      method: 'post', 
       body: {
         email:  email.value,
         phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
         password: password.value
       }
     })
-    } else if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {
-      await useFetch(`/api/auth/Aggregation/createNewAccountAggregation`, {
-      method: 'post',
-      body: {
-        email:  email.value,
-        phone: `84${phone.value.substring(6, 9)}${phone.value.substring(10, 13)}${phone.value.substring(14, 17)}`,
-        password: password.value
-      }
-    })
+
+    if (!createNewAcc) {
+      isLoading.value = false;
+      createError.value = 'Không tạo được tài khoản'
     }
   }
+   
 
   isLoading.value = false;
 

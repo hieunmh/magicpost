@@ -25,7 +25,9 @@
         <div class="w-full md:flex flex-col mb-1">Loại hàng: {{ pack?.packageDetails.package_info }}</div>
         <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[pack?.packageStatus?.length-1].status }}</div>
         <div>
-          <div>Loại hình gửi hàng</div>
+          <div v-if="pack?.packageStatus[0].isPassed == false" class="">
+            <div v-if="!toReceiver" class="">
+              <div>Loại hình gửi hàng</div>
             <div class="flex items-center justify-center md:justify-start">
               <Icon
                 v-if="!toReceiver"
@@ -67,8 +69,6 @@
               </span>
               <p class="ml-2 font-semibold text-gray-500 cursor-pointer">Gửi đến người nhận</p>
             </div>
-          <div v-if="pack?.packageStatus[pack?.packageStatus?.length-1].isPassed == false" class="">
-            <div v-if="!toReceiver" class="">
               <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
               <div class="mt-2">
                 <input type="text" class="bg-gray-100 w-[500px] h-8 outline-none rounded-lg mr-2 pl-4 text-sm font-semibold text-gray-500"
@@ -81,7 +81,7 @@
                 {{ aggError }}
               </div>
               <div class="mt-5">
-              <NuxtLink @click="" :to="'/profile/transaction_point_head'" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+              <NuxtLink @click="confirm()" :to="'/profile/transactionemployee'" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
                 Xác nhận
               </NuxtLink>
               </div>
@@ -101,6 +101,7 @@ import { useAggregationStore } from '~/store/aggregation';
 const aggregationStore = useAggregationStore();
 const clientStore = useClientStore();
 
+let isLoading = ref<boolean>(false);
 let toReceiver = ref<boolean>(false);
 
 const agg = computed(() => {
@@ -139,7 +140,7 @@ const isInAgg = () => {
 };
 
 const confirm = async () => {
-  const {data} = await useFetch('/api/auth/Transaction/movePackageFromT2Receiver', {
+  const {data, error} = await useFetch('/api/auth/Transaction/movePackageFromT2Receiver', {
     method:'post',
     body: {
       packageStatusId : pack?.packageStatus[0].id,
@@ -147,6 +148,16 @@ const confirm = async () => {
       packageId : pack?.id,
     }
   });
+  if (error && error.value?.message) {
+    isLoading.value = false;
+  }
+
+  else {    
+    const res = await useFetch('/api/auth/Packages/getAllPackagesInfo');
+    packageStore.allPackage = res.data.value;
+    isLoading.value = false;
+  }
+  
 }
 
 </script>

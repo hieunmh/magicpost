@@ -34,6 +34,9 @@ export default defineEventHandler(async (event) => {
     role: 'aggregation_employee',
   })
 
+  console.log(aggPointId);
+  console.log(data?.user?.id);
+
   const insertIntoAggregation = await client.from('aggregation').insert({
     aggregation_point_id: aggPointId,
     user_id: String(data?.user?.id),

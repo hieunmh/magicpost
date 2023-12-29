@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   })
 
   if (error) {
-    return error;
+    return false;
   }
 
   const insertNewEmployee = await client.from('users').insert({
