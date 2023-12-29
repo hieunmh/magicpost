@@ -67,6 +67,14 @@
               <div>Aggregation Point Head</div>
             </div>
           </NuxtLink>
+
+          <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'aggregation_employee'"  
+            to="/profile/aggregationemployee" class="font-semibold h-12 flex items-center justify-center"
+          >
+            <div class="font-semibold text-center w-full hover:text-[#189ab4]">
+              Aggregation Employee
+            </div>
+          </NuxtLink>
         </div>
       </div>
 

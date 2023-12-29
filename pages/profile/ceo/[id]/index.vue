@@ -42,7 +42,7 @@
                       <p class="w-[100px]">Hàng nhận:</p>
                       <Vue3autocounter v-if="true" 
                         :ref="aggregationStore.receivePackage" :startAmount="1000" 
-                        :endAmount="aggregationStore.receivePackage" :duration="1.5" 
+                        :endAmount="aggregationStore.receivePackage" :duration="1" 
                       />
                       <p v-else>{{ aggregationStore.receivePackage }}</p>
                     </div>

@@ -10,7 +10,10 @@ export default defineEventHandler(async (event) => {
     packageDetails (*),
     packageStatus (*)
   `
-  ).eq('id', String(event.context.params?.id)).single();
+  ).eq('id', String(event.context.params?.id)).order('created_at', {
+    foreignTable: 'packageStatus',
+    ascending: true,
+  }).single();
 
   return packageInfo.data;
 
