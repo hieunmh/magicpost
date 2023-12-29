@@ -104,7 +104,7 @@
                   <div>
                     <Icon name="octicon:dot-16" size="25" class="text-gray-300" />
                   </div>
-                  <div class="h-4 w-[2px] bg-gray-300" />
+                  <div class="h-4 w-[2px] bg-gray-300" :class="[{ 'invisible': packageInfo?.packageStatus?.length == 0 }]" />
 
                 </div>
 
@@ -207,7 +207,8 @@ onMounted(() => {
 const getPackageInfo = async () => {
 
   isLoading.value = true;
-  const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`)
+  const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`);
+  
   if (!data.value) {
     isLoading.value = false;
     errorSearch.value = 'Không tìm thấy đơn hàng!'
@@ -215,7 +216,14 @@ const getPackageInfo = async () => {
   }
   
   packageInfo.value = data.value;
-  packageStt.value = packageInfo.value?.packageStatus[packageInfo.value.packageStatus.length - 1].status;
+
+  if (packageInfo.value?.packageStatus.length == 0) {
+    isLoading.value = false;
+    packageStore.showPackageInfo = true;
+  }
+
+  packageStt.value = packageInfo.value?.packageStatus.length == 0 ? 'Chờ xử lý' 
+  : packageInfo.value?.packageStatus[packageInfo.value.packageStatus?.length - 1].status;
   isLoading.value = false;
 
   packageStore.showPackageInfo = true;

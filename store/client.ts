@@ -15,6 +15,7 @@ export const useClientStore = defineStore('client', {
 
     ceonavigatorTab: 'system',
     ordernavigatorTab: 'newOrder',
+    aggEmployeeTab: '1',
 
     showSendAddress: false,
     sendProvince: '',

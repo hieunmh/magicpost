@@ -118,8 +118,6 @@ let pack = packageStore.allPackage?.find(pk => {
   return pk.id == route.params.id;
 });
 
-console.log([pack])
-
 
 const router = useRouter();
 let temp = ref<any>("");
