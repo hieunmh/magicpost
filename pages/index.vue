@@ -1,7 +1,7 @@
 <template>
   <div class="hidden md:block">
     <MainLayout>
-        <OrderTracking />
+      <OrderTracking />
     </MainLayout>
   </div>
 

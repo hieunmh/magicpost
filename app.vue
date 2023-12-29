@@ -107,24 +107,24 @@ onMounted( async () => {
     const { data, error } = await useFetch('/api/auth/Transaction/getAllTransactionEmployee');
     const newPackage = await useFetch('/api/auth/Transaction/getAllNewPackagesInTransaction');
     const sentPackage = await useFetch('/api/auth/Transaction/getAllSentPackagesInTransaction');
-
-    // const data2 = await useFetch('/api/auth/Packages/getAllPackage'); // sai o day
-    transactionStore.allNewPackage = newPackage.data.value;
-    transactionStore.allSentPackage = sentPackage.data.value;
+    const allPackage = await useFetch('/api/auth/Packages/getAllPackagesInfo');
+    
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allSendPackage = sentPackage.data.value;
-    userStore.allTransactionEmployee = data.value;
-    // packageStore.allPackage = data2.data.value;
+    packageStore.allPackage = allPackage.data.value;
+    userStore.allEmployee = data.value;
   }
 
-  
+
   else if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
     const newPackage = await useFetch("/api/auth/Transaction/getAllNewPackagesInTransaction");
     const sendPackage = await useFetch("/api/auth/Transaction/getAllSentPackagesInTransaction");
     const cancelPackage = await useFetch("/api/auth/Transaction/getAllCancelPackagesInTransaction");
-    const aggregations = await useFetch("/api/auth/Aggregation/getAllAggregationPoints");
+    const aggregations = await useFetch("/api/auth/Transaction/getAggregationPointId");
+    const allAggregationPoint = await useFetch("/api/auth/Aggregation/getAllAggregationPoints")
     clientStore.aggregations = aggregations.data.value;
+    aggregationStore.allAggregationPoint = allAggregationPoint.data.value;
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allSendPackage = sendPackage.data.value;
     packageStore.allCancelPackage = cancelPackage.data.value;
@@ -135,13 +135,14 @@ onMounted( async () => {
     const { data, error } = await useFetch('/api/auth/Aggregation/getAllAggregationEmployee');
     const newPackage = await useFetch('/api/auth/Aggregation/getAllNewPackagesInAggregation');
     const sentPackage = await useFetch('/api/auth/Aggregation/getAllSentPackagesInAggregation');
+    const allPackage = await useFetch('/api/auth/Packages/getAllPackagesInfo');
+
 
     // const data2 = await useFetch('/api/auth/Packages/getAllPackage'); // sai o day
-    aggregationStore.allNewPackage = newPackage.data.value;
-    aggregationStore.allSentPackage = sentPackage.data.value;
+    packageStore.allPackage = allPackage.data.value;
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allSendPackage = sentPackage.data.value;
-    userStore.allAggregationEmployee = data.value;
+    userStore.allEmployee = data.value;
   }
 
   clientStore.isLoading = false;

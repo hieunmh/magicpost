@@ -67,6 +67,15 @@
               <div>Aggregation Point Head</div>
             </div>
           </NuxtLink>
+
+          <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'aggregation_employee'" 
+            to="/profile/aggregationemployee" @click="clientStore.isMenuOverlay = false"
+          >
+            <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
+              <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
+              <div>Aggregation Employee</div>
+            </div>
+          </NuxtLink>
         </div>
       </div>
 

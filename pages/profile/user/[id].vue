@@ -28,9 +28,9 @@ import { useUserStore } from '~/store/user';
 const route = useRoute();
 const userStore = useUserStore();
 
-console.log(userStore.allTransactionEmployee);
 
-let user = userStore.allTransactionEmployee?.find(us => {
+
+let user = userStore.allEmployee?.find(us => {
   return us.id == route.params.id;
 });
 

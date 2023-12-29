@@ -60,19 +60,19 @@
               clientStore.ordernavigatorTab == 'newOrder',
           },
           {
-            '-left-[100vw] transition-all duration-300':
+            '-left-[500vw] transition-all duration-300':
               clientStore.ordernavigatorTab == 'sendOrder',
           },
         ]"
       >
-        <TransactionEmployeeOrderNewOrder />
+        <OrderNewOrder />
       </div>
   
       <div
         class="w-full mt-6 px-4 sm:px-10 flex items-center justify-center absolute"
         :class="[
           {
-            '-right-[100vw] transition-all duration-300':
+            '-right-[500vw] transition-all duration-300':
               clientStore.ordernavigatorTab == 'newOrder',
           },
           {
@@ -81,7 +81,7 @@
           },
         ]"
       >
-        <TransactionEmployeeOrderSendOrder />
+        <OrderSendOrder />
       </div>
     </div>
   </template>
