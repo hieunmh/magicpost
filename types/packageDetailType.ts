@@ -11,6 +11,7 @@ export type PackageDetailType = {
   receiver_address: string;
   receiver_name: string | null;
   receiver_phone_no: string | null;
+  sender_address: string | null;
   sender_name: string | null;
   sender_phone_no: string | null;
   totalCharge: number | null;

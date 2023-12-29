@@ -60,7 +60,7 @@
     </div>
 
     <div class="w-full flex space-x-4 h-20">
-      <div class="md:w-[50%]">
+      <div class="w-full">
         <div class="font-semibold text-gray-500">Số điện thoại:</div>
         <input type="text" v-model="phoneReceiver" maxlength="10"
           class="w-[95%] font-semibold outline-none border-b-[1px] py-2 text-sm text-gray-500"
@@ -86,20 +86,15 @@
           {{ phoneTextError }}
         </p>
       </div>
-
-      <div class="w-[50%]">
-        <div class="font-semibold text-gray-500">Mã bưu chính:</div>
-        <input type="text" placeholder="Vui lòng nhập thông tin"
-          class="w-full font-semibold outline-none py-2 text-sm border-b-[1px] text-gray-500"
-        />
-      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useClientStore } from "~/store/client";
+import { usePackageStore } from "~/store/package";
 const clientStore = useClientStore();
+const packageStore = usePackageStore();
 
 let phoneReceiver = ref<string>("");
 
@@ -126,7 +121,8 @@ let phoneError = ref<string>("");
 watch(() => nameInput.value, () => {
   if(nameInput.value.length != 0) {
     nameTextError.value = '';
-  }
+    packageStore.receiver_name = nameInput.value;
+  } 
 })
 
 watch(() => addressTextInput.value, () => {
@@ -138,12 +134,14 @@ watch(() => addressTextInput.value, () => {
 watch(() => phoneReceiver.value, () => {
   if(phoneReceiver.value.length != 0) {
     phoneTextError.value = '';
+    packageStore.receiver_phone_no = phoneReceiver.value;
   }
 })
 
 watch(() => newReceiveAddress.value, () => {
   if(newReceiveAddress.value.length != 0) {
     addressError.value = '';
+    packageStore.receiver_address = newReceiveAddress.value;
   }
 })
 

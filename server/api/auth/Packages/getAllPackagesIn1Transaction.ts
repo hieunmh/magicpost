@@ -11,18 +11,18 @@ export default defineEventHandler(async (event) => {
     // truy cap bang transaction lay ra transaction_points cua nguoi nay dang lam 
     // tu bang transaction_points lay ra address tim kiem cac package co current_location nay
     // tu do xdinh dc vi tri cua don hang
-    
+
 
     // test
-    const address = '114 La Thành - TX Sơn Tây - Hà Nội'; 
+    const address = '114 La Thành - TX Sơn Tây - Hà Nội';
     const client = await serverSupabaseClient<Database>(event);
 
     const allPackage = await client.from('packages').select(`
         *,
         packageDetails (*),
         packageStatus!inner(*)
-    `    
-    ).eq('packageStatus.current_location', address);
+    `
+    ).eq('packageStatus.current_location', address)
 
 
     return allPackage.data;

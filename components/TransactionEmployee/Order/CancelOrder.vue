@@ -16,24 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useClientStore } from "~/store/client";
-import { PackageType } from "~/types/packageType";
 import { usePackageStore } from "~/store/package";
 
 const packageStore = usePackageStore();
-const clientStore = useClientStore();
 
-let packages = ref<PackageType>({
-  created_at: "",
-  id: "",
-  receiver_id: null,
-  sender_id: null,
-  updated_at: null,
-  sender_transaction_address: null,
-});
 
-const showPackage = (prop: PackageType) => {
-  packages.value = prop;
-  clientStore.showPackage = true;
-};
 </script>

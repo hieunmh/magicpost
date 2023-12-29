@@ -42,7 +42,7 @@
           { '-left-[500vw] transition-all duration-500': navigatorTab == 'Order' },
         ]"
       > 
-      <form class="w-[1100px] mt-10 items-center justify-center" @submit.prevent="Create()">
+      <form class="w-[1100px] mt-10 items-center justify-center">
         <div class="w-full">
           <div class="flex flex-col w-full rounded-xl shadow-lg mb-6 border-[1px] p-6">
             <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
@@ -52,11 +52,10 @@
 
             <div class="flex flex-col w-full">
               <TransactionEmployeeFormOrder class="w-full" />
-              <TransactionEmployeeFormOrderCost class="w-full" />
 
-              <button @click="print()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+              <NuxtLink @click.prevent="Create()" :to="'/profile/transactionemployee/print'" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
                 Tạo đơn
-              </button>
+              </NuxtLink>
             </div>
           </div>
         </div>  
@@ -80,7 +79,9 @@
 <script lang="ts" setup>
 import MainLayout from "~/layouts/MainLayout.vue";
 import { useClientStore } from "~/store/client";
+import { usePackageStore } from "~/store/package";
 const clientStore = useClientStore();
+const packageStore = usePackageStore();
 
 let navigatorTab = ref<string>("OrderForm");
 
@@ -144,8 +145,25 @@ const print = () => {
   window.print()
 }
 
-const Create = () => {
-  isLoading.value = true;
+const Create = async () => {
+  const {data} = await useFetch('/api/auth/Packages/CreateNewPackages', {
+    method:'post',
+    body: {
+      package_info: packageStore.package_info,
+      receiver_address: packageStore.receiver_address,
+      receiver_name: packageStore.receiver_name,
+      receiver_phone_no: packageStore.receiver_phone_no,
+      sender_name: packageStore.sender_name,
+      sender_address: packageStore.sender_address,
+      sender_phone_no: packageStore.sender_phone_no,
+      receiver_id: '',
+      transportCharge: packageStore.transportCharge,
+      mainCharge: packageStore.mainCharge,
+      totalCharge: packageStore.totalCharge,
+      notes: packageStore.notes,
+      totalWeight: packageStore.totalWeight,
+    }
+  })
 }
 
 </script>

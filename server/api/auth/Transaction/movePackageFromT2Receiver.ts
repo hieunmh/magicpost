@@ -4,7 +4,7 @@ import { serverSupabaseClient } from '#supabase/server';
 
 
 export default defineEventHandler(async (event) => {
-  
+
   // lay id cua request status tu body
   // update isPassed = true
   // lay address cua aggregation point tu body
@@ -15,19 +15,19 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   const packageStatusId = body.packageStatusId;
-  const address = body.receiver_address;
+  const address = body.address;
   const packageId = body.packageId;
 
   const updateOldPk = await client
-  .from('packageStatus')
-  .update({ isPassed: true })
-  .eq('id', packageStatusId || '')
+    .from('packageStatus')
+    .update({ isPassed: true })
+    .eq('id', packageStatusId || '')
 
   // get packageId 
 
   const insertNewPkStatusData = await client
-  .from('packageStatus')
-  .insert({ package_id: packageId, status: 'Đang giao hàng', current_location: address || ''})
+    .from('packageStatus')
+    .insert({ package_id: packageId, status: 'Đang giao hàng', current_location: address || '' })
 
   return insertNewPkStatusData.data;
 

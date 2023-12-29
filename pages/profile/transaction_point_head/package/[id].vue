@@ -25,9 +25,7 @@
         <div class="w-full md:flex flex-col mb-1">Loại hàng: {{ pack?.packageDetails.package_info }}</div>
         <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[pack?.packageStatus?.length-1].status }}</div>
         <div>
-        <div v-if="pack?.packageStatus[0].isPassed == false" class="">
-          <div v-if="!toReceiver" class="">
-            <div>Loại hình gửi hàng</div>
+          <div>Loại hình gửi hàng</div>
             <div class="flex items-center justify-center md:justify-start">
               <Icon
                 v-if="!toReceiver"
@@ -69,6 +67,8 @@
               </span>
               <p class="ml-2 font-semibold text-gray-500 cursor-pointer">Gửi đến người nhận</p>
             </div>
+        <div v-if="pack?.packageStatus[pack?.packageStatus?.length-1].isPassed == false" class="">
+          <div v-if="!toReceiver" class="">
             <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
             <div class="mt-2">
               <TransactionEmployeeAllAggregtion />
@@ -87,7 +87,7 @@
               {{ aggError }}
             </div>
           </div>
-          <button @click="" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+          <button @click="confirm()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
             Xác nhận
           </button>
           </div>
@@ -119,13 +119,17 @@ let pack = packageStore.allPackage?.find(pk => {
   return pk.id == route.params.id;
 });
 
-console.log(pack);
+console.log(pack?.packageStatus);
 
 const router = useRouter();
+let temp = ref<any>("");
 
 watch(() => agg.value, () => {
   if(agg.value.length != 0) {
     aggError.value = '';
+    temp.value = pack?.packageDetails.receiver_address;
+  } else {
+    temp.value = agg.value;
   }
 })
 
@@ -136,5 +140,16 @@ const isInAgg = () => {
     toReceiver.value = false;
   } 
 };
+
+const confirm = async () => {
+  const {data} = await useFetch('/api/auth/Transaction/movePackageFromT2Receiver', {
+    method:'post',
+    body: {
+      packageStatusId : pack?.packageStatus[0].id,
+      address : agg.value,
+      packageId : pack?.id,
+    }
+  });
+}
 
 </script>

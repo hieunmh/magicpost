@@ -119,10 +119,12 @@ onMounted( async () => {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
     const newPackage = await useFetch("/api/auth/Transaction/getAllNewPackagesInTransaction");
     const sendPackage = await useFetch("/api/auth/Transaction/getAllSentPackagesInTransaction");
+    const cancelPackage = await useFetch("/api/auth/Transaction/getAllCancelPackagesInTransaction");
     const aggregations = await useFetch("/api/auth/Aggregation/getAllAggregationPoints");
     clientStore.aggregations = aggregations.data.value;
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allSendPackage = sendPackage.data.value;
+    packageStore.allCancelPackage = cancelPackage.data.value;
     packageStore.allPackage = data.value;
   }
 
