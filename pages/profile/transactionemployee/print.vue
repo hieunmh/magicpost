@@ -130,14 +130,14 @@
 
             <div id="right" class="w-[50%] h-full">
               <div class="w-full p-2 border-b border-b-black">
-                <p class="font-bold text-black">9. Khối lượng (kg)</p>
+                <p class="font-bold text-black">9. Khối lượng (g)</p>
                 <div class="flex justify-between">
                   <p>Khối lượng thực tế:</p>
                   <p>{{ packageStore.totalWeight }}</p>
                 </div>
                 <div class="flex justify-between">
                   <p>Khối lượng quy đổi:</p>
-                  <p>{{ packageStore.totalWeight }}</p>
+                  <p>{{ packageStore.totalWeight*1000 }}</p>
                 </div>
               </div>
 
