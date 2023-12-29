@@ -6,15 +6,13 @@
           <button class="w-1/2" @click="clientStore.aggEmployeeTab = '1'"
             :class="clientStore.aggEmployeeTab == '1' ? 'text-[#189ab4]' : 'text-gray-500'"
           >
-            <h1 class="font-semibold mb-4 text-center">
-              Đơn hàng yêu cầu
-            </h1>
+            <h1 class="font-semibold mb-4 text-center">Đơn hàng chuyển đến</h1>
           </button>
 
           <button class="w-1/2" @click="clientStore.aggEmployeeTab = '2'"
             :class=" clientStore.aggEmployeeTab == '2' ? 'text-[#189ab4]' : 'text-gray-500'"
           >
-            <h1 class="font-semibold mb-4 text-center">Đơn hàng đang chuyển</h1>
+            <h1 class="font-semibold mb-4 text-center">Đơn hàng chuyển đi</h1>
           </button>
         </div>
 
