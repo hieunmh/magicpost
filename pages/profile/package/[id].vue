@@ -24,7 +24,7 @@
         <div class="mb-2 w-full text-left text-lg text-[#189ab4] font-semibold">3. Thông tin đơn hàng</div>
         <div class="w-full md:flex flex-col mb-1">Loại hàng: {{ pack?.packageDetails.package_info }}</div>
         <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[0].status }}</div>
-        <div v-if="pack?.packageStatus[0].isPassed == false && pack?.packageStatus[0].current_location == transactionStore.tranAddress?.address" class="">
+        <div v-if="pack?.packageStatus[0].isPassed == false && pack?.packageStatus[0].current_location == transactionStore.tranAddress" class="">
           <div>
             <div>Loại hình gửi hàng</div>
             <div class="flex items-center justify-center md:justify-start">
@@ -106,8 +106,6 @@ const clientStore = useClientStore();
 const userStore = useUserStore();
 const transactionStore = useTransactionStore();
 
-console.log(transactionStore.tranAddress);
-
 
 let isLoading = ref<boolean>(false);
 let toReceiver = ref<boolean>(false);
@@ -146,6 +144,9 @@ const isInAgg = () => {
     toReceiver.value = false;
   } 
 };
+console.log(pack?.packageStatus[0].current_location);
+// console.log(transactionStore.tranAddress?.address);
+
 
 const confirm = async () => {
   const {data, error} = await useFetch('/api/auth/Transaction/movePackageFromT2Receiver', {
