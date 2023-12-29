@@ -13,6 +13,8 @@
 import MainLayout from "~/layouts/MainLayout.vue";
 import { useClientStore } from "~/store/client";
 const clientStore = useClientStore();
+import { usePackageStore } from "~/store/package";
+const packageStore = usePackageStore();
 
 let navigatorTab = ref<string>("OrderForm");
 
@@ -76,8 +78,25 @@ const print = () => {
   window.print()
 }
 
-const Create = () => {
-  isLoading.value = true;
+const Create = async () => {
+  const {data} = await useFetch('/api/auth/Packages/CreateNewPackages', {
+    method:'post',
+    body: {
+      package_info: packageStore.package_info,
+      receiver_address: packageStore.receiver_address,
+      receiver_name: packageStore.receiver_name,
+      receiver_phone_no: packageStore.receiver_phone_no,
+      sender_name: packageStore.sender_name,
+      sender_address: packageStore.sender_address,
+      sender_phone_no: packageStore.sender_phone_no,
+      receiver_id: '',
+      transportCharge: packageStore.transportCharge,
+      mainCharge: packageStore.mainCharge,
+      totalCharge: packageStore.totalCharge,
+      notes: packageStore.notes,
+      totalWeight: packageStore.totalWeight,
+    }
+  })
 }
 
 </script>

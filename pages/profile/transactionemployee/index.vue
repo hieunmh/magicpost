@@ -46,12 +46,12 @@
         <div class="w-full">
           <div class="flex flex-col w-full rounded-xl shadow-lg mb-6 border-[1px] p-6">
             <div class="flex flex-col md:flex-row w-full md:space-x-10 mb-6">
-              <TransactionEmployeeFormOrderSender class="w-full" />
-              <TransactionEmployeeFormOrderReceiver class="w-full" />
+              <FormOrderSender class="w-full" />
+              <FormOrderReceiver class="w-full" />
             </div>
 
             <div class="flex flex-col w-full">
-              <TransactionEmployeeFormOrder class="w-full" />
+              <FormOrder class="w-full" />
 
               <NuxtLink @click.prevent="Create()" :to="'/profile/transactionemployee/print'" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
                 Tạo đơn
@@ -70,7 +70,7 @@
         ]"
       >
         <div class="w-[1100px] flex flex-col">
-          <TransactionEmployeeAllOrder />
+          <AllOrder />
         </div>
       </div>
     </div>

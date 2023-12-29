@@ -72,20 +72,9 @@
           { 'right-0 transition-all duration-300': navigatorTab == 'package' },
         ]"
       >
-        <div
-          class="absolute top-30 w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
-          :class="[
-            {
-              '-right-[1500px] transition-all duration-300':
-                navigatorTab == 'employee',
-            },
-            { 'right-0 transition-all duration-300': navigatorTab == 'package' },
-          ]"
-        >
           <div class="w-[1100px] flex flex-col">
-            <PointHeadOrder />
+            <PointHeadAggregationOrder />
           </div>
-        </div>
       </div>
     </div>
   </MainLayout>

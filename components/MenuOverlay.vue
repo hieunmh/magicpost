@@ -68,11 +68,20 @@
             </div>
           </NuxtLink>
 
+<<<<<<< HEAD
           <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'aggregation_employee'"  
             to="/profile/aggregationemployee" class="font-semibold h-12 flex items-center justify-center"
           >
             <div class="font-semibold text-center w-full hover:text-[#189ab4]">
               Aggregation Employee
+=======
+          <NuxtLink v-if="userStore.userInfo && userStore.userInfo.role && userStore.userInfo.role?.toLowerCase() == 'aggregation_employee'" 
+            to="/profile/aggregationemployee" @click="clientStore.isMenuOverlay = false"
+          >
+            <div class="text-gray-500 font-semibold px-5 h-12 flex items-center hover:text-[#189ab4]">
+              <Icon name="eos-icons:admin-outlined" size="30" class="mr-2" />
+              <div>Aggregation Employee</div>
+>>>>>>> 9c79467d660a4b022168ebc7307dab6a69824ca8
             </div>
           </NuxtLink>
         </div>

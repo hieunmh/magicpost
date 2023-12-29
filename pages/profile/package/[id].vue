@@ -67,29 +67,25 @@
               </span>
               <p class="ml-2 font-semibold text-gray-500 cursor-pointer">Gửi đến người nhận</p>
             </div>
-        <div v-if="pack?.packageStatus[pack?.packageStatus?.length-1].isPassed == false" class="">
-          <div v-if="!toReceiver" class="">
-            <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
-            <div class="mt-2">
-              <TransactionEmployeeAllAggregtion />
-              <input type="text" class="bg-gray-100 w-[500px] h-8 outline-none rounded-lg mr-2 pl-4 text-sm font-semibold text-gray-500"
-              placeholder="Vui lòng chọn"
-              @focus="clientStore.showAggLocation = true"
-              :value="agg"
-              @blur="() => {
-                if (agg.length < 1) {
-                  aggError = 'Vui lòng không để trống ';
-                }
-              }"
-              />
+          <div v-if="pack?.packageStatus[pack?.packageStatus?.length-1].isPassed == false" class="">
+            <div v-if="!toReceiver" class="">
+              <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
+              <div class="mt-2">
+                <input type="text" class="bg-gray-100 w-[500px] h-8 outline-none rounded-lg mr-2 pl-4 text-sm font-semibold text-gray-500"
+                placeholder="Vui lòng chọn"
+                @focus="clientStore.showAggLocation = true"
+                :value="agg?.address"
+                />
+              </div>
+              <div class="text-red-500 font-semibold ml-2 text-[14px]">
+                {{ aggError }}
+              </div>
+              <div class="mt-5">
+              <NuxtLink @click="" :to="'/profile/transaction_point_head'" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+                Xác nhận
+              </NuxtLink>
+              </div>
             </div>
-            <div class="text-red-500 font-semibold ml-2 text-[14px]">
-              {{ aggError }}
-            </div>
-          </div>
-          <button @click="confirm()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
-            Xác nhận
-          </button>
           </div>
         </div>
       </div>
@@ -100,17 +96,19 @@
 import MainLayout from '~/layouts/MainLayout.vue';
 import { usePackageStore } from '~/store/package';
 import { useClientStore } from '~/store/client';
-import { useTransactionStore } from '~/store/transaction';
+import { useAggregationStore } from '~/store/aggregation';
 
+const aggregationStore = useAggregationStore();
 const clientStore = useClientStore();
-const transactionStore = useTransactionStore();
 
 let toReceiver = ref<boolean>(false);
 
-let agg = computed(() => {
-  return transactionStore.aggAddress && !clientStore.showAggLocation
-  ? transactionStore.aggAddress : '';
+const agg = computed(() => {
+  return aggregationStore.allAggregationPoint?.find(aggId => {
+    return aggId.id == clientStore.aggregations.aggregation_id;
+  }) 
 })
+
 const route = useRoute();
 const packageStore = usePackageStore();
 let aggError = ref<string>("");
@@ -119,17 +117,18 @@ let pack = packageStore.allPackage?.find(pk => {
   return pk.id == route.params.id;
 });
 
-console.log(pack?.packageStatus);
+console.log(pack);
+
 
 const router = useRouter();
 let temp = ref<any>("");
 
 watch(() => agg.value, () => {
-  if(agg.value.length != 0) {
+  if(agg.value?.address.length != 0) {
     aggError.value = '';
     temp.value = pack?.packageDetails.receiver_address;
   } else {
-    temp.value = agg.value;
+    temp.value = agg.value.address;
   }
 })
 
@@ -146,7 +145,7 @@ const confirm = async () => {
     method:'post',
     body: {
       packageStatusId : pack?.packageStatus[0].id,
-      address : agg.value,
+      address : agg.value?.address,
       packageId : pack?.id,
     }
   });
