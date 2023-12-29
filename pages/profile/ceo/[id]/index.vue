@@ -137,8 +137,9 @@ onMounted( async () => {
       address: aggPoint?.address
     }
   })
+  
 
-  aggregationStore.receivePackage = data.data.value?.length ;
+  aggregationStore.receivePackage = data.data.value?.length;
 })
 
 </script>

@@ -208,8 +208,6 @@ const getPackageInfo = async () => {
 
   isLoading.value = true;
   const { data, error } = await useFetch(`/api/auth/getPackageByCode/${packageCode.value}`);
-
-  console.log(data.value.packageStatus.length);
   
   if (!data.value) {
     isLoading.value = false;

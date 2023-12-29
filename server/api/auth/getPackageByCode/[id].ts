@@ -12,7 +12,6 @@ export default defineEventHandler(async (event) => {
   `
   ).
   eq('id', String(event.context.params?.id))
-  .eq('packageStatus.isPassed', 'true')
   .order('created_at', {
     foreignTable: 'packageStatus',
     ascending: true,

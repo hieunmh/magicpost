@@ -145,6 +145,24 @@ onMounted( async () => {
     userStore.allEmployee = data.value;
   }
 
+  if (userStore.userInfo.role?.toLowerCase() == 'aggregation_employee') {
+    const data = await useFetch('/api/auth/Aggregation/getAllNewPackagesInAggregation');
+    aggregationStore.allNewPackage = data.data.value;
+
+    const allSentPk = await useFetch('/api/auth/Aggregation/getAllSentPackagesInAggregation');
+    aggregationStore.allSentPackage = allSentPk.data.value;
+
+    const allAgg = await useFetch('/api/auth/Aggregation/getAllAggregationPoints');
+    aggregationStore.allAggregationPoint = allAgg.data.value;
+
+    const allTran = await useFetch('/api/auth/Transaction/getAllTransactionPoints');
+    transactionStore.allTransactionPoint = allTran.data.value;
+
+    const aggUser = await useFetch('/api/auth/Aggregation/getAggByUser');
+    aggregationStore.aggregationId = aggUser.data.value;
+    
+  }
+
   clientStore.isLoading = false;
   
   if (user.value && !userStore.userInfo.phone) {
