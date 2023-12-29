@@ -117,8 +117,6 @@ let newSendAddress = computed(() => {
 
 let phoneError = ref<string>("");
 
-console.log(newSendAddress.value);
-
 watch(() => nameInput.value, () => {
   if(nameInput.value.length != 0) {
     nameTextError.value = '';
