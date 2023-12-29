@@ -15,7 +15,5 @@ export default defineEventHandler(async (event) => {
         ascending: false,
     });
 
-    console.log(allPackage);
-
     return allPackage.data;
 })

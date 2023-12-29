@@ -18,10 +18,6 @@ export default defineEventHandler(async (event) => {
   const address = body.address;
   const packageId = body.packageId;
 
-  console.log(packageId);
-  console.log(address);
-  console.log(packageStatusId);
-
   const updateOldPk = await client
     .from('packageStatus')
     .update({ isPassed: true })
