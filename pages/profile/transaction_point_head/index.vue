@@ -58,7 +58,7 @@
           ]"
         >
           <div class="w-[1100px] flex flex-col">
-            <PointHeadUser/>
+            <PointHeadTransactionEmployee/>
           </div>
         </div>
   

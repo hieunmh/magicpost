@@ -41,7 +41,7 @@
       </div>
 
       <div class="w-full h-20">
-        <div class="w-full ">
+        <div class="w-full">
         <div class="font-semibold text-gray-500 flex text-center items-center">Địa chỉ cụ thể:</div>
         <input type="text" v-model="addressTextInput" placeholder="Vui lòng nhập thông tin"
           class="font-semibold outline-none w-full py-2 text-sm text-gray-500 border-b-[1.5px]"
@@ -59,7 +59,7 @@
     </div>
 
     <div class="w-full flex space-x-4 h-20">
-      <div class="md:w-[50%]">
+      <div class="md:w-full">
         <div class="font-semibold text-gray-500">Số điện thoại:</div>
         <input type="text" v-model="phoneSender" maxlength="10"
           class="w-[95%] font-semibold outline-none border-b-[1px] py-2 text-sm text-gray-500"
@@ -85,20 +85,15 @@
           {{ phoneTextError }}
         </p>
       </div>
-
-      <div class="w-[50%]">
-        <div class="font-semibold text-gray-500">Mã bưu chính:</div>
-        <input type="text" placeholder="Vui lòng nhập thông tin"
-          class="w-full font-semibold outline-none py-2 text-sm border-b-[1px] text-gray-500"
-        />
-      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useClientStore } from "~/store/client";
+import { usePackageStore } from "~/store/package";
 const clientStore = useClientStore();
+const packageStore = usePackageStore();
 
 let phoneSender = ref<string>("");
 
@@ -127,6 +122,7 @@ console.log(newSendAddress.value);
 watch(() => nameInput.value, () => {
   if(nameInput.value.length != 0) {
     nameTextError.value = '';
+    packageStore.sender_name = nameInput.value;
   }
 })
 
@@ -139,12 +135,14 @@ watch(() => addressTextInput.value, () => {
 watch(() => phoneSender.value, () => {
   if(phoneSender.value.length != 0) {
     phoneTextError.value = '';
+    packageStore.sender_phone_no = phoneSender.value;
   }
 })
 
 watch(() => newSendAddress.value, () => {
   if(newSendAddress.value.length != 0) {
     addressError.value = '';
+    packageStore.sender_address = newSendAddress.value;
   }
 })
 

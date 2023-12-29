@@ -1,6 +1,9 @@
 <template>
   <MainLayout>
     <div class="w-full flex justify-center mt-6 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden scrollbar-hide">
+      <button @click="router.back()" class="flex w-[50px]">
+        <Icon name="ooui:arrow-previous-ltr" size="30" class="text-[#189ab4]" />
+      </button>
       <div class="md:w-[900px] w-[95%] p-2 sm:p-6 rounded-xl h-fit shadow-lg border-[1px] ">
         <div class="text-center text-3xl font-bold">Thông tin đơn hàng</div>
         <div class="text-center">Mã đơn hàng: {{ route.params.id }}</div>
@@ -18,9 +21,77 @@
           <div class="w-full md:flex flex-col mb-1">Số điện thoại: {{ pack?.packageDetails.receiver_phone_no }}</div>
         </div>
       </div>
-      <div class="mb-2 w-full text-left text-lg text-[#189ab4] font-semibold">3. Thông tin đơn hàng</div>
-      <div class="w-full md:flex flex-col mb-1">Loại hàng: {{ pack?.packageDetails.package_info }}</div>
-      <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[0].status }}</div>
+        <div class="mb-2 w-full text-left text-lg text-[#189ab4] font-semibold">3. Thông tin đơn hàng</div>
+        <div class="w-full md:flex flex-col mb-1">Loại hàng: {{ pack?.packageDetails.package_info }}</div>
+        <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[pack?.packageStatus?.length-1].status }}</div>
+        <div>
+          <div>Loại hình gửi hàng</div>
+            <div class="flex items-center justify-center md:justify-start">
+              <Icon
+                v-if="!toReceiver"
+                name="material-symbols:check-circle-rounded"
+                color="#189ab4"
+                size="24"
+                @click="isInAgg()"
+                class="text-[12px]"
+              />
+              <span
+                v-else
+                @click="isInAgg()"
+                class="w-[24px] h-[24px] flex items-center justify-center"
+              >
+                <span
+                  class="w-[20px] h-[20px] bg-white border-[#189ab4] border-[2px] rounded-full"
+                ></span>
+              </span>
+              <p class="ml-2 font-semibold text-gray-500 cursor-pointer mr-4">
+                Gửi đến điểm tập kết
+              </p>
+
+              <Icon
+                v-if="toReceiver"
+                name="material-symbols:check-circle-rounded"
+                color="#189ab4"
+                size="24"
+                @click="isInAgg()"
+                class="text-[12px]"
+              />
+              <span
+                v-else
+                @click="isInAgg()"
+                class="w-[24px] h-[24px] flex items-center justify-center"
+              >
+                <span
+                  class="w-[20px] h-[20px] bg-white border-[#189ab4] border-[2px] rounded-full"
+                ></span>
+              </span>
+              <p class="ml-2 font-semibold text-gray-500 cursor-pointer">Gửi đến người nhận</p>
+            </div>
+        <div v-if="pack?.packageStatus[pack?.packageStatus?.length-1].isPassed == false" class="">
+          <div v-if="!toReceiver" class="">
+            <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
+            <div class="mt-2">
+              <TransactionEmployeeAllAggregtion />
+              <input type="text" class="bg-gray-100 w-[500px] h-8 outline-none rounded-lg mr-2 pl-4 text-sm font-semibold text-gray-500"
+              placeholder="Vui lòng chọn"
+              @focus="clientStore.showAggLocation = true"
+              :value="agg"
+              @blur="() => {
+                if (agg.length < 1) {
+                  aggError = 'Vui lòng không để trống ';
+                }
+              }"
+              />
+            </div>
+            <div class="text-red-500 font-semibold ml-2 text-[14px]">
+              {{ aggError }}
+            </div>
+          </div>
+          <button @click="confirm()" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+            Xác nhận
+          </button>
+          </div>
+        </div>
       </div>
     </div>
   </MainLayout>
@@ -28,14 +99,57 @@
 <script lang="ts" setup>
 import MainLayout from '~/layouts/MainLayout.vue';
 import { usePackageStore } from '~/store/package';
+import { useClientStore } from '~/store/client';
+import { useTransactionStore } from '~/store/transaction';
+
+const clientStore = useClientStore();
+const transactionStore = useTransactionStore();
+
+let toReceiver = ref<boolean>(false);
+
+let agg = computed(() => {
+  return transactionStore.aggAddress && !clientStore.showAggLocation
+  ? transactionStore.aggAddress : '';
+})
 const route = useRoute();
 const packageStore = usePackageStore();
-
-console.log(packageStore.allPackage);
-
+let aggError = ref<string>("");
 
 let pack = packageStore.allPackage?.find(pk => {
   return pk.id == route.params.id;
 });
+
+console.log(pack?.packageStatus);
+
+const router = useRouter();
+let temp = ref<any>("");
+
+watch(() => agg.value, () => {
+  if(agg.value.length != 0) {
+    aggError.value = '';
+    temp.value = pack?.packageDetails.receiver_address;
+  } else {
+    temp.value = agg.value;
+  }
+})
+
+const isInAgg = () => {
+  if (toReceiver.value == false) {
+    toReceiver.value = true;
+  } else {
+    toReceiver.value = false;
+  } 
+};
+
+const confirm = async () => {
+  const {data} = await useFetch('/api/auth/Transaction/movePackageFromT2Receiver', {
+    method:'post',
+    body: {
+      packageStatusId : pack?.packageStatus[0].id,
+      address : agg.value,
+      packageId : pack?.id,
+    }
+  });
+}
 
 </script>

@@ -11,6 +11,7 @@ export const useClientStore = defineStore('client', {
     provinces: <any>[],
     districts: <any>[],
     wards: <any>[],
+    aggregations: <any>[],
 
     ceonavigatorTab: 'system',
     ordernavigatorTab: 'newOrder',
@@ -40,6 +41,7 @@ export const useClientStore = defineStore('client', {
     windowWidth: 0,
 
     showAggLocation: false,
+    aggLocation: '',
 
   }),
 

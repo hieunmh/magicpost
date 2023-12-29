@@ -120,13 +120,14 @@ onMounted( async () => {
   
   else if (userStore.userInfo.role?.toLowerCase() == "transaction_employee") {
     const { data, error } = await useFetch("/api/auth/Packages/getAllPackagesIn1Transaction");
-    // const newPackage = await useFetch("/api/auth/Packages/getAllNewPackagesIn1Transaction");
-    // const shippedPackage = await useFetch("/api/auth/Packages/getAllShippedPackagesIn1Transaction");
-    // const sendPackage = await useFetch("/api/auth/Packages/getAllSendPackagesIn1Transaction");
-    // packageStore.allNewPackage = newPackage.data.value;
-    // packageStore.allShippedPackage = shippedPackage.data.value;
-    // packageStore.allSendPackage = sendPackage.data.value;
-    
+    const newPackage = await useFetch("/api/auth/Transaction/getAllNewPackagesInTransaction");
+    const sendPackage = await useFetch("/api/auth/Transaction/getAllSentPackagesInTransaction");
+    const cancelPackage = await useFetch("/api/auth/Transaction/getAllCancelPackagesInTransaction");
+    const aggregations = await useFetch("/api/auth/Aggregation/getAllAggregationPoints");
+    clientStore.aggregations = aggregations.data.value;
+    packageStore.allNewPackage = newPackage.data.value;
+    packageStore.allSendPackage = sendPackage.data.value;
+    packageStore.allCancelPackage = cancelPackage.data.value;
     packageStore.allPackage = data.value;
   }
 
@@ -134,11 +135,13 @@ onMounted( async () => {
     const { data, error } = await useFetch('/api/auth/Aggregation/getAllAggregationEmployee');
     const newPackage = await useFetch('/api/auth/Aggregation/getAllNewPackagesInAggregation');
     const sentPackage = await useFetch('/api/auth/Aggregation/getAllSentPackagesInAggregation');
-    // userStore.allAggrEmployee = data.value;
-    // aggregationStore.allPackage = newPackage.data.value;
-    // aggregationStore.allSentPackage = sentPackage.data.value;
 
-    const test = await useFetch('/api/auth/Ceo/getAllNewAndFinishedPackages');
+    // const data2 = await useFetch('/api/auth/Packages/getAllPackage'); // sai o day
+    aggregationStore.allNewPackage = newPackage.data.value;
+    aggregationStore.allSentPackage = sentPackage.data.value;
+    packageStore.allNewPackage = newPackage.data.value;
+    packageStore.allSendPackage = sentPackage.data.value;
+    userStore.allAggregationEmployee = data.value;
   }
 
   clientStore.isLoading = false;

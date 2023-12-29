@@ -12,40 +12,32 @@
           <div id="left" class="w-[50%] p-2">
             <p class="h-10 font-bold text-black">1. Họ tên địa chỉ người gửi:</p>
 
-            <div class="w-full h-10">Nguyễn Minh Hiếu</div>
+            <div class="w-full h-10">{{ packageStore.sender_name }}</div>
 
-            <div class="h-16">Khu 15, xã Tiên Kiên, huyện Lâm Thao, tỉnh Phú Thọ</div>
+            <div class="h-16">{{ packageStore.sender_address }}</div>
 
             <div class="flex h-10">
               <div class="w-[50%] flex">
                 <div>Điện thoại:</div>
-                <div class="ml-2">091 511 57 01</div>
+                <div class="ml-2">{{ packageStore.sender_phone_no }}</div>
               </div>
 
-              <div class="w-[50%] flex">
-                <div>Mã bưu chính:</div>
-                <div class="ml-2">24500</div>
-              </div>
             </div>
           </div>
 
           <div id="right" class="w-[50%] p-2 border-l border-l-black">
             <p class="h-10 font-bold text-black">2. Họ tên địa chỉ người nhận:</p>
 
-            <div class="w-full h-10">Trường THCS Giấy Phong Châu</div>
+            <div class="w-full h-10">{{ packageStore.receiver_name }}</div>
 
-            <div class="h-16">Khu 3, thị trấn Phong Châu, huyện Phù Ninh, Tỉnh Phú Thọ</div>
+            <div class="h-16">{{ packageStore.receiver_address }}</div>
 
             <div class="flex h-10">
               <div class="w-[50%] flex">
                 <div>Điện thoại:</div>
-                <div class="ml-2">0210 3 88 5344</div>
+                <div class="ml-2">{{ packageStore.receiver_phone_no }}</div>
               </div>
 
-              <div class="w-[50%] flex">
-                <div>Mã bưu chính:</div>
-                <div class="ml-2">24500</div>
-              </div>
             </div>
           </div>
         </div>
@@ -78,7 +70,7 @@
 
               <div class="flex h-10 items-center">
                 <p class="font-bold text-black">4. Nội dung bưu gửi:</p>
-                <input type="text" class="border-b mx-3 border-gray-500 outline-none">
+                <div class="ml-2">{{ packageStore.package_info }}</div>
               </div>
             </div>
 
@@ -111,22 +103,22 @@
                 <p class="font-bold text-black">7. Cước</p>
                 <div class="flex justify-between">
                   <p>a, Cước chính</p>
-                  <p>10.000</p>
+                  <p>{{ packageStore.mainCharge }}</p>
                 </div>
 
                 <div class="flex justify-between">
                   <p>b, Cước GTGT</p>
-                  <p>1.000</p>
+                  <p>{{ packageStore.transportCharge }}</p>
                 </div>
 
                 <div class="flex justify-between">
                   <p>c, Tổng phí</p>
-                  <p>11.000</p>
+                  <p>{{ packageStore.totalCharge }}</p>
                 </div>
 
                 <div class="flex justify-between font-bold text-black">
-                  <p>c, Tổng thu</p>
-                  <p>11.000</p>
+                  <p>d, Tổng thu</p>
+                  <p>{{ packageStore.totalCharge }}</p>
                 </div>
               </div>
 
@@ -141,11 +133,11 @@
                 <p class="font-bold text-black">9. Khối lượng (g)</p>
                 <div class="flex justify-between">
                   <p>Khối lượng thực tế:</p>
-                  <p>500</p>
+                  <p>{{ packageStore.totalWeight }}</p>
                 </div>
                 <div class="flex justify-between">
                   <p>Khối lượng quy đổi:</p>
-                  <p>500</p>
+                  <p>{{ packageStore.totalWeight*1000 }}</p>
                 </div>
               </div>
 
@@ -177,6 +169,8 @@
 </template>
 
 <script lang="ts" setup>
+import { usePackageStore } from '~/store/package';
+const packageStore = usePackageStore();
 
 let isChecked = ref<boolean>(false);
 
