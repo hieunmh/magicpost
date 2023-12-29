@@ -146,7 +146,8 @@ const print = () => {
 }
 
 const Create = async () => {
-  const {data} = await useFetch('/api/auth/Packages/CreateNewPackages', {
+  isLoading.value = true;
+  const {data, error} = await useFetch('/api/auth/Packages/CreateNewPackages', {
     method:'post',
     body: {
       package_info: packageStore.package_info,
@@ -164,6 +165,15 @@ const Create = async () => {
       totalWeight: packageStore.totalWeight,
     }
   })
+  if (error && error.value?.message) {
+    isLoading.value = false;
+  }
+
+  else {    
+    const res = await useFetch('/api/auth/Packages/getAllPackagesInfo');
+    packageStore.allPackage = res.data.value;
+    isLoading.value = false;
+  }
 }
 
 </script>
