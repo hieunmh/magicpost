@@ -28,5 +28,7 @@ export default defineEventHandler(async (event) => {
     .eq('packageStatus.current_location', address || '')
     .eq('packageStatus.isPassed', true);
 
+  console.log(allNewPackage);
+
   return allNewPackage.data;
 })

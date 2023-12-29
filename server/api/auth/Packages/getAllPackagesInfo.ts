@@ -9,8 +9,13 @@ export default defineEventHandler(async (event) => {
         *,
         packageDetails (*),
         packageStatus (*)
-    `    
-    );
+    `
+    ).order('created_at', {
+        foreignTable: 'packageStatus',
+        ascending: false,
+    });
+
+    console.log(allPackage);
 
     return allPackage.data;
 })
