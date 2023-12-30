@@ -15,9 +15,9 @@
             <div class="w-full md:flex flex-col mb-2 text-gray-500">Chức vụ: {{ user?.role }}</div>
           </div>
         </div>
-        <button @click="" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
+        <!-- <button @click="" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
           Xóa tài khoản
-        </button>
+        </button> -->
       </div>
     </div>
   </MainLayout>

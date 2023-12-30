@@ -122,14 +122,16 @@ onMounted( async () => {
     const sendPackage = await useFetch("/api/auth/Transaction/getAllSentPackagesInTransaction");
     const cancelPackage = await useFetch("/api/auth/Transaction/getAllCancelPackagesInTransaction");
     const aggregations = await useFetch("/api/auth/Transaction/getAggregationPointId");
-    const allAggregationPoint = await useFetch("/api/auth/Aggregation/getAllAggregationPoints")
+    const allAggregationPoint = await useFetch("/api/auth/Aggregation/getAllAggregationPoints");
+    const transAdd = await useFetch("/api/auth/Transaction/getTransactionPointAddress")
     clientStore.aggregations = aggregations.data.value;
     aggregationStore.allAggregationPoint = allAggregationPoint.data.value;
     packageStore.allNewPackage = newPackage.data.value;
     packageStore.allSendPackage = sendPackage.data.value;
     packageStore.allCancelPackage = cancelPackage.data.value;
     packageStore.allPackage = data.value;
-    console.log(packageStore.allPackage);
+    transactionStore.tranAddress = transAdd.data.value;
+
   }
 
   if (userStore.userInfo.role?.toLowerCase() == "aggregation_point_head") {

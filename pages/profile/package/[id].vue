@@ -23,11 +23,10 @@
       </div>
         <div class="mb-2 w-full text-left text-lg text-[#189ab4] font-semibold">3. Thông tin đơn hàng</div>
         <div class="w-full md:flex flex-col mb-1">Loại hàng: {{ pack?.packageDetails.package_info }}</div>
-        <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[pack?.packageStatus?.length-1].status }}</div>
-        <div>
-          <div v-if="pack?.packageStatus[0].isPassed == false" class="">
-            <div v-if="!toReceiver" class="">
-              <div>Loại hình gửi hàng</div>
+        <div class="w-full md:flex flex-col mb-1">Trạng thái: {{ pack?.packageStatus[0].status }}</div>
+        <div v-if="pack?.packageStatus[0].isPassed == false && pack?.packageStatus[0].current_location == transactionStore.tranAddress" class="">
+          <div>
+            <div>Loại hình gửi hàng</div>
             <div class="flex items-center justify-center md:justify-start">
               <Icon
                 v-if="!toReceiver"
@@ -36,49 +35,52 @@
                 size="24"
                 @click="isInAgg()"
                 class="text-[12px]"
-              />
-              <span
-                v-else
-                @click="isInAgg()"
-                class="w-[24px] h-[24px] flex items-center justify-center"
-              >
-                <span
-                  class="w-[20px] h-[20px] bg-white border-[#189ab4] border-[2px] rounded-full"
-                ></span>
-              </span>
-              <p class="ml-2 font-semibold text-gray-500 cursor-pointer mr-4">
-                Gửi đến điểm tập kết
-              </p>
-
-              <Icon
-                v-if="toReceiver"
-                name="material-symbols:check-circle-rounded"
-                color="#189ab4"
-                size="24"
-                @click="isInAgg()"
-                class="text-[12px]"
-              />
-              <span
-                v-else
-                @click="isInAgg()"
-                class="w-[24px] h-[24px] flex items-center justify-center"
-              >
-                <span
-                  class="w-[20px] h-[20px] bg-white border-[#189ab4] border-[2px] rounded-full"
-                ></span>
-              </span>
-              <p class="ml-2 font-semibold text-gray-500 cursor-pointer">Gửi đến người nhận</p>
-            </div>
-              <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
-              <div class="mt-2">
-                <input type="text" class="bg-gray-100 w-[500px] h-8 outline-none rounded-lg mr-2 pl-4 text-sm font-semibold text-gray-500"
-                placeholder="Vui lòng chọn"
-                @focus="clientStore.showAggLocation = true"
-                :value="agg?.address"
                 />
+                <span
+                  v-else
+                  @click="isInAgg()"
+                  class="w-[24px] h-[24px] flex items-center justify-center"
+                >
+                  <span
+                    class="w-[20px] h-[20px] bg-white border-[#189ab4] border-[2px] rounded-full"
+                  ></span>
+                </span>
+                <p class="ml-2 font-semibold text-gray-500 cursor-pointer mr-4">
+                  Gửi đến điểm tập kết
+                </p>
+
+                <Icon
+                  v-if="toReceiver"
+                  name="material-symbols:check-circle-rounded"
+                  color="#189ab4"
+                  size="24"
+                  @click="isInAgg()"
+                  class="text-[12px]"
+                />
+                <span
+                  v-else
+                  @click="isInAgg()"
+                  class="w-[24px] h-[24px] flex items-center justify-center"
+                >
+                  <span
+                    class="w-[20px] h-[20px] bg-white border-[#189ab4] border-[2px] rounded-full"
+                  ></span>
+                </span>
+                <p class="ml-2 font-semibold text-gray-500 cursor-pointer">Gửi đến người nhận</p>
               </div>
-              <div class="text-red-500 font-semibold ml-2 text-[14px]">
-                {{ aggError }}
+              
+              <div v-if="!toReceiver" class="">
+                <div class="flex mr-2"> Lựa chọn điểm tập kết: </div>
+                <div class="mt-2">
+                  <input type="text" class="bg-gray-100 w-[500px] h-8 outline-none rounded-lg mr-2 pl-4 text-sm font-semibold text-gray-500"
+                  placeholder="Vui lòng chọn"
+                  @focus="clientStore.showAggLocation = true"
+                  :value="agg?.address"
+                  />
+                </div>
+                <div class="text-red-500 font-semibold ml-2 text-[14px]">
+                  {{ aggError }}
+                </div>
               </div>
               <div class="mt-5">
                 <button @click="confirm()"
@@ -90,7 +92,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
   </MainLayout>
 </template>
@@ -99,9 +100,14 @@ import MainLayout from '~/layouts/MainLayout.vue';
 import { usePackageStore } from '~/store/package';
 import { useClientStore } from '~/store/client';
 import { useAggregationStore } from '~/store/aggregation';
+import { useUserStore } from '~/store/user';
+import { useTransactionStore } from '~/store/transaction';
 
 const aggregationStore = useAggregationStore();
 const clientStore = useClientStore();
+const userStore = useUserStore();
+const transactionStore = useTransactionStore();
+
 
 let isLoading = ref<boolean>(false);
 let toReceiver = ref<boolean>(false);
@@ -140,6 +146,9 @@ const isInAgg = () => {
     toReceiver.value = false;
   } 
 };
+console.log(pack?.packageStatus[0].current_location);
+// console.log(transactionStore.tranAddress?.address);
+
 
 const confirm = async () => {
   const {data, error} = await useFetch('/api/auth/Transaction/movePackageFromT2Receiver', {
