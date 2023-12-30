@@ -1,8 +1,9 @@
 <template>
   <div class="hidden w-full h-full lg:flex items-center justify-center">
     <div class="w-[1100px] h-[780px] bg-white border-[1px rounded-xl p-6">
-      <div id="logo + QR" class="w-full px-10 pt-2">
-        <NuxtLink to="/" id="logo">
+      <div id="logo + QR" class="w-full px-10 pt-2" @click="transactionStore.tranemployeeTab = 'Order'">
+        <NuxtLink to="/profile/transactionemployee" id="logo"
+        >
           <img src="/mgpost.png" alt="" class="h-[60px]">
         </NuxtLink>
       </div>
@@ -171,6 +172,9 @@
 <script lang="ts" setup>
 import { usePackageStore } from '~/store/package';
 const packageStore = usePackageStore();
+
+import { useTransactionStore } from "~/store/transaction";
+const transactionStore = useTransactionStore(); 
 
 let isChecked = ref<boolean>(false);
 

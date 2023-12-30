@@ -81,9 +81,11 @@
                 {{ aggError }}
               </div>
               <div class="mt-5">
-              <NuxtLink @click="confirm()" :to="'/profile/transactionemployee'" class="bg-[#189ab4] h-10 w-full md:w-fit px-6 rounded-lg text-white text-sm sm:text-xl font-semibold mt-6 mb-10">
-                Xác nhận
-              </NuxtLink>
+                <button @click="confirm()"
+                  class="text-white bg-[#189ab4] w-[150px] h-[50px] rounded-lg font-semibold text-lg flex items-center justify-center">
+                  <Icon v-if="isLoading" name="icon-park-outline:loading-one" size="20" class="animate-spin"  />
+                  <p>Xác nhận</p>
+                </button>
               </div>
             </div>
           </div>

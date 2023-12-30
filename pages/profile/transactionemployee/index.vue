@@ -3,17 +3,17 @@
     <div class="w-full flex items-center justify-center mt-6">
       <div class="sm:w-[600px] w-[400px] px-10 sm:px-16 md:px-0">
         <div class="flex justify-between items-center">
-          <button @click="navigatorTab = 'OrderForm'" class="w-[50%]">
+          <button @click="transactionStore.tranemployeeTab = 'OrderForm'" class="w-[50%]">
             <h1 class="font-semibold text-sm sm:text-2xl md:text-3xl mb-4 text-center"
-              :class="navigatorTab == 'OrderForm' ? ' text-[#189ab4]' : 'text-gray-500'"
+              :class="transactionStore.tranemployeeTab == 'OrderForm' ? ' text-[#189ab4]' : 'text-gray-500'"
             >
               Tạo đơn hàng
             </h1>
           </button>
 
-          <button @click="navigatorTab = 'Order'" class="w-[50%]">
+          <button @click="transactionStore.tranemployeeTab = 'Order'" class="w-[50%]">
             <h1 class="font-semibold text-sm sm:text-2xl md:text-3xl  mb-4 text-center" 
-              :class="navigatorTab == 'Order' ? 'text-[#189ab4]' : 'text-gray-500'"
+              :class="transactionStore.tranemployeeTab == 'Order' ? 'text-[#189ab4]' : 'text-gray-500'"
             >
               Đơn hàng
             </h1>
@@ -24,8 +24,8 @@
         <div class="h-2 w-full bg-slate-60 relative">
           <div class="w-[50%] px-8 absolute "
             :class="[
-              {'left-0 transition-all duration-500': navigatorTab == 'OrderForm' },
-              {'left-[50%] transition-all duration-500': navigatorTab == 'Order' },
+              {'left-0 transition-all duration-500': transactionStore.tranemployeeTab  == 'OrderForm' },
+              {'left-[50%] transition-all duration-500': transactionStore.tranemployeeTab == 'Order' },
             ]"
           >
             <div class="h-[6px] bg-[#189ab4] w-full rounded-full" 
@@ -38,8 +38,8 @@
     <div class="h-[calc(100vh-160px)] w-full overflow-y-auto overflow-x-hidden scrollbar-hide relative">
       <div class="absolute top-6 w-full px-4 sm:px-10 flex items-center justify-center"
         :class="[
-          { 'left-0 transition-all duration-500': navigatorTab == 'OrderForm' },
-          { '-left-[500vw] transition-all duration-500': navigatorTab == 'Order' },
+          { 'left-0 transition-all duration-500': transactionStore.tranemployeeTab == 'OrderForm' },
+          { '-left-[500vw] transition-all duration-500': transactionStore.tranemployeeTab == 'Order' },
         ]"
       > 
       <form class="w-[1100px] mt-10 items-center justify-center">
@@ -65,8 +65,8 @@
 
       <div class=" absolute w-full mt-6 px-4 sm:px-10 flex items-center justify-center"
         :class="[
-          { '-right-[500vw] transition-all duration-500': navigatorTab == 'OrderForm' },
-          { 'right-0 transition-all duration-500': navigatorTab == 'Order' },
+          { '-right-[500vw] transition-all duration-500': transactionStore.tranemployeeTab == 'OrderForm' },
+          { 'right-0 transition-all duration-500': transactionStore.tranemployeeTab == 'Order' },
         ]"
       >
         <div class="w-[1100px] flex flex-col">
@@ -80,10 +80,14 @@
 import MainLayout from "~/layouts/MainLayout.vue";
 import { useClientStore } from "~/store/client";
 import { usePackageStore } from "~/store/package";
-const clientStore = useClientStore();
 const packageStore = usePackageStore();
 
-let navigatorTab = ref<string>("OrderForm");
+import { useTransactionStore } from "~/store/transaction";
+const transactionStore = useTransactionStore(); 
+
+onMounted(() => {
+  transactionStore.tranemployeeTab = 'OrderForm'
+})
 
 let phoneSender = ref<string>("");
 let phoneReceiver = ref<string>("");
@@ -94,20 +98,9 @@ let inputError = ref<string>("");
 
 let isLoading = ref<boolean>(false);
 
-onMounted(() => {
-  navigatorTab.value = "OrderForm";
-});
-
 let isChecked = ref<boolean>(false);
 let weight = ref<string>("0");
 
-const toggleChecked = () => {
-  if (isChecked.value == false) {
-    isChecked.value = true;
-  } else {
-    isChecked.value = false;
-  }
-};
 
 watch(() => phoneSender.value, () => {
   if (phoneSender.value.startsWith("(+84)")) return;
