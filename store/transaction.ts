@@ -15,6 +15,7 @@ export const useTransactionStore = defineStore('transaction', {
     allSentPackage: <PackageType[] | null>[],
     aggAddress: '',
     aggregation: <AggregationType>{},
+    tranemployeeTab: '1',
     tranAddress: '',
   }),
 

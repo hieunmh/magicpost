@@ -16,7 +16,6 @@ export const useAggregationStore = defineStore('aggregation', {
     allSentPackage: <(PackageType & { packageStatus: PackageStatusType[], packageDetails: PackageDetailType })[] | null>[],
     receivePackage: <number | undefined>(0),
     showNextLocation: false,
-    nextLocation: <string | undefined>(''),
     aggregationId: <string>(''),
   }),
 
